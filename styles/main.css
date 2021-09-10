@@ -2178,13 +2178,13 @@ body {
     }.box-shadow-wrapper {
       box-shadow: none !important;
     }body {
-      cursor: default;
+      cursor: url('/media/curs/normal.ani.cur'), default;
     }a {
-      cursor: pointer;
+      cursor: url('/media/curs/link.cur.cur'), pointer !important;
     }input, textarea, code {
-      cursor: text;
+      cursor: url('/media/curs/text.ani.cur'), text !important;
     }code > span.copy-code {
-      cursor: pointer;
+      cursor: url('/media/curs/move.ani.cur'), text !important;
     }.post img {
       cursor: zoom-in;
     }.post img {
