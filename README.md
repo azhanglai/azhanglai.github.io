@@ -1,2 +1,0 @@
-# azhanglai.github.io
-Myblog
