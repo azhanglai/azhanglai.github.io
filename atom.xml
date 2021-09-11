@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://azhanglai-github-io.vercel.app</id>
+    <id>https://azhanglai-github-io-jal1tx9hl-azhanglai.vercel.app</id>
     <title>Bling</title>
-    <updated>2021-09-11T13:58:56.607Z</updated>
+    <updated>2021-09-11T14:04:03.208Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://azhanglai-github-io.vercel.app"/>
-    <link rel="self" href="https://azhanglai-github-io.vercel.app/atom.xml"/>
+    <link rel="alternate" href="https://azhanglai-github-io-jal1tx9hl-azhanglai.vercel.app"/>
+    <link rel="self" href="https://azhanglai-github-io-jal1tx9hl-azhanglai.vercel.app/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>https://azhanglai-github-io.vercel.app/images/avatar.png</logo>
-    <icon>https://azhanglai-github-io.vercel.app/favicon.ico</icon>
+    <logo>https://azhanglai-github-io-jal1tx9hl-azhanglai.vercel.app/images/avatar.png</logo>
+    <icon>https://azhanglai-github-io-jal1tx9hl-azhanglai.vercel.app/favicon.ico</icon>
     <rights>All rights reserved 2021, Bling</rights>
     <entry>
         <title type="html"><![CDATA[C++]]></title>
-        <id>https://azhanglai-github-io.vercel.app/post/c/</id>
-        <link href="https://azhanglai-github-io.vercel.app/post/c/">
+        <id>https://azhanglai-github-io-jal1tx9hl-azhanglai.vercel.app/post/c/</id>
+        <link href="https://azhanglai-github-io-jal1tx9hl-azhanglai.vercel.app/post/c/">
         </link>
         <updated>2021-09-11T07:38:51.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[嘻嘻]]></title>
-        <id>https://azhanglai-github-io.vercel.app/post/linux/</id>
-        <link href="https://azhanglai-github-io.vercel.app/post/linux/">
+        <id>https://azhanglai-github-io-jal1tx9hl-azhanglai.vercel.app/post/linux/</id>
+        <link href="https://azhanglai-github-io-jal1tx9hl-azhanglai.vercel.app/post/linux/">
         </link>
         <updated>2021-09-11T07:38:51.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[可爱的小西瓜]]></title>
-        <id>https://azhanglai-github-io.vercel.app/post/zhuer/</id>
-        <link href="https://azhanglai-github-io.vercel.app/post/zhuer/">
+        <id>https://azhanglai-github-io-jal1tx9hl-azhanglai.vercel.app/post/zhuer/</id>
+        <link href="https://azhanglai-github-io-jal1tx9hl-azhanglai.vercel.app/post/zhuer/">
         </link>
         <updated>2021-09-11T07:38:51.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://azhanglai-github-io.vercel.app/post/hello-gridea/</id>
-        <link href="https://azhanglai-github-io.vercel.app/post/hello-gridea/">
+        <id>https://azhanglai-github-io-jal1tx9hl-azhanglai.vercel.app/post/hello-gridea/</id>
+        <link href="https://azhanglai-github-io-jal1tx9hl-azhanglai.vercel.app/post/hello-gridea/">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
