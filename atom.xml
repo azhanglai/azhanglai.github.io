@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://azhanglai-github-io.vercel.app</id>
     <title>azhanglai</title>
-    <updated>2021-09-11T07:41:39.329Z</updated>
+    <updated>2021-09-11T08:11:07.727Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://azhanglai-github-io.vercel.app"/>
     <link rel="self" href="https://azhanglai-github-io.vercel.app/atom.xml"/>
@@ -80,6 +80,67 @@ int make_block(int fd);   // 声明阻塞
 
 
 </code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[嘻嘻]]></title>
+        <id>https://azhanglai-github-io.vercel.app/post/linux/</id>
+        <link href="https://azhanglai-github-io.vercel.app/post/linux/">
+        </link>
+        <updated>2021-09-11T07:38:51.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-c"> 
+```c
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+
+int main(int argc, char *argv[]) {
+    int opt;
+    while (~(opt = getopt(argc, argv, &quot;alm:o::&quot;))) {
+        switch(opt) {
+            case 'a': {
+                printf(&quot;a found!\n&quot;);
+            }; break;
+            case 'l': {
+                printf(&quot;l found!\n&quot;);
+            }; break;
+            case 'm': {
+                printf(&quot;m_msg = %s\n&quot;, optarg);
+            }; break;
+            case 'o': {
+                printf(&quot;o_msg = %s\n&quot;, optarg);
+            }; break;
+            default: 
+                fprintf(stderr, &quot;Usage : %s -al\n&quot;, argv[0]);
+                exit(1);
+        }
+    }
+    return 0;
+}
+/*
+1. vim 1.getopt.c --创建源文件
+2. gcc 1,getopt.c --编译
+3. ./a.out -al -m &quot;xixi&quot; -o&quot;haha&quot; (m后面可以有空格， o后面不可以有空格)
+*/
+```xxxxxxxxxx10 1//common.h2#ifndef _COMMON_H3#define _COMMON_H45int make_nonblock(int fd); // 声明非阻塞6int make_block(int fd);   // 声明阻塞7~~~c8910c
+</code></pre>
+<h3 id="getopt函数命令行解析函数">getopt函数：命令行解析函数</h3>
+<h3 id="头文件unistdh">头文件：&lt;unistd.h&gt;</h3>
+<h4 id="原型int-getoptint-argc-char-const-argv-const-char-optstring">原型：int getopt(int argc, char *const argv[],  const char *optstring);</h4>
+<h4 id="argc-argv-由main函数的参数直接传递而来">argc argv : 由main函数的参数直接传递而来</h4>
+<h4 id="optstring-一个包含准确选项字符的字符串">optstring: 一个包含准确选项字符的字符串</h4>
+<h4 id="返回值返回下一个选项">返回值：返回下一个选项</h4>
+<h3 id="getopt设置的一些全局变量">getopt设置的一些全局变量</h3>
+<h4 id="1char-optarg-指向当前选项参数如果有的指针">1.char *optarg : 指向当前选项参数（如果有）的指针。</h4>
+<h4 id="2int-optind-再次调用getopt时的下一个argv指针的索引">2.int optind: 再次调用getopt()时的下一个argv指针的索引。</h4>
+<h4 id="3int-optopt-最后一个已知选项">3.int optopt: 最后一个已知选项。</h4>
+<h4 id="4-int-opterr-这个变量非零时向stderr打印错误-默认为1">4. int opterr: 这个变量非零时，向stderr打印错误。默认为1.</h4>
+<h3 id="参数optstring详解">参数optstring详解</h3>
+<h4 id="getopt函数的第三个参数optstring是一个有所有合法的可选字符所组成的字符串">getopt()函数的第三个参数optstring是一个有所有合法的“可选字符”所组成的字符串。</h4>
+<h5 id="1-单个字符表示选项">1. 单个字符，表示选项。</h5>
+<h5 id="2-单个字符后接一个冒号表示该选项后必须跟一个参数值-参数紧跟在选项后或者以空格隔开-该参数的指针赋给optarg">2. 单个字符后接一个冒号“：”，表示该选项后必须跟一个参数值。参数紧跟在选项后或者以空格隔开。该参数的指针赋给optarg。</h5>
+<h5 id="3-单个字符后跟两个冒号表示该选项后可以带参数也可以不带-但参数必须紧跟在选项后不能以空格隔开-该参数的指针赋给optarg">3. 单个字符后跟两个冒号“：：”，表示该选项后可以带参数也可以不带。但参数必须紧跟在选项后不能以空格隔开。该参数的指针赋给optarg。</h5>
+<h4 id="例子xyz-表示x选项没有选项参数y选项必须有选项参数中间可有空格可没有z参数可有参数选项也可没有参数选项但是如果有选项参数的话必须紧跟在选项之后不能有空格">例子：“xy:z::” 表示x选项没有选项参数，y选项必须有选项参数，中间可有空格可没有，z参数可有参数选项，也可没有参数选项，但是如果有选项参数的话必须紧跟在选项之后不能有空格。</h4>
 ]]></content>
     </entry>
     <entry>
