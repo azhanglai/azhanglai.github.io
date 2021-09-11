@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
 <title>azhanglai</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631342990122">
+<link rel="shortcut icon" href="/favicon.ico?v=1631346088912">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -190,7 +190,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">1</span>
+        <span class="site-item-stat-count">2</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -245,6 +245,8 @@
           <small class="language" data-lan="tag">标签</small>
         </h2>
       </div>
+      
+      
       
       
       
@@ -1043,6 +1045,75 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/post/c/"" data-c="
+          &lt;p&gt;阻塞与非阻塞极简解释（烧开水例子）：&lt;/p&gt;
+&lt;p&gt;同步：就是普通水壶烧开水，要没事儿自己过来看开没开；&lt;/p&gt;
+&lt;p&gt;异步：就是响水壶烧开水，水开了水壶响了通知你；&lt;/p&gt;
+&lt;p&gt;阻塞：就是烧开水的过程中，你不能干其他事情（即你被阻塞住了），只能站那等水开；&lt;/p&gt;
+&lt;p&gt;非阻塞：就是烧开水的过程里可以干其他事情，比如去客厅看看电视。&lt;/p&gt;
+&lt;p&gt;同步与异步说的是获得水开了的方式不同。&lt;/p&gt;
+&lt;p&gt;阻塞与非阻塞说的是你得到结果之前能不能干其他事。&lt;/p&gt;
+&lt;p&gt;两组概念描述的是不同的内容&lt;/p&gt;
+&lt;p&gt;分析写文件的过程（open(打开文件)--&amp;gt; write(写入) --&amp;gt; close(关闭文件)）&lt;/p&gt;
+&lt;p&gt;1.其中write属于系统调用，具体过程：数据--&amp;gt;内核--&amp;gt;磁盘,内核拷贝数据，放在缓冲区（块缓冲），清刷缓冲时，调度IO设备，找到inode和block,将数据写入磁盘。（第一步数据--&amp;gt;内核是用户态，第二步 内核--&amp;gt;磁盘是内核态。存在转换）&lt;/p&gt;
+&lt;p&gt;2.NON_BLOCK设置的是用户态（数据--&amp;gt;内核 或 内核 --&amp;gt; 数据）的过程；大部分的阻塞是在从内核拿数据出来&lt;/p&gt;
+&lt;p&gt;3.内核--&amp;gt;磁盘的过程实际是阻塞的。为了方便上层应用快速返回写的状态，内核将数据写到磁盘的过程，普通用户不需要感知；内核拷贝完数据，程序返回，普通用户就认为写成功了，但数据很有可能还在缓冲区（缓冲IO）&lt;/p&gt;
+&lt;p&gt;fcntl()函数（操作文件描述符，可以将文件变成非阻塞的）&lt;/p&gt;
+&lt;p&gt;1.函数原型：int fcntl(int fd, int cmd, .../* arg */);&lt;/p&gt;
+&lt;p&gt;参数cmd：操作方式&lt;/p&gt;
+&lt;p&gt;.../* arg */：可变参数，arg,指示该参数是前面参数（cmd）的参数，其含义取决于cmd&lt;/p&gt;
+&lt;p&gt;2.函数返回值：出错都是返回-1，设置操作成功都是返回0&lt;/p&gt;
+&lt;p&gt;select()函数（同步I/O多路复用接口）&lt;/p&gt;
+&lt;p&gt;1.函数原型：int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);&lt;/p&gt;
+&lt;p&gt;参数nfds:文件描述符的数量&lt;/p&gt;
+&lt;p&gt;fd_set：文件描述符的集合， （可读、可写、异常）底层是用数组实现的&lt;/p&gt;
+&lt;p&gt;参数 timeout：时间间隔&lt;/p&gt;
+&lt;p&gt;描述：&lt;br&gt;
+允许程序去监控多个文件描述符，等待一个或多个文件描述符的I/O操作“ready”的情况&lt;/p&gt;
+&lt;p&gt;ready：就绪，可以对文件进行相应的IO操作，如没有阻塞的读，或足够小的写。&lt;br&gt;
+可监控的文件描述符数量小于FD_SETSIZE（一般为1024）&lt;/p&gt;
+&lt;p&gt;退出的时候，每个文件描述符集合会被修改，只留下状态发生变化的文件描述符，起指示作用；&lt;br&gt;
+所以如果循环使用select，每次调用select前需要重新初始化每个集合。&lt;/p&gt;
+&lt;p&gt;集合可以是NULL，说明该类事件中没有文件被监控&lt;/p&gt;
+&lt;p&gt;宏用来操作集合&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;FD_ZERO：清空一个集合&lt;br&gt;
+2.FD_SET：向一个集合添加一个文件描述符&lt;br&gt;
+3.FD_CLR：从一个集合移除一个文件描述符&lt;br&gt;
+4.FD_ISSET：判断一个文件描述符的所属集合，可用于select返回后，因为集合已被修改&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;nfds的值是三个集合中数字最大的文件描述符加1&lt;br&gt;
+1.文件描述符的索引是从0开始的&lt;/p&gt;
+&lt;p&gt;struct timeval timeout&lt;br&gt;
+1.指定select阻塞着等待每个文件描述符就绪的时间间隔；&lt;br&gt;
+2.这里阻塞的含义就是单纯的阻塞，不是阻塞I/O的阻塞；&lt;br&gt;
+3.同步I/O的多路复用的同步就体现在这&lt;/p&gt;
+&lt;p&gt;三个停止阻塞的情况&lt;br&gt;
+1.一个文件描述符就绪&lt;br&gt;
+2.信号中断（kill）&lt;br&gt;
+3.超时&lt;/p&gt;
+&lt;p&gt;时间间隔不是精确的，很难做到真正的精确；系统时钟粒度、内核调度延迟。&lt;/p&gt;
+&lt;p&gt;timeval结构体中两个成员：秒、微妙，如果两者都为0，就会立即返回，可用于轮询（polling）&lt;br&gt;
+如果为NULL，就会无期限等待&lt;br&gt;
+timeout更新功能只在linux上生效，为了兼容性，尽量别用，尽量使用比较公共的功能。&lt;/p&gt;
+&lt;p&gt;函数返回值：返回此时所有集合文件描述符（ready）数量，根据数量，再通过宏定义FD_ISSET询问所有文件描述符的所在集合，来感知状态变化&lt;br&gt;
+0：时间过完了，也没有感兴趣的事件发生&lt;br&gt;
+-1：error，并设置error；此时集合不会改变，timeout变成未定义的了&lt;/p&gt;
+&lt;p&gt;（select--&amp;gt;poll--&amp;gt;epoll，越来越高级）&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;//common.h
+#ifndef _COMMON_H
+#define _COMMON_H
+
+int make_nonblock(int fd); // 声明非阻塞
+int make_block(int fd);   // 声明阻塞
+~~~c
+
+
+&lt;/code&gt;&lt;/pre&gt;
+">C++</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/post/about/"" data-c="
