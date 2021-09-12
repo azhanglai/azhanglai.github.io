@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
 <title>Bling</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631448077186">
+<link rel="shortcut icon" href="/favicon.ico?v=1631449651300">
 <link rel="stylesheet" href="/media/css/muse.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -229,7 +229,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">24</span>
+        <span class="site-item-stat-count">25</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -364,6 +364,21 @@
       
       
       
+      
+      
+      
+      
+      
+      <a href="https://azhanglai-github-io.vercel.app/二叉树-刷题集 /">
+        <div class="motion-warpper">
+          <div class="tag-post-node">
+            <h1>
+              04-18
+              <small>二叉树-刷题集</small>
+            </h1>
+          </div>
+        </div>
+      </a>
       
       
       
@@ -4400,6 +4415,562 @@ fprintf()函数原型：int fprintf(FILE *fp, const char *format, ...);
 &lt;p&gt;尽情发挥你的才华吧！&lt;/p&gt;
 &lt;p&gt;😘 Enjoy~&lt;/p&gt;
 ">Hello Gridea</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/二叉树-刷题集 /"" data-c="
+          &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h3 id=&#34;1-leetcode-100相同的树&#34;&gt;1. LeetCode-100(相同的树)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/bS964P7nwOAMcfF.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+// 深搜
+bool isSameTree(struct TreeNode* p, struct TreeNode* q){
+    // 如果两个树或子树都为空，那么相同
+    if (p == NULL &amp;amp;&amp;amp; q == NULL) return true;
+    // 其中一颗树或子树为空，则匹配失败
+    else if (p == NULL || q == NULL) return false;
+    // 两个树和子树不为空，但结点值不相等，匹配失败
+    else if (p-&amp;gt;val != q-&amp;gt;val) return false;
+    // p左子树和q左子树，深搜匹配 &amp;amp;&amp;amp; p右子树和q右子树，深搜匹配
+    return isSameTree(p-&amp;gt;left, q-&amp;gt;left) &amp;amp;&amp;amp; isSameTree(p-&amp;gt;right, q-&amp;gt;right);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        if (p == NULL &amp;amp;&amp;amp; q == NULL) return true;
+        else if (p == NULL || q == NULL) return false;
+        else if (p-&amp;gt;val != q-&amp;gt;val) return false;
+        return (isSameTree(p-&amp;gt;left, q-&amp;gt;left) &amp;amp;&amp;amp; isSameTree(p-&amp;gt;right, q-&amp;gt;right));
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;2leetcode-101对称二叉树&#34;&gt;2.LeetCode-101(对称二叉树)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/mQqOY8FENJR15yX.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+// 深搜
+bool check(struct TreeNode *p, struct TreeNode *q) {
+    // 如果两个树或子树都为空，那么相同
+    if (!p &amp;amp;&amp;amp; !q) return true;
+    // 其中一颗树或子树为空，则匹配失败
+    else if (!p || !q) return false;
+    // 两个树和子树不为空，但结点值不相等，匹配失败
+    else if (p-&amp;gt;val != q-&amp;gt;val) return false;
+    // p左子树和q右子树，深搜匹配 &amp;amp;&amp;amp; p右子树和q左子树，深搜匹配
+    return check(p-&amp;gt;left, q-&amp;gt;right) &amp;amp;&amp;amp; check(p-&amp;gt;right, q-&amp;gt;left);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool check(TreeNode *p, TreeNode *q) {
+        if (p == NULL &amp;amp;&amp;amp; q == NULL) return true;
+        else if (p == NULL || q == NULL) return false;
+        else if (p-&amp;gt;val != q-&amp;gt;val) return false;
+        return check(p-&amp;gt;left, q-&amp;gt;right) &amp;amp;&amp;amp; check(p-&amp;gt;right, q-&amp;gt;left);
+    }
+    bool isSymmetric(TreeNode* root) {
+        if (root == NULL) return true;
+        return check(root-&amp;gt;left, root-&amp;gt;right);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;3leetcode-102二叉树的层序遍历&#34;&gt;3.LeetCode-102(二叉树的层序遍历)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/8k9SJQ31qybIwOd.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+
+
+/**
+ * Return an array of arrays of size *returnSize.
+ * The sizes of the arrays are returned as *returnColumnSizes array.
+ * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
+ */
+// 用队列，BFS
+int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes){
+    int **ans = (int **)malloc(sizeof(int *) * 10000);
+    *returnColumnSizes = (int *)malloc(sizeof(int) * 1000);
+    returnSize[0] = 0; 
+    if (root == NULL) return ans;
+    struct TreeNode *que[10000];
+    int head = 0, tail = 0;
+    que[tail++] = root;
+    while (head != tail) {
+        int cnt = tail - head; 
+        ans[returnSize[0]] = (int *)malloc(sizeof(int) * cnt);
+        for (int i = 0; i &amp;lt; cnt; ++i) {
+            struct TreeNode *p = que[head++];
+            ans[returnSize[0]][i] = p-&amp;gt;val;
+            if (p-&amp;gt;left) que[tail++] = p-&amp;gt;left;
+            if (p-&amp;gt;right) que[tail++] = p-&amp;gt;right; 
+        }
+        (*returnColumnSizes)[returnSize[0]] = cnt;
+        returnSize[0]++;
+    }
+    return ans;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; levelOrder(TreeNode* root) {
+        vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; ans;
+        if (root == nullptr) return ans;
+        queue&amp;lt;TreeNode *&amp;gt; que;
+        que.push(root);
+        while (!que.empty()) {
+            vector&amp;lt;int&amp;gt; temp;
+            int n = que.size();
+            for (int i = 0; i &amp;lt; n; ++i) {
+                TreeNode *p = que.front(); que.pop();
+                temp.push_back(p-&amp;gt;val);
+                if (p-&amp;gt;left) que.push(p-&amp;gt;left);
+                if (p-&amp;gt;right) que.push(p-&amp;gt;right);
+            }
+            ans.push_back(temp);
+        }
+        return ans;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;4leetcode-104二叉树的最大深度&#34;&gt;4.LeetCode-104(二叉树的最大深度)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/TBgsaN419VhvMxH.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+
+int maxDepth(struct TreeNode* root){
+    if (root == NULL) return 0;
+    return fmax(maxDepth(root-&amp;gt;left), maxDepth(root-&amp;gt;right)) + 1;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if (root == nullptr) return 0;
+        int ans = 0;
+        queue&amp;lt;TreeNode *&amp;gt; que;
+        que.push(root);
+        while (!que.empty()) {
+            int n = que.size();
+            for (int i = 0; i &amp;lt; n; ++i) {
+                auto p = que.front(); que.pop();
+                if (p-&amp;gt;left) que.push(p-&amp;gt;left);
+                if (p-&amp;gt;right) que.push(p-&amp;gt;right);
+            }
+            ans++;
+        }
+        return ans;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;5leetcode-107二叉树的层序遍历ii&#34;&gt;5.LeetCode-107(二叉树的层序遍历Ⅱ)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/5jyvDhNEdeHpcux.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; levelOrderBottom(TreeNode* root) {
+        vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt; ans;
+        if (root == nullptr) return ans;
+        queue&amp;lt;TreeNode *&amp;gt; que;
+        que.push(root);
+        while (!que.empty()) {
+            int n = que.size();
+            vector&amp;lt;int&amp;gt; temp;
+            for (int i = 0; i &amp;lt; n; ++i) {
+                auto node = que.front(); que.pop();
+                temp.push_back(node-&amp;gt;val);
+                if (node-&amp;gt;left) que.push(node-&amp;gt;left);
+                if (node-&amp;gt;right) que.push(node-&amp;gt;right);
+            }
+            ans.push_back(temp);
+        }
+        std::reverse(ans.begin(), ans.end()); // 数组翻转
+        return ans;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;6leetcode-110平衡二叉树&#34;&gt;6.LeetCode-110(平衡二叉树)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;6&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/b6rKZC1GhVlY5HD.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+ /* 
+class Solution {
+public:
+    int getHeight(TreeNode *root) {
+        if (root == nullptr) return 0;
+        return max(getHeight(root-&amp;gt;left), getHeight(root-&amp;gt;right)) + 1;
+    }
+    // 自顶向下，前序遍历
+    bool isBalanced(TreeNode* root) {
+        if (root == nullptr) return true;
+        int l = getHeight(root-&amp;gt;left);
+        int r = getHeight(root-&amp;gt;right);
+        if (abs(l - r) &amp;gt; 1) return false;
+        return isBalanced(root-&amp;gt;left) &amp;amp;&amp;amp; isBalanced(root-&amp;gt;right);
+    }
+};
+*/
+class Solution {
+public:
+    // 自底向上，后序遍历
+    int getHeight(TreeNode *root) {
+        if (root == nullptr) return 0;
+        int l = getHeight(root-&amp;gt;left);
+        int r = getHeight(root-&amp;gt;right);
+        // 当abs(l - r) &amp;gt; 1,树失衡时，直接返回 -1；
+        if (l == - 1 || r == -1 || abs(l - r) &amp;gt; 1) return -1;
+        return max(l, r) + 1;  
+    }
+    bool isBalanced(TreeNode* root) {
+        return getHeight(root) &amp;gt;= 0;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;7leetcode-111二叉树的最小深度&#34;&gt;7.LeetCode-111(二叉树的最小深度)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;7&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/4gk7GNZKXoVunms.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+ /*
+class Solution {
+public:
+    // BFS
+    int minDepth(TreeNode* root) {
+        if (root == nullptr) return 0;
+        queue&amp;lt;pair&amp;lt;TreeNode*, int&amp;gt; &amp;gt; que; // 把结点和层数用pair&amp;lt;&amp;gt;存起来
+        int ans = 0;
+        que.emplace(root, 1); // emplace 可以代替push
+        while (!que.empty()) {
+            int n = que.size();
+            auto p = que.front(); que.pop();
+            TreeNode *node = p.first;
+            int ans = p.second;
+            if (!node-&amp;gt;left &amp;amp;&amp;amp; !node-&amp;gt;right) return ans; // 没有下一层
+            if (node-&amp;gt;left) que.emplace(node-&amp;gt;left, ans + 1); //下一层
+            if (node-&amp;gt;right) que.emplace(node-&amp;gt;right, ans + 1); //下一层
+        }
+        return 0;
+    }
+};
+*/
+class Solution {
+public:
+// DFS ，自底向上，后序遍历
+    int minDepth(TreeNode* root) {
+        if (root == nullptr) return 0; //没有结点
+        int ans = INT_MAX; // 全局变量
+        if (!root-&amp;gt;left &amp;amp;&amp;amp; !root-&amp;gt;right) return 1; // 没有左右孩子，高为1
+        // 遍历左子树，返回左子树的最小深度
+        if (root-&amp;gt;left) ans = min(ans, minDepth(root-&amp;gt;left)); 
+        // 遍历右子树，返回左子树的最小深度
+        if (root-&amp;gt;right) ans = min(ans, minDepth(root-&amp;gt;right));
+        return ans + 1; //最小孩子深度 + 1
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;8leetcode-112路径总和&#34;&gt;8.LeetCode-112(路径总和)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;8&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/ZWzOjMpCHhm8fiq.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    // 根左右，前序遍历，DFS
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if (root == nullptr) return false; // 树为空时，没有值，判定假
+        targetSum -= root-&amp;gt;val;
+        // 走到叶子结点，判断targetSum 是否为 0
+        if (!root-&amp;gt;left &amp;amp;&amp;amp; !root-&amp;gt;right) return targetSum == 0;
+        return hasPathSum(root-&amp;gt;left, targetSum) || hasPathSum(root-&amp;gt;right, targetSum);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;9leetcode-226翻转二叉树&#34;&gt;9.LeetCode-226(翻转二叉树)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;9&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/wA73Q8XshvEMN9d.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    // DFS, 前序遍历，各子树叶子节点先交换
+    TreeNode* invertTree(TreeNode* root) {
+        if (root == nullptr) return root;
+        // 先遍历到左子树的左右叶子节点
+        TreeNode *left = invertTree(root-&amp;gt;left); 
+        TreeNode *right = invertTree(root-&amp;gt;right);
+        // 交换子树叶子节点的操作
+        root-&amp;gt;left = right;
+        root-&amp;gt;right = left;
+        return root; 
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;10leetcode-235二叉搜索树的最近公共祖先&#34;&gt;10.LeetCode-235(二叉搜索树的最近公共祖先)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;10&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/m3z9B1LsRljfSUY.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        // 如果p,q节点都小于root结点，那么祖先结点一定在root-&amp;gt;right
+        // 如果p,q节点都大于root结点，那么祖先结点一定在root-&amp;gt;left
+        // 如果p,q在root的两边，那么祖先就是root(递归边界)
+        if (p-&amp;gt;val &amp;gt; root-&amp;gt;val &amp;amp;&amp;amp; q-&amp;gt;val &amp;gt; root-&amp;gt;val) {
+            return lowestCommonAncestor(root-&amp;gt;right, p, q);
+        } else if (p-&amp;gt;val &amp;lt; root-&amp;gt;val &amp;amp;&amp;amp; q-&amp;gt;val &amp;lt; root-&amp;gt;val) {
+            return lowestCommonAncestor(root-&amp;gt;left, p, q);
+        }
+        return root;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;11leetcode-257二叉树的所有路径&#34;&gt;11.LeetCode-257(二叉树的所有路径)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;11&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/8NEWOfZIxSPH6BG.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+class Solution {
+public:
+    void dfs(TreeNode *root, vector&amp;lt;string&amp;gt; &amp;amp;arr, string t) { // 注意arr要传引用
+        // 前序遍历
+        if (root != nullptr) {
+            t += to_string (root-&amp;gt;val);
+            // 如果该结点没有孩子，那么可以将string加入vector
+            if (root-&amp;gt;left == nullptr &amp;amp;&amp;amp; root-&amp;gt;right == nullptr) {
+                arr.emplace_back(t);
+            } else {
+                // 如果该节点还有孩子，继续深搜
+                t += &amp;quot;-&amp;gt;&amp;quot;;
+                dfs(root-&amp;gt;left, arr, t);
+                dfs(root-&amp;gt;right, arr, t);
+            }
+        } 
+    }
+
+    vector&amp;lt;string&amp;gt; binaryTreePaths(TreeNode* root) {
+        vector&amp;lt;string&amp;gt; ans;
+        if (root == nullptr) return ans;
+        dfs(root, ans, &amp;quot;&amp;quot;);
+        return ans;
+    }
+};
+
+/*
+class Solution {
+public:
+    // bfs 双队列，一个队列node, 一个队列装string
+    vector&amp;lt;string&amp;gt; binaryTreePaths(TreeNode* root) {
+        vector&amp;lt;string&amp;gt; ans;
+        if (root == nullptr) return ans;
+        queue&amp;lt;TreeNode *&amp;gt; node_que;
+        queue&amp;lt;string&amp;gt; val_que;
+        node_que.push(root);
+        val_que.emplace(to_string (root-&amp;gt;val));
+        while (!node_que.empty()) {
+            auto p = node_que.front(); node_que.pop();
+            string t = val_que.front(); val_que.pop();
+            if (!p-&amp;gt;left &amp;amp;&amp;amp; !p-&amp;gt;right) ans.emplace_back(t);
+            else {
+                if (p-&amp;gt;left) {
+                    node_que.push(p-&amp;gt;left);
+                    // t 不要赋值，还是原来的 t
+                    val_que.emplace(t + &amp;quot;-&amp;gt;&amp;quot; + to_string (p-&amp;gt;left-&amp;gt;val));
+                }
+                if (p-&amp;gt;right) {
+                    node_que.push(p-&amp;gt;right);
+                    val_que.emplace(t + &amp;quot;-&amp;gt;&amp;quot; + to_string (p-&amp;gt;right-&amp;gt;val));
+                }
+            }
+        }
+        return ans;
+    }
+};
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;12leetcode-297二叉树的序列化与反序列化&#34;&gt;12.LeetCode-297(二叉树的序列化与反序列化)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;12&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/sW8Udwv5bzuZatG.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Codec {
+public:
+    void rserialize(TreeNode *root, string &amp;amp;t) {
+        if (root == NULL) t += &amp;quot;N&amp;quot;;
+        else {
+            t += to_string (root-&amp;gt;val) + &amp;quot;.(&amp;quot;; // 前面加个点，分隔数字
+            rserialize(root-&amp;gt;left, t);
+            t += &amp;quot;,&amp;quot;;
+            rserialize(root-&amp;gt;right, t);
+            t += &amp;quot;)&amp;quot;;
+        }
+    }
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        string ret = &amp;quot;&amp;quot;;
+        rserialize(root, ret);
+        cout &amp;lt;&amp;lt; ret &amp;lt;&amp;lt; endl;
+        return ret;
+    }
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        TreeNode *p = NULL, *temp = NULL;
+        stack&amp;lt;TreeNode *&amp;gt; stk;
+        int flag = 0, minus = 0, x = 0;
+        for (int i = 0; i &amp;lt; data.size(); ++i) {
+            // 计算数值
+            if (data[i] &amp;gt;= &#39;0&#39; &amp;amp;&amp;amp; data[i] &amp;lt;= &#39;9&#39;) {
+                x = x * 10 + (data[i] - &#39;0&#39;);
+                continue;
+            }
+            // 根据栈还原树
+            switch (data[i]) {
+                case &#39;(&#39;: stk.push(temp); flag = 0; break;
+                case &#39;,&#39;: flag = 1; break;
+                case &#39;)&#39;: p = stk.top(); stk.pop(); break;
+                case &#39;N&#39;: p = NULL; break;
+                case &#39;-&#39;: minus = 1; break;
+                default: {
+                    if (minus) {
+                        temp = new TreeNode(0 - x); minus = 0; x = 0;
+                    } else {
+                        temp = new TreeNode(x); x = 0;
+                    }
+                    if (!stk.empty() &amp;amp;&amp;amp; flag == 0) {
+                        (stk.top())-&amp;gt;left = temp;
+                    } else if (!stk.empty() &amp;amp;&amp;amp; flag == 1) {
+                        (stk.top())-&amp;gt;right = temp;
+                    }
+                } break;
+            }
+        }
+        return p;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+">二叉树-刷题集</a>
       </div>
       
       <div class="item">
