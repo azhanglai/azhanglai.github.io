@@ -2054,7 +2054,7 @@ p > code {
 .bg-color .bg-color {
       background: transparent !important;
     }body {
-      background-color: #eee;
+      background-color: #FFF;
     }.header {
         width: 960px;
         margin: 0 auto;
@@ -2147,23 +2147,23 @@ p > code {
       color: #fff;
       border-bottom-color: #fff;
     }.active-current > a {
-      color: #fc6423 !important;
-      border-bottom-color: #fc6423 !important;
+      color: #dee2e6 !important;
+      border-bottom-color: #dee2e6 !important;
     }
     .sidebar-title-active {
-      color: #fc6423 !important;
-      border-bottom-color: #fc6423 !important;
+      color: #dee2e6;
+      border-bottom-color: #dee2e6;
     }
     .sidebar-title-item:hover {
-      color: #fc6423 !important;
+      color: #dee2e6 !important;
     }
     .active-show > a {
-      color: #fc6423;
-      border-bottom-color: #fc6423;
+      color: #dee2e6;
+      border-bottom-color: #dee2e6;
     }
     .active-hidden > a {
-      color: #fc6423;
-      border-bottom-color: #fc6423;
+      color: #dee2e6;
+      border-bottom-color: #dee2e6;
     }.bg-color {
       background-color: #e9ecef7f;
     }
