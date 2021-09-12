@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
 <title>Bling</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631434476796">
+<link rel="shortcut icon" href="/favicon.ico?v=1631439048732">
 <link rel="stylesheet" href="/media/css/muse.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -134,7 +134,7 @@
             <li class="nav-item ">
               
               
-                <a href="https://azhanglai-github-io.vercel.app/xLHIeVlgF//" target="_self">
+                <a href="https://azhanglai-github-io.vercel.app/LaiBDS//" target="_self">
                   <i class="fa fa-globe"></i> 数据结构与算法C版基础篇
                 </a>
               
@@ -147,7 +147,7 @@
             <li class="nav-item ">
               
               
-                <a href="https://azhanglai-github-io.vercel.app/xo6GO5z-C//" target="_self">
+                <a href="https://azhanglai-github-io.vercel.app/LaiClearn//" target="_self">
                   <i class="fa fa-globe"></i> C语言学习笔记
                 </a>
               
@@ -216,19 +216,19 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">21</span>
+        <span class="site-item-stat-count">22</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">3</span>
+        <span class="site-item-stat-count">4</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">3</span>
+        <span class="site-item-stat-count">4</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -261,8 +261,8 @@
         <div class="section-box box-shadow-wrapper">
           <section class="section tags-section bg-color posts-expand">
             <div class="tags-box">
-  <div class="tag-cloud-title language" data-lan="cloud-tags" data-count="3">
-    目前共计 3 个标签
+  <div class="tag-cloud-title language" data-lan="cloud-tags" data-count="4">
+    目前共计 4 个标签
   </div>
   <div class="tag-cloud-list" id="tags">
     
@@ -346,6 +346,10 @@
           
         
       
+        
+      
+        
+          
         
       
         
@@ -440,6 +444,10 @@
           
         
       
+        
+          
+        
+      
       <a class="cloud-tag" href="https://azhanglai-github-io.vercel.app/LaiClearn/" rel="7">C语言学习笔记</a>
     
       
@@ -528,7 +536,103 @@
           
             
       
+        
+          
+        
+      
       <a class="cloud-tag" href="https://azhanglai-github-io.vercel.app/wDapr16Um/" rel="1">Gridea</a>
+    
+      
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+            
+      
+      <a class="cloud-tag" href="https://azhanglai-github-io.vercel.app/LaiDSOpt/" rel="1">数据结构刷题集</a>
     
   </div>
 </div>
@@ -4569,6 +4673,553 @@ fprintf()函数原型：int fprintf(FILE *fp, const char *format, ...);
 &lt;p&gt;尽情发挥你的才华吧！&lt;/p&gt;
 &lt;p&gt;😘 Enjoy~&lt;/p&gt;
 ">Hello Gridea</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/链表-刷题集/"" data-c="
+          &lt;h3 id=&#34;1-leetcode-19删除链表的倒数第n个结点&#34;&gt;1. LeetCode-19(删除链表的倒数第N个结点)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/2NM7BIVXUCstheL.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+// C语言双指针解法
+struct ListNode* removeNthFromEnd(struct ListNode* head, int n){
+    struct ListNode dummy; // 构建虚拟头结点（不需要申请动态空间）
+    dummy.next = head;     
+    struct ListNode *p = &amp;amp;(dummy); // 慢指针
+    struct ListNode *q = &amp;amp;(dummy); // 快指针（快n个位置）
+    while (n--) q = q-&amp;gt;next;     // 快进到n的位置
+    while (q-&amp;gt;next) {  
+        // 当快指针的下一个位置为NULL时，那么慢指针的下一个位置就是要删除的位置
+        p = p-&amp;gt;next;
+        q = q-&amp;gt;next;
+    }
+    // 删除操作
+    struct ListNode *free_node = p-&amp;gt;next;
+    p-&amp;gt;next = free_node-&amp;gt;next;
+    free(free_node);
+    return dummy.next; 返回真正的头结点
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode *dummy = new ListNode(0, head);
+        ListNode *p = dummy;
+        ListNode *q = dummy;
+        while (n--) q = q-&amp;gt;next;
+        while (q-&amp;gt;next != nullptr) {
+            p = p-&amp;gt;next;
+            q = q-&amp;gt;next;
+        }
+        ListNode *delete_node = p-&amp;gt;next;
+        p-&amp;gt;next = delete_node-&amp;gt;next;
+        delete delete_node;
+        ListNode *ans = dummy-&amp;gt;next;
+        delete dummy;
+        return ans;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;2leetcode-24两两交换链表中的节点&#34;&gt;2.LeetCode-24(两两交换链表中的节点)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/37hcQJUEYPXNewd.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+// 迭代法交换
+struct ListNode* swapPairs(struct ListNode* head){
+    struct ListNode dummy; // 构建虚拟头结点（静态分配）
+    dummy.next = head; 
+    struct ListNode *t = &amp;amp;dummy; // 取虚拟头节点地址
+    while(t-&amp;gt;next != NULL &amp;amp;&amp;amp; t-&amp;gt;next-&amp;gt;next != NULL) {
+        // 当目前的节点的下一位置和下下位置都为空时（避免空链表时，没有下下位置）
+        // 交换操作
+        /*
+        0-&amp;gt;1-&amp;gt;2-&amp;gt;3-&amp;gt;4
+        0-&amp;gt;2  1-&amp;gt;3 2-&amp;gt;1  0 = 1
+        2-&amp;gt;1(0)-&amp;gt;3-&amp;gt;4
+        */
+        struct ListNode *p = t-&amp;gt;next; 
+        struct ListNode *q = t-&amp;gt;next-&amp;gt;next;
+        t-&amp;gt;next = q; 
+        p-&amp;gt;next = q-&amp;gt;next;
+        q-&amp;gt;next = p;
+        t = p;
+    } 
+    return dummy.next;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        ListNode dummy(0, head);
+        ListNode *t = &amp;amp;dummy;
+        while (t-&amp;gt;next &amp;amp;&amp;amp; t-&amp;gt;next-&amp;gt;next) {
+            ListNode *p = t-&amp;gt;next;
+            ListNode *q = t-&amp;gt;next-&amp;gt;next;
+            t-&amp;gt;next = q;
+            p-&amp;gt;next = q-&amp;gt;next;
+            q-&amp;gt;next = p;
+            t = p;
+        }
+        return dummy.next;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;3leetcode-83删除排序链表中的重复元素&#34;&gt;3.LeetCode-83(删除排序链表中的重复元素)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/eABXgG4uniJDW82.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+// 迭代法删除
+struct ListNode* deleteDuplicates(struct ListNode* head){
+    if (head == NULL) return head; // 如果链表为空，直接返回head
+    struct ListNode dummy;
+    dummy.next = head; 
+    struct ListNode *p = head, *q;
+    while (p-&amp;gt;next) {
+        // 当前位置和下一位置的值一样，则直接删除下一位置的节点
+        // 值不一样，往前遍历
+        if (p-&amp;gt;val == p-&amp;gt;next-&amp;gt;val) {
+            q = p-&amp;gt;next;
+            p-&amp;gt;next = q-&amp;gt;next;
+            free(q);
+        } else {
+            p = p-&amp;gt;next;
+        }
+    }
+    return dummy.next;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if (!head) return head;
+        ListNode dummy(0, head);
+        ListNode *p = head, *q;
+        while (p-&amp;gt;next) {
+            if (p-&amp;gt;val == p-&amp;gt;next-&amp;gt;val) {
+                q = p-&amp;gt;next;
+                p-&amp;gt;next = q-&amp;gt;next;
+                delete q;
+            } else {
+                p = p-&amp;gt;next;
+            }
+        }
+        return dummy.next;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;4leetcode-141环形链表&#34;&gt;4.LeetCode-141(环形链表)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/J73XjUtRfF1kT4h.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+// 快慢指针
+bool hasCycle(struct ListNode *head) {
+    // 当链表没有节点和只有一个节点时，返回false(无环)
+    if (head == NULL || head-&amp;gt;next == NULL) return false;
+    // 构建快慢指针
+    struct ListNode *slow = head;
+    struct ListNode *fast = head-&amp;gt;next;
+    while (slow != fast) {
+        // 当快慢指针相等时，说明有环
+        // 当快指针跑到NULL，说明无环
+        if (fast == NULL || fast-&amp;gt;next == NULL) return false;
+        slow = slow-&amp;gt;next; // 慢指针走一步
+        fast = fast-&amp;gt;next-&amp;gt;next; // 快指针走两步
+    }
+    return true;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if (!head || !head-&amp;gt;next) return false;
+        ListNode *slow = head;
+        ListNode *fast = head-&amp;gt;next;
+        while (slow != fast) {
+            if (!fast || !fast-&amp;gt;next) return false;
+            slow = slow-&amp;gt;next;
+            fast = fast-&amp;gt;next-&amp;gt;next;
+        }
+        return true;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;5leetcode-160相交链表&#34;&gt;5.LeetCode-160(相交链表)&lt;/h3&gt;
+&lt;h3 id=&#34;&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/hGMpxkbA1V7H9y2.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB) {
+    // 如果A链表或B链表为空，那么肯定不相交了
+    if (headA == NULL || headB == NULL) return NULL;
+    struct ListNode *pA = headA, *pB = headB;
+    // 如果相交，相交部分长度为c,假设A链表长度为 a + c, B链表长度为 b + c。
+    // 那么 A链表走 a + c + b, B链表走 b + c + a 必相交 pA == pB
+    while (pA != pB) {
+        pA = (pA == NULL ? headB : pA-&amp;gt;next); // A 一直走，走到NULL，去走 B
+        pB = (pB == NULL ? headA : pB-&amp;gt;next); // B 一直走，走到NULL，去走 A
+    }
+    return pA;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if (!headA || !headB) return NULL;
+        ListNode *pA = headA, *pB = headB;
+        while (pA != pB) {
+            pA = (pA == NULL ? headB : pA-&amp;gt;next);
+            pB = (pB == NULL ? headA : pB-&amp;gt;next);
+        }
+        return pA;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;6leetcode-202快乐数&#34;&gt;6.LeetCode-202(快乐数)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/9hWC3RwaqnL4TD5.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// 计算每个数字的下一个数字，例如数字19 的下一个 数字是 9 * 9 + 1 * 1 = 82
+int getNextNum(int n) {
+    int ans = 0, t = 0;
+    while (n) {
+        t = n % 10; // 取个位
+        ans += t * t;
+        n /= 10; // 剪除个位
+    }
+    return ans;
+}
+// 快乐数是没有环的，判断是否有没有环可以用快慢指针
+// 快慢指针
+bool isHappy(int n){
+    int slow_num = n; // 构建慢指针（当前数字）
+    int fast_num = getNextNum(n); // 构建快指针（下一数字）
+    while (fast_num != 1 &amp;amp;&amp;amp; fast_num != slow_num) {
+        // 当快指针等于 1（快乐数） 和 快指针和满指针相等（有环，不是快乐数） 循环结束
+        slow_num = getNextNum(slow_num); // 慢指针走一步
+        fast_num = getNextNum(getNextNum(fast_num)); // 快指针走两步
+    }
+    return fast_num == 1; // 判断是不是快乐数
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class Solution {
+public:
+    int getNextNum(int n) {
+        int ans = 0, t = 0;
+        while(n) {
+            t = n % 10;
+            ans += t * t;
+            n /= 10;
+        }
+        return ans;
+    }
+    bool isHappy(int n) {
+        int slow_num = n;
+        int fast_num = getNextNum(n);
+        while (fast_num != 1 &amp;amp;&amp;amp; fast_num != slow_num) {
+            slow_num = getNextNum(slow_num);
+            fast_num = getNextNum(getNextNum(fast_num));
+        }
+        return fast_num == 1;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;7leetcode-203移除链表元素&#34;&gt;7.LeetCode-203(移除链表元素)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;6&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/3rhAXsfmxUdcakv.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+ /* 递归法
+struct ListNode* removeElements(struct ListNode* head, int val){
+    if (!head) return head;
+    head-&amp;gt;next = removeElements(head-&amp;gt;next, val);
+    return head-&amp;gt;val == val ? head-&amp;gt;next : head; 
+}
+*/
+// 迭代法
+struct ListNode* removeElements(struct ListNode* head, int val){
+    if (!head) return head; // 如果链表为空，那么直接返回head
+    struct ListNode dummy; // 构建虚拟头结点
+    dummy.next = head;
+    struct ListNode *p = &amp;amp;dummy, *q;
+    while(p-&amp;gt;next) {
+        // 如果该结点的值是要删除的值，删除操作
+      	// 如果不是，遍历下一结点
+        if (p-&amp;gt;next-&amp;gt;val == val) {
+            q = p-&amp;gt;next;
+            p-&amp;gt;next = q-&amp;gt;next;
+            free(q);
+        } else {
+            p = p-&amp;gt;next;
+        }
+    }
+    return dummy.next;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        ListNode dummy(0, head);
+        ListNode *p = &amp;amp;dummy, *q;
+        while (p-&amp;gt;next) {
+            if (p-&amp;gt;next-&amp;gt;val == val) {
+                q = p-&amp;gt;next;
+                p-&amp;gt;next = q-&amp;gt;next;
+                delete q;
+            } else {
+                p = p-&amp;gt;next;
+            }
+        }
+        return dummy.next;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;8leetcode-206反转链表&#34;&gt;8.LeetCode-206(反转链表)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;7&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/ZXVcHRegOIy8G2l.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+// 头插法
+struct ListNode* reverseList(struct ListNode* head){
+    // 动态分配空间，构建虚拟头结点
+    struct ListNode *dummy = (struct ListNode *)malloc(sizeof(struct ListNode));
+    dummy-&amp;gt;next = head;
+    struct ListNode *p = dummy-&amp;gt;next, *q;
+    dummy-&amp;gt;next = NULL;  // 把NULL插入头
+    // 头插法操作
+    while (p) {
+        q = p-&amp;gt;next;
+        p-&amp;gt;next = dummy-&amp;gt;next;
+        dummy-&amp;gt;next = p;
+        p = q;
+    }
+    // 回收虚拟头结点的空间
+    struct ListNode *ans = dummy-&amp;gt;next;
+    free(dummy);
+    return ans;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode *dummy = new ListNode(0, head);
+        ListNode *p = dummy-&amp;gt;next, *q;
+        dummy-&amp;gt;next = nullptr;
+        while (p) {
+            q = p-&amp;gt;next;
+            p-&amp;gt;next = dummy-&amp;gt;next;
+            dummy-&amp;gt;next = p;
+            p = q;
+        }
+        ListNode *ans = dummy-&amp;gt;next;
+        delete dummy;
+        return ans;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;9leetcode-234回文链表&#34;&gt;9.LeetCode-234(回文链表)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;8&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/NJH7Aqof8FVI6tu.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+/* 把链表遍历到数组，在判断
+bool isPalindrome(struct ListNode* head){
+    int arr[100005], cnt = 0;
+    for (struct ListNode *p = head; p; p = p-&amp;gt;next) {
+        arr[cnt++] = p-&amp;gt;val;
+    }
+    int begin = 0, end = cnt - 1;
+    for (int i = 0; i &amp;lt; cnt / 2; i++) {
+        if (arr[begin] == arr[end]) {
+            begin++, end--;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+*/ 
+//利用快慢指针 找到链表中间链表的上一个结点
+struct ListNode *Mid(struct ListNode *h) {
+    struct ListNode *slow = h;
+    struct ListNode *fast = h;
+    while (fast-&amp;gt;next &amp;amp;&amp;amp; fast-&amp;gt;next-&amp;gt;next) {
+        slow = slow-&amp;gt;next;
+        fast = fast-&amp;gt;next-&amp;gt;next;
+    } 
+    return slow;
+}
+// 翻转链表操作
+struct ListNode *End(struct ListNode *h) {
+    struct ListNode *dummy = (struct ListNode *)malloc(sizeof(struct ListNode));
+    dummy-&amp;gt;next = h;
+    struct ListNode *p = dummy-&amp;gt;next, *q;
+    dummy-&amp;gt;next = NULL;
+    while (p) {
+        q = p-&amp;gt;next;
+        p-&amp;gt;next = dummy-&amp;gt;next;
+        dummy-&amp;gt;next = p;
+        p = q;
+    }
+    struct ListNode *ans = dummy-&amp;gt;next;
+    free(dummy);
+    return ans;
+}
+
+bool isPalindrome(struct ListNode* head){
+    // 当链表只有一个元素或没有元素时，是 true
+    if (!head || !head-&amp;gt;next) return true; 
+    struct ListNode *mid = Mid(head); // 找中间结点的上一个结点
+    struct ListNode *rev_mid = End(mid-&amp;gt;next); // 把从中间结点到结尾部分的链表翻转
+
+    struct ListNode *first = head; // 指针指向原始链表的头
+    struct ListNode *second = rev_mid; // 指针指向翻转部分的链表头
+    int flag = 1; // 标记
+    while (flag &amp;amp;&amp;amp; second) {
+        // 当翻转链表走到空，或不是回文链表则停止循环
+        if (first-&amp;gt;val != second-&amp;gt;val) {
+            flag = 0;
+            break;
+        }
+        first = first-&amp;gt;next;
+        second = second-&amp;gt;next; 
+    }
+    mid-&amp;gt;next = End(rev_mid); // 把链表恢复原状
+    return flag;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;10leetcode-237删除链表中的节点&#34;&gt;10.LeetCode-237(删除链表中的节点)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;9&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/DF3vg8YIjU7eCfG.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+void deleteNode(struct ListNode* node) {
+    // 把下一个结点当做要删除的结点
+    node-&amp;gt;val = node-&amp;gt;next-&amp;gt;val; 
+    node-&amp;gt;next = node-&amp;gt;next-&amp;gt;next;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        node-&amp;gt;val = node-&amp;gt;next-&amp;gt;val;
+        node-&amp;gt;next = node-&amp;gt;next-&amp;gt;next;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+">链表-刷题集</a>
       </div>
       
     </div>
