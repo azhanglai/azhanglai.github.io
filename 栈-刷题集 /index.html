@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
-<title>BDS-7.不稳定排序 | Bling</title>
+<title>栈-刷题集 | Bling</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1631447959403">
 <link rel="stylesheet" href="/media/css/muse.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -44,8 +44,8 @@
 
 
 
-  <meta name="description" content="BDS-7.不稳定排序" />
-  <meta name="keywords" content="数据结构与算法-C版基础篇" />
+  <meta name="description" content="栈-刷题集" />
+  <meta name="keywords" content="数据结构刷题集" />
 </head>
 
 <body>
@@ -282,7 +282,14 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E4%B8%8D%E7%A8%B3%E5%AE%9A%E6%8E%92%E5%BA%8F">不稳定排序</a></li>
+<li>
+<ul>
+<li><a href="#1-leetcode-20%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7">1. LeetCode-20(有效的括号)</a></li>
+<li><a href="#2leetcode-42%E6%8E%A5%E9%9B%A8%E6%B0%B4">2.LeetCode-42(接雨水)</a></li>
+<li><a href="#3leetcode-84%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2">3.LeetCode-84(柱状图中最大的矩形)</a></li>
+<li><a href="#4leetcode-232%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97">4.LeetCode-232(用栈实现队列)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -550,8 +557,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://azhanglai-github-io.vercel.app/BDS-7.不稳定排序/">
-      BDS-7.不稳定排序
+    <a class="post-title-link" href="https://azhanglai-github-io.vercel.app/栈-刷题集 /">
+      栈-刷题集
     </a>
   </h1>
   <div class="post-meta">
@@ -559,7 +566,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-03-19 18:04:00">2021-03-19</span>
+      <span class="publish-time" data-t="2018-04-16 19:06:00">2018-04-16</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -568,8 +575,8 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      <a href="https://azhanglai-github-io.vercel.app/LaiBDS/">
-        <span>数据结构与算法-C版基础篇</span>
+      <a href="https://azhanglai-github-io.vercel.app/LaiDSOpt/">
+        <span>数据结构刷题集</span>
       </a>
       
       
@@ -578,17 +585,17 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>4<span class="language" data-lan="minute">分钟</span></span>
+      <span>10<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>645<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1758<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
     
     
-    <span id="/BDS-7.不稳定排序/" data-flag-title="BDS-7.不稳定排序" class="meta-item pc-show leancloud_visitors">
+    <span id="/栈-刷题集 /" data-flag-title="栈-刷题集" class="meta-item pc-show leancloud_visitors">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-eye"></i>
       <span><span class="language" data-lan="view">浏览量</span>：<span class="leancloud-visitors-count"></span></span>
@@ -597,122 +604,376 @@
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h2 id="不稳定排序">不稳定排序</h2>
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-#include &lt;time.h&gt;
-
-#define SWAP(a, b) {\
-    __typeof(a) _t = a;\
-    a = b; b = _t;\
-}
-
-#define COLOR(a, b) &quot;\e[&quot; #b &quot;m&quot; a &quot;\e[0m&quot;
-#define GREEN(a) COLOR(a, 32)
-
-#define TEST(arr, n, func, args...) {\
-    int *num = (int *)malloc(sizeof(int) * n);\
-    memcpy(num, arr, sizeof(int) * n);\
-    output(num, n);\
-    printf(&quot;%s: &quot;, #func);\
-    func(args);\
-    output(num, n);\
-    printf(&quot;\n&quot;);\
-    free(num);\
-}
-// 选择排序
-/* 时间复杂度（最优，最坏，平均）O(n^2)
-前：已排序，后：待排序
-不稳定：例如 22'1 第一次后 12'2
-每轮找一个最小的元素，与待排序区的第一个元素交换
-*/
-void select_sort(int *nums, int n) {
-    for (int i = 0; i &lt; n - 1; ++i) {
-        int ind = i;
-        for (int j = i; j &lt; n; ++j) {
-            if (nums[j] &lt; nums[ind]) ind = j;
-        }
-        SWAP(nums[i], nums[ind]);
-    }
-    return ;
-}
-// 基础快排
-/*时间复杂度：O(NlogN)
-拿第一个元素作为基准值
-逆序数列选第一个元素为基准值时，退化为选择排序，O（n^2）
-*/
-void quick_sort1(int *nums, int l, int r) {
-    if (l &gt;= r) return ;
-    int x = l, y = r, z = nums[x];
-    while (x &lt; y) {
-        while (x &lt; y &amp;&amp; nums[y] &gt; z) y--;
-        if (x &lt; y) nums[x++] = nums[y];
-        while (x &lt; y &amp;&amp; nums[x] &lt; z) x++;
-        if (x &lt; y) nums[y--] = nums[x];
-    }
-    nums[x] = z;
-    quick_sort1(nums, l, x - 1);
-    quick_sort1(nums, x + 1, r);
-    return ;
-}
-// 优化后的快排
-void quick_sort2(int *nums, int l, int r) {
-    // 优化1，减少一半递归，增加循环
-    // 左半边用循环， 右半边用递归
-    while (l &lt; r) { 
-        // 优化2 基准值选中间值
-        int x = l, y = r, z = nums[(l + (r - l) / 2)];
-        do {
-            // 优化3：两个指针都去找值，并交换
-            // 关键：x &lt;= y,要用 &lt;= 后面将 x,y错开
-            // num[] &lt; z,要用&lt; , 经过基准值要停下
-            while (x &lt;= y &amp;&amp; nums[x] &lt; z) x++;
-            while (x &lt;= y &amp;&amp; z &lt; nums[y]) y--;
-            if (x &lt;= y) {
-                // 交换后，两个指针都要移动一下，交错，y到前面，x到后面
-                SWAP(nums[x], nums[y]);
-                x++, y--; 
-            }
-        } while (x &lt;= y); // 此处 用小于或小于等于都可以
-        quick_sort2(nums, x, r); // 右半部分递归
-        r = y; // l ~ y 左半部分循环
-    }
-    return ;
-}
-
-void randArr(int *nums, int n) {
-    while (n--) nums[n] = rand() % 100;
-    return ;
-}
-
-void output(int *nums, int n) {
-    printf(&quot;arr: [&quot;);
-    for (int i = 0; i &lt; n; ++i) {
-        i &amp;&amp; printf(&quot;, &quot;);
-        printf(&quot;%d&quot;, nums[i]);
-    }
-    printf(&quot;]\n&quot;);
-    return ;
-}
-
-int main() {
-    srand(time(0));
-    #define maxn 100
-    clock_t start, end, end2;
-    int arr[maxn];
-    start = clock();
-    TEST(arr, maxn, select_sort, num, maxn);
-    randArr(arr, maxn);
-    TEST(arr, maxn, quick_sort1, num, 0, maxn - 1);
-    end = clock();
-    printf(GREEN(&quot;time : %lf\n&quot;), (double)(end - start) / ((clock_t)(1000)));
-    TEST(arr, maxn, quick_sort2, num, 0, maxn - 1);
-    end2 = clock();
-    printf(GREEN(&quot;time : %lf\n&quot;), (double)(end2 - end) / ((clock_t)(1000)));
+              <p>[TOC]</p>
+<h3 id="1-leetcode-20有效的括号">1. LeetCode-20(有效的括号)</h3>
+<figure data-type="image" tabindex="1"><img src="https://i.loli.net/2021/09/12/nvUDGuSHlgrWB7f.png" alt="img" loading="lazy"></figure>
+<pre><code class="language-c">// 括号对，当输入右括号时，输出左括号（方便判断）
+char pair(char ch) { 
+    if (ch == ')') return '(';
+    else if (ch == ']') return '[';
+    else if (ch == '}') return '{';
     return 0;
 }
 
+bool isValid(char * s){
+    int len_s = strlen(s); // 获取括号串的长度
+    if (len_s == 0) return true; // 没有括号时，为true
+    if (len_s &amp; 1) return false; // 当括号数是奇数是，为false
+    char stack[len_s + 5]; // 静态数组栈
+    int top = -1; // 栈指针
+    // 遍历括号串，为左括号时入栈，当栈不为空时，如右括号与左括号匹配，出栈。
+    for (int i = 0; s[i]; i++) {
+        char ch = pair(s[i]); // 根据括号对，输入右括号，输出对应的左括号，输入左括号，输出0
+        if (ch) {
+            // 如果是右括号
+            // 情况1：如果是空栈或括号不匹配，直接false
+			// 情况2：出栈           
+            if (top == -1 || stack[top] != ch) {
+                return false;
+            }
+            top--;
+        } else {
+            // 左括号入栈
+            stack[++top] = s[i];
+        }
+    }
+    return top == -1; // 空栈为true
+}
+</code></pre>
+<pre><code class="language-c++">class Solution {
+public:
+    bool isValid(string s) {
+        int len_s = s.size(); 
+        if (len_s == 0) return true;
+        if (len_s &amp; 1) return false;
+        // 用哈希表把左右括号做成键值对
+        unordered_map&lt;char, char&gt; pairs{{')', '('}, {']', '['}, {'}', '{'}};
+        stack&lt;char&gt; stk; 
+        for (auto it : s) {
+            // pairs.count()，有key返回1， 无key 返回 0
+            if (pairs.count(it)) {
+                if (stk.empty() || pairs[it] != stk.top()) return false;
+                stk.pop();
+            } else {
+                stk.push(it);
+            }
+        }
+        return stk.empty();
+    }
+};
+</code></pre>
+<h3 id="2leetcode-42接雨水">2.LeetCode-42(接雨水)</h3>
+<figure data-type="image" tabindex="2"><img src="https://i.loli.net/2021/09/12/7yEPWeYZ2UTq3mR.png" alt="img" loading="lazy"></figure>
+<pre><code class="language-c">// 单调栈
+/*栈存储单调递减柱子的编号*/
+int trap(int* height, int heightSize){
+    // 当没有柱子和只有一根柱子时， 接不了雨水
+    if (heightSize == 0 || heightSize == 1) return 0;
+    // 初始化栈和栈指针
+    int stack[heightSize + 5], top = -1, ans = 0;
+    // 遍历数组
+    for (int i = 0; i &lt; heightSize; ++i) {
+        // 栈不为空（栈空的话，就没有左边的柱子了，接不了雨水）
+        // 因为是单调递减栈，那么当有柱子大于栈顶元素时，就有可以积水
+        while (top != -1 &amp;&amp; height[i] &gt; height[stack[top]]) {
+            // 相邻的柱子是不会积水的，把栈顶元素当凹坑，栈顶下面的元素是左边界，当前柱子是右边界
+            // 如果栈里面的元素有小于当前柱子的都往外弹
+            // 栈顶下面没有元素，积不了水，break
+            if (--top == -1) break; 
+            // 积水的长度，注意：还需要减去1。(例如栈顶是2，当前是3，栈顶下是1，那么就是 3 - 1 - 1 = 1)
+            int len = i - stack[top] - 1; 
+            // 积水的高度，比较左右边界的柱子的高度（取小值），减去坑的高度
+            int h = (height[i] &gt; height[stack[top]] ? height[stack[top]] : height[i]);
+            h -= height[stack[top + 1]];
+            ans += h * len; // 面积累加
+        }
+        stack[++top] = i; // 入单调递减栈
+    }
+    return ans;
+}
+
+// 双指针
+/*
+int trap(int* height, int heightSize){
+    int left = 0, right = heightSize - 1; // 初始化左右指针
+    int max_left = 0, max_right = 0, ans = 0; // 初始化左右边界
+    while (left != right) {
+    	// 选择低的边界接雨水
+        if (height[left] &lt; height[right]) {
+        // 对比两个柱子，选择高的做边界
+            if (height[left] &gt; max_left) {
+                max_left = height[left];
+            }
+            ans += max_left - height[left];
+            left++;
+        } else {
+            if (height[right] &gt; max_right) {
+                max_right = height[right];
+            }
+            ans += max_right - height[right];
+            right--;
+        }  
+    }
+    return ans;
+}
+*/
+</code></pre>
+<pre><code class="language-c++">class Solution {
+public:
+    int trap(vector&lt;int&gt;&amp; height) {
+        int n = height.size(), ans = 0;
+        if (n == 0 || n == 1) return ans;
+        stack&lt;int&gt; stk;
+        for (int i = 0; i &lt; n; i++) {
+            while (!stk.empty() &amp;&amp; height[i] &gt; height[stk.top()]) {
+                int t = stk.top();
+                stk.pop();
+                if (stk.empty()) break;
+                int len = i - stk.top() - 1;
+                int h = min(height[i], height[stk.top()]) - height[t];
+                ans += len * h;
+            }
+            stk.push(i);
+        }
+        return ans;
+    }
+};
+// 双指针
+/*
+class Solution {
+public:
+    int trap(vector&lt;int&gt;&amp; height) {
+        int n = height.size(), ans = 0;
+        if (n == 0 || n == 1) return ans;
+        int left = 0, right = n -1;
+        int max_left = 0, max_right = 0;
+        while (left != right) {
+            if (height[left] &lt; height[right]) {
+                max_left = max(max_left, height[left]);
+                ans += max_left - height[left];
+                left++;
+            } else {
+                max_right = max(max_right, height[right]);
+                ans += max_right - height[right];
+                right--;
+            }
+        }
+        return ans;
+    }
+};
+*/
+</code></pre>
+<h3 id="3leetcode-84柱状图中最大的矩形">3.LeetCode-84(柱状图中最大的矩形)</h3>
+<figure data-type="image" tabindex="3"><img src="https://i.loli.net/2021/09/12/CTYoLgyEPXp2Vb7.png" alt="img" loading="lazy"></figure>
+<pre><code class="language-c">/*
+// 单调栈（单调递增的栈，栈存元素编号）
+int largestRectangleArea(int* heights, int heightsSize){
+    if (heightsSize == 0) return 0;
+    if (heightsSize == 1) return heights[0];
+    int stack[heightsSize + 5], top = -1, ans = 0;
+    for (int i = 0; i &lt; heightsSize; ++i) {
+    	// 1.当栈不为空时，才可循环
+    	// 2.当前柱子小于栈内的柱子时，进入循环
+        while (top != -1 &amp;&amp; heights[i] &lt; heights[stack[top]]) {
+            int h = heights[stack[top--]]; // 栈顶元素高度
+            int len;
+            if (top == -1) len = i; // （栈底）当前最小高度的柱子（长度等于当前位置i）
+            else len = i - stack[top] - 1;
+            ans = (ans &gt; h * len ? ans : h * len);
+        }
+        stack[++top] = i; // 入单调递增的栈
+    }
+    // 特殊情况： 1.最小高度的元素没有出栈
+    // 2. 最后一个柱子比倒数第二个柱子高，没有出栈
+    // 目前栈里面是单调递增的栈
+    while (top != -1) {
+        int h = heights[stack[top--]]; // 栈顶元素的高度
+        int len;
+        if (top == -1) len = heightsSize; // 最小高度的柱子（长度等于数组长度）
+        else  len = heightsSize - stack[top] - 1; // 数组的长度 - 栈顶下面的长度 - 1
+        ans = (ans &gt; h * len ? ans : h * len);
+    }
+    return ans;
+}
+*/
+// 单调栈，头尾加入最小虚拟柱子（0），排除特殊情况
+int largestRectangleArea(int* heights, int heightsSize){
+    if (heightsSize == 0) return 0;
+    if (heightsSize == 1) return heights[0];
+    int num[heightsSize + 5], stack[heightsSize + 5];
+    for (int i = 0; i &lt; heightsSize; ++i) {
+        num[i + 1] = heights[i];
+    }
+    int top = -1, ans = 0;
+    num[0] = 0, num[heightsSize + 1] = 0; stack[++top] = 0;
+    for (int i = 1; i &lt; heightsSize + 2; ++i) {
+        while (top &amp;&amp; num[i] &lt; num[stack[top]]) {
+            int h = num[stack[top]];
+            int len = i - stack[--top] - 1;
+            ans = (ans &gt; h * len ? ans : h * len);
+        }
+        stack[++top] = i;
+    }
+    return ans;
+}
+</code></pre>
+<pre><code class="language-c++">class Solution {
+public:
+    int largestRectangleArea(vector&lt;int&gt;&amp; heights) {
+        int n = heights.size(), ans = 0;
+        if (n == 0) return 0;
+        if (n == 1) return heights[0];
+        stack&lt;int&gt; stk;
+        for (int i = 0; i &lt; n; ++i) {
+            while (!stk.empty() &amp;&amp; heights[i] &lt;= heights[stk.top()]) {
+                int h = heights[stk.top()];
+                stk.pop();
+                int len;
+                if (stk.empty()) len = i;
+                else len = i - stk.top() - 1;
+                ans = max(ans, len * h);
+            }
+            stk.push(i);
+        }
+        while (!stk.empty()) {
+            int h = heights[stk.top()];
+            stk.pop();
+            int len;
+            if (stk.empty()) len = n;
+            else len = n - stk.top() - 1;
+            ans = max(ans, len * h);
+        }
+        return ans;
+    }
+};
+</code></pre>
+<h3 id="4leetcode-232用栈实现队列">4.LeetCode-232(用栈实现队列)</h3>
+<figure data-type="image" tabindex="4"><img src="https://i.loli.net/2021/09/12/BP4L9zrhHl7CmYN.png" alt="img" loading="lazy"></figure>
+<pre><code class="language-c">typedef struct {
+    int stack1[10000], top1;
+    int stack2[10000], top2;
+} MyQueue;
+
+/** Initialize your data structure here. */
+
+MyQueue* myQueueCreate() {
+    MyQueue *q = (MyQueue *)malloc(sizeof(MyQueue));
+    q-&gt;top1 = -1;
+    q-&gt;top2 = -1;
+    return q;
+}
+
+/** Push element x to the back of queue. */
+void myQueuePush(MyQueue* obj, int x) {
+    obj-&gt;stack1[++(obj-&gt;top1)] = x;
+    return ;
+}
+
+/** Removes the element from in front of queue and returns that element. */
+int myQueuePop(MyQueue* obj) {
+    while (obj-&gt;top1 != -1) {
+        obj-&gt;stack2[++(obj-&gt;top2)] = obj-&gt;stack1[(obj-&gt;top1)--];
+    }
+    int t = obj-&gt;stack2[(obj-&gt;top2)--];
+    while (obj-&gt;top2 &gt; -1) {
+        obj-&gt;stack1[++(obj-&gt;top1)] = obj-&gt;stack2[(obj-&gt;top2)--];
+    }
+    return t;
+}
+
+/** Get the front element. */
+int myQueuePeek(MyQueue* obj) {
+    while (obj-&gt;top1 != -1) {
+        obj-&gt;stack2[++(obj-&gt;top2)] = obj-&gt;stack1[(obj-&gt;top1)--];
+    }
+    int t = obj-&gt;stack2[(obj-&gt;top2)];
+    while (obj-&gt;top2 &gt; -1) {
+        obj-&gt;stack1[++(obj-&gt;top1)] = obj-&gt;stack2[(obj-&gt;top2)--];
+    }
+    return t;
+}
+
+/** Returns whether the queue is empty. */
+bool myQueueEmpty(MyQueue* obj) {
+    return obj-&gt;top1 == -1;
+}
+
+void myQueueFree(MyQueue* obj) {
+    if (obj == NULL) return ;
+    free(obj);
+    return ;
+}
+
+/**
+ * Your MyQueue struct will be instantiated and called as such:
+ * MyQueue* obj = myQueueCreate();
+ * myQueuePush(obj, x);
+ 
+ * int param_2 = myQueuePop(obj);
+ 
+ * int param_3 = myQueuePeek(obj);
+ 
+ * bool param_4 = myQueueEmpty(obj);
+ 
+ * myQueueFree(obj);
+*/
+</code></pre>
+<pre><code class="language-c++">class MyQueue {
+public:
+    stack&lt;int&gt; s1, s2;
+    /** Initialize your data structure here. */
+    MyQueue() {
+
+    }
+    
+    /** Push element x to the back of queue. */
+    void push(int x) {
+        s1.push(x);
+    }
+    
+    /** Removes the element from in front of queue and returns that element. */
+    int pop() {
+        while(!s1.empty()) {
+            s2.push(s1.top());
+            s1.pop();
+        }
+        int t = s2.top();
+        s2.pop();
+        while(!s2.empty()) {
+            s1.push(s2.top());
+            s2.pop();
+        }
+        return t;
+    }
+    
+    /** Get the front element. */
+    int peek() {
+        while(!s1.empty()) {
+            s2.push(s1.top());
+            s1.pop();
+        }
+        int t = s2.top();
+        while(!s2.empty()) {
+            s1.push(s2.top());
+            s2.pop();
+        }
+        return t;
+    }
+    
+    /** Returns whether the queue is empty. */
+    bool empty() {
+        return s1.empty();
+    }
+};
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue* obj = new MyQueue();
+ * obj-&gt;push(x);
+ * int param_2 = obj-&gt;pop();
+ * int param_3 = obj-&gt;peek();
+ * bool param_4 = obj-&gt;empty();
+ */
 </code></pre>
 
             </div>
@@ -726,7 +987,7 @@ int main() {
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://azhanglai-github-io.vercel.app/BDS-7.不稳定排序/" title="BDS-7.不稳定排序">https://azhanglai-github-io.vercel.app/BDS-7.不稳定排序/</a>
+      <a href="https://azhanglai-github-io.vercel.app/栈-刷题集 /" title="栈-刷题集">https://azhanglai-github-io.vercel.app/栈-刷题集 /</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -735,21 +996,21 @@ int main() {
   </ul>
   <div class="tags">
     
-      <a href="https://azhanglai-github-io.vercel.app/LaiBDS/"># 数据结构与算法-C版基础篇</a>
+      <a href="https://azhanglai-github-io.vercel.app/LaiDSOpt/"># 数据结构刷题集</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
         <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="BDS-8.稳定排序" href="https://azhanglai-github-io.vercel.app/BDS-8.稳定排序/">BDS-8.稳定排序</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="BDS-8.稳定排序" href="https://azhanglai-github-io.vercel.app/BDS-8.稳定排序/">上一篇</a>
+        <a class="nav-pc-next" title="队列-刷题集 " href="https://azhanglai-github-io.vercel.app/队列-刷题集 /">队列-刷题集 </a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="队列-刷题集 " href="https://azhanglai-github-io.vercel.app/队列-刷题集 /">上一篇</a>
       
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="BDS-6.广义表二叉搜索树" href="https://azhanglai-github-io.vercel.app/BDS-6.广义表二叉搜索树/">BDS-6.广义表二叉搜索树</a>
-        <a class="nav-mobile-next" title="BDS-6.广义表二叉搜索树" href="https://azhanglai-github-io.vercel.app/BDS-6.广义表二叉搜索树/">下一篇</a>
+        <a class="nav-pc-next" title="链表-刷题集" href="https://azhanglai-github-io.vercel.app/链表-刷题集/">链表-刷题集</a>
+        <a class="nav-mobile-next" title="链表-刷题集" href="https://azhanglai-github-io.vercel.app/链表-刷题集/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

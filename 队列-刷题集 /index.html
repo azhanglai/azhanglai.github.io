@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
-<title>BDS-7.不稳定排序 | Bling</title>
+<title>队列-刷题集  | Bling</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1631447959403">
 <link rel="stylesheet" href="/media/css/muse.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -44,8 +44,8 @@
 
 
 
-  <meta name="description" content="BDS-7.不稳定排序" />
-  <meta name="keywords" content="数据结构与算法-C版基础篇" />
+  <meta name="description" content="队列-刷题集 " />
+  <meta name="keywords" content="数据结构刷题集" />
 </head>
 
 <body>
@@ -282,7 +282,13 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E4%B8%8D%E7%A8%B3%E5%AE%9A%E6%8E%92%E5%BA%8F">不稳定排序</a></li>
+<li>
+<ul>
+<li><a href="#1-leetcode-239%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC">1. LeetCode-239(滑动窗口最大值)</a></li>
+<li><a href="#2leetcode-225%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88">2.LeetCode-225(用队列实现栈)</a></li>
+<li></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -550,8 +556,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://azhanglai-github-io.vercel.app/BDS-7.不稳定排序/">
-      BDS-7.不稳定排序
+    <a class="post-title-link" href="https://azhanglai-github-io.vercel.app/队列-刷题集 /">
+      队列-刷题集 
     </a>
   </h1>
   <div class="post-meta">
@@ -559,7 +565,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-03-19 18:04:00">2021-03-19</span>
+      <span class="publish-time" data-t="2018-04-17 20:45:00">2018-04-17</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -568,8 +574,8 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      <a href="https://azhanglai-github-io.vercel.app/LaiBDS/">
-        <span>数据结构与算法-C版基础篇</span>
+      <a href="https://azhanglai-github-io.vercel.app/LaiDSOpt/">
+        <span>数据结构刷题集</span>
       </a>
       
       
@@ -583,12 +589,12 @@
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>645<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>549<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
     
     
-    <span id="/BDS-7.不稳定排序/" data-flag-title="BDS-7.不稳定排序" class="meta-item pc-show leancloud_visitors">
+    <span id="/队列-刷题集 /" data-flag-title="队列-刷题集 " class="meta-item pc-show leancloud_visitors">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-eye"></i>
       <span><span class="language" data-lan="view">浏览量</span>：<span class="leancloud-visitors-count"></span></span>
@@ -597,123 +603,159 @@
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h2 id="不稳定排序">不稳定排序</h2>
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-#include &lt;time.h&gt;
-
-#define SWAP(a, b) {\
-    __typeof(a) _t = a;\
-    a = b; b = _t;\
-}
-
-#define COLOR(a, b) &quot;\e[&quot; #b &quot;m&quot; a &quot;\e[0m&quot;
-#define GREEN(a) COLOR(a, 32)
-
-#define TEST(arr, n, func, args...) {\
-    int *num = (int *)malloc(sizeof(int) * n);\
-    memcpy(num, arr, sizeof(int) * n);\
-    output(num, n);\
-    printf(&quot;%s: &quot;, #func);\
-    func(args);\
-    output(num, n);\
-    printf(&quot;\n&quot;);\
-    free(num);\
-}
-// 选择排序
-/* 时间复杂度（最优，最坏，平均）O(n^2)
-前：已排序，后：待排序
-不稳定：例如 22'1 第一次后 12'2
-每轮找一个最小的元素，与待排序区的第一个元素交换
-*/
-void select_sort(int *nums, int n) {
-    for (int i = 0; i &lt; n - 1; ++i) {
-        int ind = i;
-        for (int j = i; j &lt; n; ++j) {
-            if (nums[j] &lt; nums[ind]) ind = j;
+              <p>[TOC]</p>
+<h3 id="1-leetcode-239滑动窗口最大值">1. LeetCode-239(滑动窗口最大值)</h3>
+<figure data-type="image" tabindex="1"><img src="https://i.loli.net/2021/09/12/4zlhAbi9PyGmfTd.png" alt="img" loading="lazy"></figure>
+<pre><code class="language-c">// 单调队列
+int* maxSlidingWindow(int* nums, int numsSize, int k, int* returnSize){
+    int que[numsSize], head = 0, tail = 0; // 初始化队列
+    int *ans = (int *)malloc(sizeof(int) * numsSize); 
+    returnSize[0] = 0;
+    for (int i = 0; i &lt; k; ++i) {
+        while (head != tail &amp;&amp; nums[i] &gt;= nums[que[tail - 1]]) {
+            tail--; // 保持队列单调递减，队尾进出调整
         }
-        SWAP(nums[i], nums[ind]);
+        que[tail++] = i; // 入队（放元素编号）
     }
-    return ;
-}
-// 基础快排
-/*时间复杂度：O(NlogN)
-拿第一个元素作为基准值
-逆序数列选第一个元素为基准值时，退化为选择排序，O（n^2）
-*/
-void quick_sort1(int *nums, int l, int r) {
-    if (l &gt;= r) return ;
-    int x = l, y = r, z = nums[x];
-    while (x &lt; y) {
-        while (x &lt; y &amp;&amp; nums[y] &gt; z) y--;
-        if (x &lt; y) nums[x++] = nums[y];
-        while (x &lt; y &amp;&amp; nums[x] &lt; z) x++;
-        if (x &lt; y) nums[y--] = nums[x];
+    ans[returnSize[0]++] = nums[que[head]];
+    for (int i = k; i &lt; numsSize; ++i) {
+        while (head != tail &amp;&amp; nums[i] &gt;= nums[que[tail - 1]]) {
+            tail--; // 队尾进出调整
+        }
+        que[tail++] = i; // 入队（放元素编号）
+        while (i - k &gt;= que[head]) head++; // (当前元素的编号减去窗口大小，如果队首元素已出窗口需删掉)
+        ans[returnSize[0]++] = nums[que[head]];
     }
-    nums[x] = z;
-    quick_sort1(nums, l, x - 1);
-    quick_sort1(nums, x + 1, r);
-    return ;
+    return ans;
 }
-// 优化后的快排
-void quick_sort2(int *nums, int l, int r) {
-    // 优化1，减少一半递归，增加循环
-    // 左半边用循环， 右半边用递归
-    while (l &lt; r) { 
-        // 优化2 基准值选中间值
-        int x = l, y = r, z = nums[(l + (r - l) / 2)];
-        do {
-            // 优化3：两个指针都去找值，并交换
-            // 关键：x &lt;= y,要用 &lt;= 后面将 x,y错开
-            // num[] &lt; z,要用&lt; , 经过基准值要停下
-            while (x &lt;= y &amp;&amp; nums[x] &lt; z) x++;
-            while (x &lt;= y &amp;&amp; z &lt; nums[y]) y--;
-            if (x &lt;= y) {
-                // 交换后，两个指针都要移动一下，交错，y到前面，x到后面
-                SWAP(nums[x], nums[y]);
-                x++, y--; 
-            }
-        } while (x &lt;= y); // 此处 用小于或小于等于都可以
-        quick_sort2(nums, x, r); // 右半部分递归
-        r = y; // l ~ y 左半部分循环
-    }
-    return ;
-}
-
-void randArr(int *nums, int n) {
-    while (n--) nums[n] = rand() % 100;
-    return ;
-}
-
-void output(int *nums, int n) {
-    printf(&quot;arr: [&quot;);
-    for (int i = 0; i &lt; n; ++i) {
-        i &amp;&amp; printf(&quot;, &quot;);
-        printf(&quot;%d&quot;, nums[i]);
-    }
-    printf(&quot;]\n&quot;);
-    return ;
-}
-
-int main() {
-    srand(time(0));
-    #define maxn 100
-    clock_t start, end, end2;
-    int arr[maxn];
-    start = clock();
-    TEST(arr, maxn, select_sort, num, maxn);
-    randArr(arr, maxn);
-    TEST(arr, maxn, quick_sort1, num, 0, maxn - 1);
-    end = clock();
-    printf(GREEN(&quot;time : %lf\n&quot;), (double)(end - start) / ((clock_t)(1000)));
-    TEST(arr, maxn, quick_sort2, num, 0, maxn - 1);
-    end2 = clock();
-    printf(GREEN(&quot;time : %lf\n&quot;), (double)(end2 - end) / ((clock_t)(1000)));
-    return 0;
-}
-
 </code></pre>
+<pre><code class="language-c++">class Solution {
+public:
+    vector&lt;int&gt; maxSlidingWindow(vector&lt;int&gt;&amp; nums, int k) {
+        deque&lt;int&gt; deq;
+        vector&lt;int&gt; ans;
+        for (int i = 0; i &lt; k; ++i) {
+            while (!deq.empty() &amp;&amp; nums[i] &gt;= nums[deq.back()]) {
+                deq.pop_back();
+            }
+            deq.push_back(i);
+        }
+        ans.push_back(nums[deq.front()]);
+        for (int i = k; i &lt; nums.size(); ++i) {
+            while (!deq.empty() &amp;&amp; nums[i] &gt;= nums[deq.back()]) {
+                deq.pop_back();
+            }
+            deq.push_back(i);
+            while (i - k &gt;= deq.front()) deq.pop_front();
+            ans.push_back(nums[deq.front()]);
+        }
+        return ans;
+    }
+};
+</code></pre>
+<h3 id="2leetcode-225用队列实现栈">2.LeetCode-225(用队列实现栈)</h3>
+<figure data-type="image" tabindex="2"><img src="https://i.loli.net/2021/09/12/R9JCyNYPKM5mxhp.png" alt="img" loading="lazy"></figure>
+<pre><code class="language-c">typedef struct {
+    int que[10000], head, tail;
+} MyStack;
+
+/** Initialize your data structure here. */
+
+MyStack* myStackCreate() {
+    MyStack *s = (MyStack *)malloc(sizeof(MyStack));
+    s-&gt;head = s-&gt;tail = 0;
+    return s;
+}
+
+/** Push element x onto stack. */
+void myStackPush(MyStack* obj, int x) {
+    obj-&gt;que[(obj-&gt;tail)++] = x;
+    return ;
+}
+
+/** Removes the element on top of the stack and returns that element. */
+int myStackPop(MyStack* obj) {
+    int t = obj-&gt;que[obj-&gt;tail - 1];
+    (obj-&gt;tail)--;
+    return t;
+}
+
+/** Get the top element. */
+int myStackTop(MyStack* obj) {
+    return obj-&gt;que[obj-&gt;tail - 1];
+}
+
+/** Returns whether the stack is empty. */
+bool myStackEmpty(MyStack* obj) {
+    return obj-&gt;head == obj-&gt;tail;
+}
+
+void myStackFree(MyStack* obj) {
+    if (obj == NULL) return ;
+    free(obj);
+    return ;
+}
+
+/**
+ * Your MyStack struct will be instantiated and called as such:
+ * MyStack* obj = myStackCreate();
+ * myStackPush(obj, x);
+ 
+ * int param_2 = myStackPop(obj);
+ 
+ * int param_3 = myStackTop(obj);
+ 
+ * bool param_4 = myStackEmpty(obj);
+ 
+ * myStackFree(obj);
+*/
+</code></pre>
+<pre><code class="language-c++">class MyStack {
+public:
+    queue&lt;int&gt; que;
+    /** Initialize your data structure here. */
+    MyStack() {
+
+    }
+    
+    /** Push element x onto stack. */
+    void push(int x) {
+        que.push(x);
+        for (int i = 1; i &lt; que.size(); ++i) {
+            que.push(que.front());
+            que.pop();
+        }
+    }
+    
+    /** Removes the element on top of the stack and returns that element. */
+    int pop() {
+        int t = que.front();
+        que.pop();
+        return t;
+
+    }
+    
+    /** Get the top element. */
+    int top() {
+        return que.front();
+    }
+    
+    /** Returns whether the stack is empty. */
+    bool empty() {
+        return que.empty();
+    }
+};
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack* obj = new MyStack();
+ * obj-&gt;push(x);
+ * int param_2 = obj-&gt;pop();
+ * int param_3 = obj-&gt;top();
+ * bool param_4 = obj-&gt;empty();
+ */
+</code></pre>
+<h3 id=""></h3>
 
             </div>
             
@@ -726,7 +768,7 @@ int main() {
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://azhanglai-github-io.vercel.app/BDS-7.不稳定排序/" title="BDS-7.不稳定排序">https://azhanglai-github-io.vercel.app/BDS-7.不稳定排序/</a>
+      <a href="https://azhanglai-github-io.vercel.app/队列-刷题集 /" title="队列-刷题集 ">https://azhanglai-github-io.vercel.app/队列-刷题集 /</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -735,21 +777,21 @@ int main() {
   </ul>
   <div class="tags">
     
-      <a href="https://azhanglai-github-io.vercel.app/LaiBDS/"># 数据结构与算法-C版基础篇</a>
+      <a href="https://azhanglai-github-io.vercel.app/LaiDSOpt/"># 数据结构刷题集</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
         <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="BDS-8.稳定排序" href="https://azhanglai-github-io.vercel.app/BDS-8.稳定排序/">BDS-8.稳定排序</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="BDS-8.稳定排序" href="https://azhanglai-github-io.vercel.app/BDS-8.稳定排序/">上一篇</a>
+        <a class="nav-pc-next" title="Hello Gridea" href="https://azhanglai-github-io.vercel.app/hello-gridea/">Hello Gridea</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="Hello Gridea" href="https://azhanglai-github-io.vercel.app/hello-gridea/">上一篇</a>
       
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="BDS-6.广义表二叉搜索树" href="https://azhanglai-github-io.vercel.app/BDS-6.广义表二叉搜索树/">BDS-6.广义表二叉搜索树</a>
-        <a class="nav-mobile-next" title="BDS-6.广义表二叉搜索树" href="https://azhanglai-github-io.vercel.app/BDS-6.广义表二叉搜索树/">下一篇</a>
+        <a class="nav-pc-next" title="栈-刷题集" href="https://azhanglai-github-io.vercel.app/栈-刷题集 /">栈-刷题集</a>
+        <a class="nav-mobile-next" title="栈-刷题集" href="https://azhanglai-github-io.vercel.app/栈-刷题集 /">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

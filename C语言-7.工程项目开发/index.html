@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
 <title>C语言-7.工程项目开发 | Bling</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631439649814">
+<link rel="shortcut icon" href="/favicon.ico?v=1631447959403">
 <link rel="stylesheet" href="/media/css/muse.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -247,7 +247,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">22</span>
+        <span class="site-item-stat-count">24</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -5188,6 +5188,540 @@ fprintf()函数原型：int fprintf(FILE *fp, const char *format, ...);
 &lt;p&gt;尽情发挥你的才华吧！&lt;/p&gt;
 &lt;p&gt;😘 Enjoy~&lt;/p&gt;
 ">Hello Gridea</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/队列-刷题集 /"" data-c="
+          &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h3 id=&#34;1-leetcode-239滑动窗口最大值&#34;&gt;1. LeetCode-239(滑动窗口最大值)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/4zlhAbi9PyGmfTd.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// 单调队列
+int* maxSlidingWindow(int* nums, int numsSize, int k, int* returnSize){
+    int que[numsSize], head = 0, tail = 0; // 初始化队列
+    int *ans = (int *)malloc(sizeof(int) * numsSize); 
+    returnSize[0] = 0;
+    for (int i = 0; i &amp;lt; k; ++i) {
+        while (head != tail &amp;amp;&amp;amp; nums[i] &amp;gt;= nums[que[tail - 1]]) {
+            tail--; // 保持队列单调递减，队尾进出调整
+        }
+        que[tail++] = i; // 入队（放元素编号）
+    }
+    ans[returnSize[0]++] = nums[que[head]];
+    for (int i = k; i &amp;lt; numsSize; ++i) {
+        while (head != tail &amp;amp;&amp;amp; nums[i] &amp;gt;= nums[que[tail - 1]]) {
+            tail--; // 队尾进出调整
+        }
+        que[tail++] = i; // 入队（放元素编号）
+        while (i - k &amp;gt;= que[head]) head++; // (当前元素的编号减去窗口大小，如果队首元素已出窗口需删掉)
+        ans[returnSize[0]++] = nums[que[head]];
+    }
+    return ans;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class Solution {
+public:
+    vector&amp;lt;int&amp;gt; maxSlidingWindow(vector&amp;lt;int&amp;gt;&amp;amp; nums, int k) {
+        deque&amp;lt;int&amp;gt; deq;
+        vector&amp;lt;int&amp;gt; ans;
+        for (int i = 0; i &amp;lt; k; ++i) {
+            while (!deq.empty() &amp;amp;&amp;amp; nums[i] &amp;gt;= nums[deq.back()]) {
+                deq.pop_back();
+            }
+            deq.push_back(i);
+        }
+        ans.push_back(nums[deq.front()]);
+        for (int i = k; i &amp;lt; nums.size(); ++i) {
+            while (!deq.empty() &amp;amp;&amp;amp; nums[i] &amp;gt;= nums[deq.back()]) {
+                deq.pop_back();
+            }
+            deq.push_back(i);
+            while (i - k &amp;gt;= deq.front()) deq.pop_front();
+            ans.push_back(nums[deq.front()]);
+        }
+        return ans;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;2leetcode-225用队列实现栈&#34;&gt;2.LeetCode-225(用队列实现栈)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/R9JCyNYPKM5mxhp.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;typedef struct {
+    int que[10000], head, tail;
+} MyStack;
+
+/** Initialize your data structure here. */
+
+MyStack* myStackCreate() {
+    MyStack *s = (MyStack *)malloc(sizeof(MyStack));
+    s-&amp;gt;head = s-&amp;gt;tail = 0;
+    return s;
+}
+
+/** Push element x onto stack. */
+void myStackPush(MyStack* obj, int x) {
+    obj-&amp;gt;que[(obj-&amp;gt;tail)++] = x;
+    return ;
+}
+
+/** Removes the element on top of the stack and returns that element. */
+int myStackPop(MyStack* obj) {
+    int t = obj-&amp;gt;que[obj-&amp;gt;tail - 1];
+    (obj-&amp;gt;tail)--;
+    return t;
+}
+
+/** Get the top element. */
+int myStackTop(MyStack* obj) {
+    return obj-&amp;gt;que[obj-&amp;gt;tail - 1];
+}
+
+/** Returns whether the stack is empty. */
+bool myStackEmpty(MyStack* obj) {
+    return obj-&amp;gt;head == obj-&amp;gt;tail;
+}
+
+void myStackFree(MyStack* obj) {
+    if (obj == NULL) return ;
+    free(obj);
+    return ;
+}
+
+/**
+ * Your MyStack struct will be instantiated and called as such:
+ * MyStack* obj = myStackCreate();
+ * myStackPush(obj, x);
+ 
+ * int param_2 = myStackPop(obj);
+ 
+ * int param_3 = myStackTop(obj);
+ 
+ * bool param_4 = myStackEmpty(obj);
+ 
+ * myStackFree(obj);
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class MyStack {
+public:
+    queue&amp;lt;int&amp;gt; que;
+    /** Initialize your data structure here. */
+    MyStack() {
+
+    }
+    
+    /** Push element x onto stack. */
+    void push(int x) {
+        que.push(x);
+        for (int i = 1; i &amp;lt; que.size(); ++i) {
+            que.push(que.front());
+            que.pop();
+        }
+    }
+    
+    /** Removes the element on top of the stack and returns that element. */
+    int pop() {
+        int t = que.front();
+        que.pop();
+        return t;
+
+    }
+    
+    /** Get the top element. */
+    int top() {
+        return que.front();
+    }
+    
+    /** Returns whether the stack is empty. */
+    bool empty() {
+        return que.empty();
+    }
+};
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack* obj = new MyStack();
+ * obj-&amp;gt;push(x);
+ * int param_2 = obj-&amp;gt;pop();
+ * int param_3 = obj-&amp;gt;top();
+ * bool param_4 = obj-&amp;gt;empty();
+ */
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;&#34;&gt;&lt;/h3&gt;
+">队列-刷题集 </a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/栈-刷题集 /"" data-c="
+          &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h3 id=&#34;1-leetcode-20有效的括号&#34;&gt;1. LeetCode-20(有效的括号)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/nvUDGuSHlgrWB7f.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// 括号对，当输入右括号时，输出左括号（方便判断）
+char pair(char ch) { 
+    if (ch == &#39;)&#39;) return &#39;(&#39;;
+    else if (ch == &#39;]&#39;) return &#39;[&#39;;
+    else if (ch == &#39;}&#39;) return &#39;{&#39;;
+    return 0;
+}
+
+bool isValid(char * s){
+    int len_s = strlen(s); // 获取括号串的长度
+    if (len_s == 0) return true; // 没有括号时，为true
+    if (len_s &amp;amp; 1) return false; // 当括号数是奇数是，为false
+    char stack[len_s + 5]; // 静态数组栈
+    int top = -1; // 栈指针
+    // 遍历括号串，为左括号时入栈，当栈不为空时，如右括号与左括号匹配，出栈。
+    for (int i = 0; s[i]; i++) {
+        char ch = pair(s[i]); // 根据括号对，输入右括号，输出对应的左括号，输入左括号，输出0
+        if (ch) {
+            // 如果是右括号
+            // 情况1：如果是空栈或括号不匹配，直接false
+			// 情况2：出栈           
+            if (top == -1 || stack[top] != ch) {
+                return false;
+            }
+            top--;
+        } else {
+            // 左括号入栈
+            stack[++top] = s[i];
+        }
+    }
+    return top == -1; // 空栈为true
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class Solution {
+public:
+    bool isValid(string s) {
+        int len_s = s.size(); 
+        if (len_s == 0) return true;
+        if (len_s &amp;amp; 1) return false;
+        // 用哈希表把左右括号做成键值对
+        unordered_map&amp;lt;char, char&amp;gt; pairs{{&#39;)&#39;, &#39;(&#39;}, {&#39;]&#39;, &#39;[&#39;}, {&#39;}&#39;, &#39;{&#39;}};
+        stack&amp;lt;char&amp;gt; stk; 
+        for (auto it : s) {
+            // pairs.count()，有key返回1， 无key 返回 0
+            if (pairs.count(it)) {
+                if (stk.empty() || pairs[it] != stk.top()) return false;
+                stk.pop();
+            } else {
+                stk.push(it);
+            }
+        }
+        return stk.empty();
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;2leetcode-42接雨水&#34;&gt;2.LeetCode-42(接雨水)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/7yEPWeYZ2UTq3mR.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// 单调栈
+/*栈存储单调递减柱子的编号*/
+int trap(int* height, int heightSize){
+    // 当没有柱子和只有一根柱子时， 接不了雨水
+    if (heightSize == 0 || heightSize == 1) return 0;
+    // 初始化栈和栈指针
+    int stack[heightSize + 5], top = -1, ans = 0;
+    // 遍历数组
+    for (int i = 0; i &amp;lt; heightSize; ++i) {
+        // 栈不为空（栈空的话，就没有左边的柱子了，接不了雨水）
+        // 因为是单调递减栈，那么当有柱子大于栈顶元素时，就有可以积水
+        while (top != -1 &amp;amp;&amp;amp; height[i] &amp;gt; height[stack[top]]) {
+            // 相邻的柱子是不会积水的，把栈顶元素当凹坑，栈顶下面的元素是左边界，当前柱子是右边界
+            // 如果栈里面的元素有小于当前柱子的都往外弹
+            // 栈顶下面没有元素，积不了水，break
+            if (--top == -1) break; 
+            // 积水的长度，注意：还需要减去1。(例如栈顶是2，当前是3，栈顶下是1，那么就是 3 - 1 - 1 = 1)
+            int len = i - stack[top] - 1; 
+            // 积水的高度，比较左右边界的柱子的高度（取小值），减去坑的高度
+            int h = (height[i] &amp;gt; height[stack[top]] ? height[stack[top]] : height[i]);
+            h -= height[stack[top + 1]];
+            ans += h * len; // 面积累加
+        }
+        stack[++top] = i; // 入单调递减栈
+    }
+    return ans;
+}
+
+// 双指针
+/*
+int trap(int* height, int heightSize){
+    int left = 0, right = heightSize - 1; // 初始化左右指针
+    int max_left = 0, max_right = 0, ans = 0; // 初始化左右边界
+    while (left != right) {
+    	// 选择低的边界接雨水
+        if (height[left] &amp;lt; height[right]) {
+        // 对比两个柱子，选择高的做边界
+            if (height[left] &amp;gt; max_left) {
+                max_left = height[left];
+            }
+            ans += max_left - height[left];
+            left++;
+        } else {
+            if (height[right] &amp;gt; max_right) {
+                max_right = height[right];
+            }
+            ans += max_right - height[right];
+            right--;
+        }  
+    }
+    return ans;
+}
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class Solution {
+public:
+    int trap(vector&amp;lt;int&amp;gt;&amp;amp; height) {
+        int n = height.size(), ans = 0;
+        if (n == 0 || n == 1) return ans;
+        stack&amp;lt;int&amp;gt; stk;
+        for (int i = 0; i &amp;lt; n; i++) {
+            while (!stk.empty() &amp;amp;&amp;amp; height[i] &amp;gt; height[stk.top()]) {
+                int t = stk.top();
+                stk.pop();
+                if (stk.empty()) break;
+                int len = i - stk.top() - 1;
+                int h = min(height[i], height[stk.top()]) - height[t];
+                ans += len * h;
+            }
+            stk.push(i);
+        }
+        return ans;
+    }
+};
+// 双指针
+/*
+class Solution {
+public:
+    int trap(vector&amp;lt;int&amp;gt;&amp;amp; height) {
+        int n = height.size(), ans = 0;
+        if (n == 0 || n == 1) return ans;
+        int left = 0, right = n -1;
+        int max_left = 0, max_right = 0;
+        while (left != right) {
+            if (height[left] &amp;lt; height[right]) {
+                max_left = max(max_left, height[left]);
+                ans += max_left - height[left];
+                left++;
+            } else {
+                max_right = max(max_right, height[right]);
+                ans += max_right - height[right];
+                right--;
+            }
+        }
+        return ans;
+    }
+};
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;3leetcode-84柱状图中最大的矩形&#34;&gt;3.LeetCode-84(柱状图中最大的矩形)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/CTYoLgyEPXp2Vb7.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+// 单调栈（单调递增的栈，栈存元素编号）
+int largestRectangleArea(int* heights, int heightsSize){
+    if (heightsSize == 0) return 0;
+    if (heightsSize == 1) return heights[0];
+    int stack[heightsSize + 5], top = -1, ans = 0;
+    for (int i = 0; i &amp;lt; heightsSize; ++i) {
+    	// 1.当栈不为空时，才可循环
+    	// 2.当前柱子小于栈内的柱子时，进入循环
+        while (top != -1 &amp;amp;&amp;amp; heights[i] &amp;lt; heights[stack[top]]) {
+            int h = heights[stack[top--]]; // 栈顶元素高度
+            int len;
+            if (top == -1) len = i; // （栈底）当前最小高度的柱子（长度等于当前位置i）
+            else len = i - stack[top] - 1;
+            ans = (ans &amp;gt; h * len ? ans : h * len);
+        }
+        stack[++top] = i; // 入单调递增的栈
+    }
+    // 特殊情况： 1.最小高度的元素没有出栈
+    // 2. 最后一个柱子比倒数第二个柱子高，没有出栈
+    // 目前栈里面是单调递增的栈
+    while (top != -1) {
+        int h = heights[stack[top--]]; // 栈顶元素的高度
+        int len;
+        if (top == -1) len = heightsSize; // 最小高度的柱子（长度等于数组长度）
+        else  len = heightsSize - stack[top] - 1; // 数组的长度 - 栈顶下面的长度 - 1
+        ans = (ans &amp;gt; h * len ? ans : h * len);
+    }
+    return ans;
+}
+*/
+// 单调栈，头尾加入最小虚拟柱子（0），排除特殊情况
+int largestRectangleArea(int* heights, int heightsSize){
+    if (heightsSize == 0) return 0;
+    if (heightsSize == 1) return heights[0];
+    int num[heightsSize + 5], stack[heightsSize + 5];
+    for (int i = 0; i &amp;lt; heightsSize; ++i) {
+        num[i + 1] = heights[i];
+    }
+    int top = -1, ans = 0;
+    num[0] = 0, num[heightsSize + 1] = 0; stack[++top] = 0;
+    for (int i = 1; i &amp;lt; heightsSize + 2; ++i) {
+        while (top &amp;amp;&amp;amp; num[i] &amp;lt; num[stack[top]]) {
+            int h = num[stack[top]];
+            int len = i - stack[--top] - 1;
+            ans = (ans &amp;gt; h * len ? ans : h * len);
+        }
+        stack[++top] = i;
+    }
+    return ans;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class Solution {
+public:
+    int largestRectangleArea(vector&amp;lt;int&amp;gt;&amp;amp; heights) {
+        int n = heights.size(), ans = 0;
+        if (n == 0) return 0;
+        if (n == 1) return heights[0];
+        stack&amp;lt;int&amp;gt; stk;
+        for (int i = 0; i &amp;lt; n; ++i) {
+            while (!stk.empty() &amp;amp;&amp;amp; heights[i] &amp;lt;= heights[stk.top()]) {
+                int h = heights[stk.top()];
+                stk.pop();
+                int len;
+                if (stk.empty()) len = i;
+                else len = i - stk.top() - 1;
+                ans = max(ans, len * h);
+            }
+            stk.push(i);
+        }
+        while (!stk.empty()) {
+            int h = heights[stk.top()];
+            stk.pop();
+            int len;
+            if (stk.empty()) len = n;
+            else len = n - stk.top() - 1;
+            ans = max(ans, len * h);
+        }
+        return ans;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;4leetcode-232用栈实现队列&#34;&gt;4.LeetCode-232(用栈实现队列)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/BP4L9zrhHl7CmYN.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;typedef struct {
+    int stack1[10000], top1;
+    int stack2[10000], top2;
+} MyQueue;
+
+/** Initialize your data structure here. */
+
+MyQueue* myQueueCreate() {
+    MyQueue *q = (MyQueue *)malloc(sizeof(MyQueue));
+    q-&amp;gt;top1 = -1;
+    q-&amp;gt;top2 = -1;
+    return q;
+}
+
+/** Push element x to the back of queue. */
+void myQueuePush(MyQueue* obj, int x) {
+    obj-&amp;gt;stack1[++(obj-&amp;gt;top1)] = x;
+    return ;
+}
+
+/** Removes the element from in front of queue and returns that element. */
+int myQueuePop(MyQueue* obj) {
+    while (obj-&amp;gt;top1 != -1) {
+        obj-&amp;gt;stack2[++(obj-&amp;gt;top2)] = obj-&amp;gt;stack1[(obj-&amp;gt;top1)--];
+    }
+    int t = obj-&amp;gt;stack2[(obj-&amp;gt;top2)--];
+    while (obj-&amp;gt;top2 &amp;gt; -1) {
+        obj-&amp;gt;stack1[++(obj-&amp;gt;top1)] = obj-&amp;gt;stack2[(obj-&amp;gt;top2)--];
+    }
+    return t;
+}
+
+/** Get the front element. */
+int myQueuePeek(MyQueue* obj) {
+    while (obj-&amp;gt;top1 != -1) {
+        obj-&amp;gt;stack2[++(obj-&amp;gt;top2)] = obj-&amp;gt;stack1[(obj-&amp;gt;top1)--];
+    }
+    int t = obj-&amp;gt;stack2[(obj-&amp;gt;top2)];
+    while (obj-&amp;gt;top2 &amp;gt; -1) {
+        obj-&amp;gt;stack1[++(obj-&amp;gt;top1)] = obj-&amp;gt;stack2[(obj-&amp;gt;top2)--];
+    }
+    return t;
+}
+
+/** Returns whether the queue is empty. */
+bool myQueueEmpty(MyQueue* obj) {
+    return obj-&amp;gt;top1 == -1;
+}
+
+void myQueueFree(MyQueue* obj) {
+    if (obj == NULL) return ;
+    free(obj);
+    return ;
+}
+
+/**
+ * Your MyQueue struct will be instantiated and called as such:
+ * MyQueue* obj = myQueueCreate();
+ * myQueuePush(obj, x);
+ 
+ * int param_2 = myQueuePop(obj);
+ 
+ * int param_3 = myQueuePeek(obj);
+ 
+ * bool param_4 = myQueueEmpty(obj);
+ 
+ * myQueueFree(obj);
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class MyQueue {
+public:
+    stack&amp;lt;int&amp;gt; s1, s2;
+    /** Initialize your data structure here. */
+    MyQueue() {
+
+    }
+    
+    /** Push element x to the back of queue. */
+    void push(int x) {
+        s1.push(x);
+    }
+    
+    /** Removes the element from in front of queue and returns that element. */
+    int pop() {
+        while(!s1.empty()) {
+            s2.push(s1.top());
+            s1.pop();
+        }
+        int t = s2.top();
+        s2.pop();
+        while(!s2.empty()) {
+            s1.push(s2.top());
+            s2.pop();
+        }
+        return t;
+    }
+    
+    /** Get the front element. */
+    int peek() {
+        while(!s1.empty()) {
+            s2.push(s1.top());
+            s1.pop();
+        }
+        int t = s2.top();
+        while(!s2.empty()) {
+            s1.push(s2.top());
+            s2.pop();
+        }
+        return t;
+    }
+    
+    /** Returns whether the queue is empty. */
+    bool empty() {
+        return s1.empty();
+    }
+};
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue* obj = new MyQueue();
+ * obj-&amp;gt;push(x);
+ * int param_2 = obj-&amp;gt;pop();
+ * int param_3 = obj-&amp;gt;peek();
+ * bool param_4 = obj-&amp;gt;empty();
+ */
+&lt;/code&gt;&lt;/pre&gt;
+">栈-刷题集</a>
       </div>
       
       <div class="item">
