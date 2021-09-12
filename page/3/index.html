@@ -8,8 +8,8 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
-<title>C语言-函数 | Bling</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631419334702">
+<title>Bling</title>
+<link rel="shortcut icon" href="/favicon.ico?v=1631422506573">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -44,8 +44,6 @@
 
 
 
-  <meta name="description" content="C语言-函数" />
-  <meta name="keywords" content="C语言学习笔记" />
 </head>
 
 <body>
@@ -81,7 +79,7 @@
             
               
             
-            <li class="nav-item ">
+            <li class="nav-item nav-item-active">
               
               
                 <a href="/" target="_self">
@@ -193,24 +191,8 @@
     <div
       class="section-layout pisces ">
       <div class="section-layout-wrapper">
-        
-
-<div class="sidebar">
-  
-    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
-      
-        <div class="post-list-sidebar">
-          <div class="sidebar-title">
-            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
-            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
-          </div>
-        </div>
-      
-      <div class="sidebar-body pisces" id="sidebar_body">
-        
-          
-            <div class="post-side-meta" id="post_side_meta">
-              
+        <div id="sidebarMeta" class="sidebar">
+    
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -221,19 +203,19 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">9</span>
+        <span class="site-item-stat-count">21</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">2</span>
+        <span class="site-item-stat-count">3</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">2</span>
+        <span class="site-item-stat-count">3</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -250,304 +232,30 @@
 
 
 </div>
-            </div>
-            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
-              <div class="toc-box right-motion">
-  <div class="toc-wrapper auto-number auto"
-    id="toc_wrapper">
-    <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#1%E5%87%BD%E6%95%B0%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86">1.函数的基础知识</a>
-<ul>
-<li><a href="#%E5%87%BD%E6%95%B0%E8%AF%B4%E6%98%8E">函数说明</a></li>
-<li><a href="#%E7%BB%83%E4%B9%A0%E9%A2%98">练习题</a>
-<ul>
-<li><a href="#1%E8%AF%B7%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F%E5%85%88%E8%AF%BB%E5%85%A5-%E4%B8%A4%E4%B8%AA%E6%95%B4%E6%95%B0k-b%E8%BE%93%E5%87%BA-y-kx-b%E7%9B%B4%E7%BA%BF%E6%96%B9%E7%A8%8B%E4%B8%AD-x1-%E5%88%B0-x100%E6%97%B6%E7%9A%84y%E7%9A%84%E5%80%BC">1.请实现一个程序，先读入 两个整数，k, b,输出 y = k*x + b直线方程中 x=1 到 x=100时的y的值。</a></li>
-</ul>
-</li>
-<li><a href="#%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0%E8%AE%BE%E8%AE%A1">递归函数设计</a></li>
-<li><a href="#%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88">函数指针</a></li>
-<li><a href="#%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E4%B8%8E%E5%BA%94%E7%94%A8">函数指针与应用</a>
-<ul>
-<li><a href="#%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95%E8%AE%B2%E8%A7%A3">欧几里得算法讲解</a></li>
-<li><a href="#%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E6%BC%94%E7%A4%BA%E4%BB%A3%E7%A0%81">扩展欧几里得演示代码</a></li>
-<li><a href="#%E5%8F%98%E5%8F%82%E5%87%BD%E6%95%B0">变参函数</a></li>
-<li><a href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%A3%B0%E6%98%8E%E4%B8%8E%E5%AE%9A%E4%B9%89">函数的声明与定义</a></li>
-<li><a href="#printf%E7%AE%80%E7%89%88%E5%AE%9E%E7%8E%B0">printf简版实现</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-  </div>
 </div>
-
 <script>
-
-  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
-  let active = 'active-show', activeClass = 'active-current';
-  let tocWrapper = document.querySelector('#toc_wrapper');
-  let tocContent = tocWrapper.children[0];
-  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
-
-  function addTocNumber(elem, deep) {
-    if (!elem) {
-      return;
-    }
-    let prop = elem.__proto__;
-
-    if (prop === HTMLUListElement.prototype) {
-      for (let i = 0; i < elem.children.length; i++) {
-        addTocNumber(elem.children[i], deep + (i + 1) + '.');
+  let sidebarMeta = document.querySelector('#sidebarMeta');
+  let scheme = 'pisces';
+  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
+  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
+    document.addEventListener('scroll', function(e) {
+      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
+        sidebarWrapper.classList.add('home-sidebar-fixed')
+      } else {
+        sidebarWrapper.classList.remove('home-sidebar-fixed')
       }
-    } else if (prop === HTMLLIElement.prototype) {
-      // 保存li元素
-      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
-        lList.push(elem);
-      }
-      for (let i = 0; i < elem.children.length; i++) {
-        let cur = elem.children[i];
-        if (cur.__proto__ === HTMLAnchorElement.prototype) {
-          if (autoNumber) {
-            cur.text = deep + ' ' + cur.text;
-          }
-        } else if (cur.__proto__ === HTMLUListElement.prototype) {
-          addTocNumber(cur, deep);
-        }
-      }
-    }
-  }
-
-  function removeParentActiveClass() {
-    let parents = tocContent.querySelectorAll('.' + active)
-    parents.forEach(function (elem) {
-      elem.classList.remove(active);
     });
   }
-
-  function addActiveClass(index) {
-    if (index >= 0 && index < hList.length) {
-      lList[index].classList.add(activeClass);
-    }
-  }
-
-  function removeActiveClass(index) {
-    if (index >= 0 && index < hList.length) {
-      lList[index].classList.remove(activeClass);
-    }
-  }
-
-  function addActiveLiElemment(elem, parent) {
-    if (!elem || elem === parent) {
-      return;
-    } else {
-      if (elem.__proto__ === HTMLLIElement.prototype) {
-        elem.classList.add(active);
-      }
-      addActiveLiElemment(elem.parentElement, parent);
-    }
-  }
-
-  function showToc() {
-    if (tocWrapper) {
-      postBody = document.querySelector('#post_body');
-      for (let i = 0; i < postBody.children.length; i++) {
-        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
-          hList.push(postBody.children[i]);
-        }
-      }
-      if (tocWrapper.classList.contains('compress')) {
-        tocContent.classList.add('closed');
-      } else if (tocWrapper.classList.contains('no_compress')) {
-        tocContent.classList.add('expanded');
-      } else {
-        if (hList.length > 10) {
-          active = 'active-hidden'
-          tocContent.classList.add('closed');
-        } else {
-          tocContent.classList.add('expanded');
-        }
-      }
-    }
-  }
-
-  (function () {
-    // 处理不是从#一级标题开始目录
-    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
-      let con = tocContent.children[0].children[0];
-      tocContent.innerHTML = con.innerHTML;
-    }
-    let markdownItTOC = document.querySelector('.markdownIt-TOC');
-    let innerHeight = window.innerHeight;
-    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
-    addTocNumber(tocContent, '');
-  })();
-
-  document.addEventListener('scroll', function (e) {
-    if (lList.length <= 0) {
-      return;
-    }
-    let scrollTop = document.scrollingElement.scrollTop + 10;
-    let dir;
-
-    if (lastTop - scrollTop > 0) {
-      dir = 'up';
-    } else {
-      dir = 'down';
-    }
-
-    lastTop = scrollTop;
-    if (scrollTop <= 0) {
-      if (lastIndex >= 0 && lastIndex < hList.length) {
-        lList[lastIndex].classList.remove(activeClass);
-      }
-      return;
-    }
-
-    let current = 0, hasFind = false;
-    for (let i = 0; i < hList.length; i++) {
-      if (hList[i].offsetTop > scrollTop) {
-        current = i;
-        hasFind = true;
-        break;
-      }
-    }
-    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
-      current = hList.length - 1;
-    } else {
-      current--;
-    }
-    if (dir === 'down') {
-      if (current > lastIndex) {
-        addActiveClass(current);
-        removeActiveClass(lastIndex)
-        lastIndex = current;
-        removeParentActiveClass();
-        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
-      }
-    } else {
-      if (current < lastIndex) {
-        addActiveClass(current);
-        removeActiveClass(lastIndex);
-        lastIndex = current;
-        removeParentActiveClass();
-        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
-      }
-    }
-  });
-
-
-  window.addEventListener('load', function () {
-    showToc();
-    document.querySelector('#sidebar').style = 'display: block;';
-    tocWrapper.classList.add('toc-active');
-    setTimeout(function () {
-      if ("createEvent" in document) {
-        let evt = document.createEvent("HTMLEvents");
-        evt.initEvent("scroll", false, true);
-        document.dispatchEvent(evt);
-      }
-      else {
-        document.fireEvent("scroll");
-      }
-    }, 500)
-  })
-
-</script>
-            </div>
-          
-        
-      </div>
-    </div>
-  
-</div>
-<script>
-  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
-  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
-  const SLIDE_UP_IN = 'slide-up-in';
-
-  let sidebar = document.querySelector('#sidebar'),
-  tocSideBar = document.querySelector('#tocSideBar'),
-  metaSideBar = document.querySelector('#metaSideBar'),
-  postToc = document.querySelector('#post_toc'),
-  postSiteMeta = document.querySelector('#post_side_meta'),
-  sidebarTitle = document.querySelector('.sidebar-title'),
-  sidebarBody = document.querySelector('#sidebar_body');
-
-  tocSideBar && tocSideBar.addEventListener('click', (e) => {
-    toggleSidebar(e);
-  });
-
-  metaSideBar && metaSideBar.addEventListener('click', (e) => {
-    toggleSidebar(e);
-  });
-
-  function toggleSidebar(e) {
-    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
-    if (currentTitle == e.srcElement) {
-      return ;
-    }
-    let current, showElement, hideElement;
-    if (e.srcElement == metaSideBar) {
-      showElement = postSiteMeta;
-      hideElement = postToc;
-    } else if (e.srcElement == tocSideBar){
-      showElement = postToc;
-      hideElement = postSiteMeta;
-    }
-    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
-    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
-
-    jQuery.Velocity(hideElement, 'stop');
-    jQuery.Velocity(hideElement, 'transition.slideUpOut', {
-      display: 'none',
-      duration: 200,
-      complete: function () {
-        jQuery.Velocity(showElement, 'transition.slideDownIn', {
-          duration: 200
-        });
-      }
-    })
-    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
-    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
-  }
-
-  postToc && postToc.addEventListener('transitionend', function() {
-    this.classList.remove(SLIDE_UP_IN);
-  });
-
-  if (sidebarBody) {
-    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
-      let hasFix = false;
-      let scrollEl = document.querySelector('.main-continer');
-      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
-      window.addEventListener('scroll', function(e) {
-        if (document.scrollingElement.scrollTop >= limitTop) {
-          if (!hasFix) {
-            sidebar.classList.add('sidebar-fixed');
-            hasFix = true;
-          }
-        } else {
-          if (hasFix) {
-            sidebar.classList.remove('sidebar-fixed');
-            hasFix = false;
-          }
-        }
-      });
-    }
-  }
-  
-</script>
-        <div class="section-box box-shadow-wrapper">
-          <div class="section bg-color post post-page">
-            <section class="post-header">
+  </script>
+        <div class="section-box pisces">
+          <section class="section bg-color posts-expand slide-down-in">
+            
+  <article class="post-list-box  post box-shadow-wrapper">
+    <div class="article-wrapper bg-color">
+      <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://azhanglai-github-io.vercel.app/C语言-函数/">
-      C语言-函数
+    <a class="post-title-link" href="https://azhanglai-github-io.vercel.app/hello-gridea/">
+      Hello Gridea
     </a>
   </h1>
   <div class="post-meta">
@@ -555,7 +263,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2020-11-01 16:07:00">2020-11-01</span>
+      <span class="publish-time" data-t="2018-12-12 00:00:00">2018-12-12</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -564,8 +272,8 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      <a href="https://azhanglai-github-io.vercel.app/xo6GO5z-C/">
-        <span>C语言学习笔记</span>
+      <a href="https://azhanglai-github-io.vercel.app/wDapr16Um/">
+        <span>Gridea</span>
       </a>
       
       
@@ -574,461 +282,77 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>8<span class="language" data-lan="minute">分钟</span></span>
+      <span>2<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>1525<span class="pc-show language" data-lan="words">字数</span></span>
-    </span>
-    
-    
-    
-    <span id="/C语言-函数/" data-flag-title="C语言-函数" class="meta-item pc-show leancloud_visitors">
-      <span class="post-meta-divider">|</span>
-      <i class="fa fa-eye"></i>
-      <span><span class="language" data-lan="view">浏览量</span>：<span class="leancloud-visitors-count"></span></span>
+      <span>298<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
-            <div class="post-body next-md-body" id="post_body">
-              <h2 id="1函数的基础知识">1.函数的基础知识</h2>
-<h3 id="函数说明">函数说明</h3>
-<pre><code class="language-c">int is_prime(int x) {
-    for (int i = 2; i &lt;= x/2; ++i) {
-        if (x % i == 0) {
-            return 0;
-        }
-    }
-    return 1;
-}
-//int is_prime(int x)
-//int : 返回值
-//is_prime : 函数名
-//int x : 参数声明列表
-</code></pre>
-<h3 id="练习题">练习题</h3>
-<h4 id="1请实现一个程序先读入-两个整数k-b输出-y-kx-b直线方程中-x1-到-x100时的y的值">1.请实现一个程序，先读入 两个整数，k, b,输出 y = k*x + b直线方程中 x=1 到 x=100时的y的值。</h4>
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-
-int func(int, int, int);
-
-int main() {
-    int  k, b;
-    scanf(&quot;%d %d&quot;, &amp;k, &amp;b);
-    for (int x = 1; x &lt;= 100; ++x) {
-        printf(&quot;f(%d) = %d\n&quot;,x, func(k, b, x));
-    }
-    return 0;
-}
-
-int func(int k, int b, int x) {
-    int y;
-    return y = k * x + b;
-}
-</code></pre>
-<h3 id="递归函数设计">递归函数设计</h3>
-<pre><code class="language-c">/*
-递归程序的组成部分
-1.边界条件处理
-2.针对于问题的“处理过程”和“递归过程”
-3.结果返回
-*/
-
-//练习题
-/*
-请实现一个程序，读入n,计算n的阶乘。
-*/
-#include &lt;stdio.h&gt;
-
-int fac(int n) {
-    if (n == 0 || n == 1) {
-        return 1;
-    }
-    return fac(n-1) * n;
-}
-
-int main() {
-    int n;
-    while (~scanf(&quot;%d&quot;, &amp;n)) {
-        printf(&quot;fac(%d) = %d\n&quot;, n, fac(n));
-    }
-    return 0;
-}
-//栈区内存为8MB,超过会爆栈，栈溢出。
-
-</code></pre>
-<h3 id="函数指针">函数指针</h3>
-<pre><code class="language-c">int g(int (*f1)(int), int (*f2)(int), int (*f3)(int), int x) {
-    if (x &lt; 0) {
-        return f1(x);
-    }
-    if (x &lt; 100) {
-        return f2(x);
-    }
-    return f3(x);
-}
-// int (*f1)(int) : 函数指针变量 函数地址传参。
-</code></pre>
-<h3 id="函数指针与应用">函数指针与应用</h3>
-<pre><code class="language-c">/* 欧拉计划 45题*/
-#include &lt;stdio.h&gt;
-#include &lt;inttypes.h&gt;
-
-int64_t binary_search(int64_t (*func)(int64_t), int64_t x);
-int64_t Tn(int64_t n);
-int64_t Pn(int64_t n);
-int64_t Hn(int64_t n);
-
-
-int main() {
-    int64_t n = 143;
-    while (1) {
-        n++;
-        int64_t val = Hn(n);
-      //if (binary_search(Tn, val) == -1) continue;
-        if (binary_search(Pn, val) == -1) continue;
-        break;
-    }
-    printf(&quot;%&quot; PRId64 &quot;\n&quot;, Hn(n));
-    return 0;
-}
-//使用二分查找的方法，传入一个函数，和一个目标值，
-//查找这个目标值是这个函数的第几项，找不到则返回-1。
-int64_t binary_search(int64_t (*func)(int64_t), int64_t x) {
-    int64_t head = 1, tail = x, mid;
-    while(head &lt;= tail) {
-        mid = (head + tail) &gt;&gt; 1;
-        if (func(mid) == x) return mid;
-        else if (func(mid) &gt; x) tail = mid - 1;
-        else head = mid + 1;
-    }
-    return -1;
-}
-
-int64_t Tn(int64_t n) {
-    return n * (n + 1) /2;
-}
-
-int64_t Pn(int64_t n) {
-    return n * (3 * n - 1) / 2;
-}
-
-int64_t Hn(int64_t n) {
-    return n * (2 * n - 1);
-}
-</code></pre>
-<h4 id="欧几里得算法讲解">欧几里得算法讲解</h4>
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-
-int gcd(int, int); 
-
-int main() {
-    int a, b;
-    while (~scanf(&quot;%d %d&quot;, &amp;a, &amp;b)) {
-        printf(&quot;gcd(%d, %d) = %d\n&quot;, a, b, gcd(a, b)); 
-    }
-    return 0;
-}
-int gcd(int a, int b) {
-    return b ? gcd(b, a % b) : a;
-}
-/*
-欧几里得算法： gcd(a, b) == gcd(b, a % b);
-当 b 为 0 时，最大公因数为 a;
-*/
-</code></pre>
-<h4 id="扩展欧几里得演示代码">扩展欧几里得演示代码</h4>
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-
-int ex_gcd(int a, int b, int *x, int *y); //int *x,需要传入地址&amp;x
-
-int main() {
-    int a, b, x, y;
-    while(~scanf(&quot;%d %d&quot;, &amp;a, &amp;b)) {
-        printf(&quot;ex_gcd(%d, %d) = %d\n&quot;, a, b, ex_gcd(a, b, &amp;x, &amp;y));
-        printf(&quot;%d * %d + %d * %d = %d\n&quot;, a, x, b, y, ex(a, b, &amp;x, &amp;y));
+      <div class="post-body">
         
-    }
-    return 0;
-}
+        
+          
+            <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
 
-int ex_gcd(int a, int b, int *x, int *y) {
-    if (!b) { //函数出口
-        *x = 1;
-        *y = 0;
-        return a;
-    }
-    int x1, y1;
-    ret = ex_gcd(a, a % b, &amp;x1, &amp;y1); //递归
-    *x = y1;
-    *y = x1 - (a / b) * y1;
-    return ret;
-}
-/* 
-*p = &amp;a; //这个*号是取地址符号，储存地址
-p // p为右值时，p为地址， p == &amp;a
-*p // 这个*号是取值符号，p为右值时，p为值，p==a,
-*/
-
-</code></pre>
-<h4 id="变参函数">变参函数</h4>
-<pre><code class="language-c">/*
-va家族
-头文件：#include &lt;stdarg.h&gt;
-
-实现可变参数max_int,从若干个传入的参数中返回最大值。
-int max_int（int a, ...）;
-
-1.如何获得a往后的参数列表？
-  va_list 类型的变量 va_list arg;
-  获得 arg 参数列表
-2.如何定位a后面第一个参数的位置？
-  va_start函数 ，开始定位到第一个参数的位置。
-  va_start(arg, n); 第一个参数为参数列表， 第二个参数为列表中第一个参数。
-3.如何获取下一个可变参数列表中的参数？
-  va_arg 函数  获取;
-  va_arg（arg, int）;第一个参数为参数列表，第二个参数为数据类型。
-4.如何结束整个获取可变参数列表的动作？
-  va_end 函数  结束 va_end(arg); 参数为参数列表。
+          
+        
+        
+        <div class="post-button text-center">
+          <a class="btn language" data-lan="read-more" href="https://azhanglai-github-io.vercel.app/hello-gridea/" rel="contents">
+            阅读全文 »
+          </a>
+        </div>
+        
+      </div>
+      
+        <footer class="post-footer">
+          <div class="post-eof"></div>
+        </footer>
+      
+    </div>
+  </article>
   
-*/
-
-
-#include &lt;stdio.h&gt;
-#include &lt;stdarg.h&gt;
-
-int max_int(int n, ...);
-
-int main() {
-    printf(&quot;%d\n&quot;, max_int(3, 1, 2, 5));
-    printf(&quot;%d\n&quot;, max_int(2, 1, 7, 17));
-    printf(&quot;%d\n&quot;,max_int(3, 3, 6, 18));
-    return 0;
-}
-
-int max_int(int n, ...) {
-    if (n &lt; 0) return 0;
-    int ans = 0;
-    va_list arg;
-    va_start(arg, n);
-    while (n--) {
-        int temp = va_arg(arg, int);
-        if (temp &gt; ans) ans = temp;
-    }
-    va_end(arg);
-    return ans;  
-}
-
-</code></pre>
-<h4 id="函数的声明与定义">函数的声明与定义</h4>
-<pre><code class="language-c">/*
-源文件--预编译--&gt;编译--&gt;对象文件--&gt;链接--&gt;可执行文件
-1.函数的声明在编译阶段，未声明函数（undeclared）
-2.函数的定义在链接阶段，未定义函数（undefined）
-3.函数重复定义，（duplicate）
-*/
-</code></pre>
-<h4 id="printf简版实现">printf简版实现</h4>
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;stdarg.h&gt;
-#include &lt;inttypes.h&gt;
-
-int my_printf(const char *frm, ...);
-int reverse_num(int, int);
-int output_num(int, int);
-
-int main() {
-    int a = 123;
-    printf(&quot;hello world!\n&quot;);
-    my_printf(&quot;hello world!\n&quot;);
-    printf(&quot;a = %d\n&quot;, a);
-    my_printf(&quot;a = %d\n&quot;, a);
-    printf(&quot;a = %d\n&quot;, 1000);
-    my_printf(&quot;a = %d\n&quot;, 1000);
-    printf(&quot;a = %d\n&quot;, 0);
-    my_printf(&quot;a = %d\n&quot;, 0);
-    printf(&quot;a = %d\n&quot;, -123);
-    my_printf(&quot;a = %d\n&quot;, -123);
-    printf(&quot;INT32_MAX = %d\n&quot;, INT32_MAX);
-    my_printf(&quot;INT32_MAX = %d\n&quot;, INT32_MAX);
-    printf(&quot;INT32_MIN = %d\n&quot;, INT32_MIN);
-    my_printf(&quot;INT32_MIN = %d\n&quot;, INT32_MIN);
-    char frm[] = &quot;I am ZL&quot;;
-    printf(&quot;%s\n&quot;, frm);
-    my_printf(&quot;%s\n&quot;, frm);
-    int n;
-    while (~scanf(&quot;%d&quot;, &amp;n)) {
-        printf(&quot;has %d digit!\n&quot;, printf(&quot;%d&quot;, n));
-        my_printf(&quot;has %d digit!\n&quot;, my_printf(&quot;%d&quot;, n));
-    }
-}
-
-int reverse_num(int num, int *temp) {
-    int digit = 0;
-    do {
-        *temp = *temp * 10 + num % 10;
-        num /= 10;
-        digit++;
-    } while(num);
-    return digit;
-}
-
-int output_num(int temp, int digit) {
-    int count = 0;
-    while(digit--) {
-        putchar(temp % 10 + '0');
-        count++;
-        temp /= 10;
-    }
-    return count;
-}
-
-int my_printf(const char *frm, ...) {
-    va_list arg;
-    va_start(arg, frm);
-    int count = 0;
-    #define PUTC(a) putchar(a); ++count
-    for (int i = 0; frm[i]; ++i) {
-        switch (frm[i]) {
-            case '%': {
-                switch (frm[++i]) {
-                    case '%': {
-                        PUTC(frm[i]);
-                    } break;
-                    case 'd': {
-                        int xx = va_arg(arg, int);
-                        uint32_t x;
-                        if (xx &lt; 0) {
-                            PUTC('-');
-                            x = -xx;
-                        } else {
-                            x = xx;
-                        }
-                        int num1 = x / 100000, num2 = x % 100000; 
-                        int temp1 = 0, temp2 = 0;
-                        int digit1 = reverse_num(num1, &amp;temp1);
-                        int digit2 = reverse_num(num2, &amp;temp2);
-                        if (num1) digit2 = 5;
-                        else digit1 = 0;
-                        count += output_num(temp1, digit1);
-                        count += output_num(temp2, digit2);
-                    } break;
-                    case 's': {
-                        const char *str = va_arg(arg, const char*);
-                        for (int i = 0; str[i]; ++i) {
-                            PUTC(str[i]);
-                        }
-                    } break;
-                }
-            }; break;
-            default: PUTC(frm[i]); break;
-        }
-    }
-    va_end(arg);
-    #undef PUTC;
-    return count; 
-}
-
-/*
-1. 除号（/）可以取数字高位
-2. 取模（%）可以取数组低位
-*/
-</code></pre>
-
-            </div>
             
             
-              <div class="post-footer">
-  <ul class="post-copyright">
-    <li class="post-copyright-author">
-      <strong class="language" data-lan="author">本文作者：</strong>
-      小张
-    </li>
-    <li class="post-copyright-link">
-      <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://azhanglai-github-io.vercel.app/C语言-函数/" title="C语言-函数">https://azhanglai-github-io.vercel.app/C语言-函数/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong class="language" data-lan="copyright">版权声明： </strong>
-      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
-    </li>
+<div class="page bg-color">
+  <ul class="pagination-ul">
+    
+      <li class="pagination-dir">
+        <a href="https://azhanglai-github-io.vercel.app/page/2/">
+          <i class="fa fa-angle-left"></i>
+        </a>
+      </li>
+    
+    
+      
+        <li class="pagination-li ">
+            <a href="/page/../">
+              1
+            </a>
+        </li>
+      
+        <li class="pagination-li ">
+            <a href="/page/2">
+              2
+            </a>
+        </li>
+      
+        <li class="pagination-li pagination-active">
+            <a href="/page/3">
+              3
+            </a>
+        </li>
+      
+    
+    
   </ul>
-  <div class="tags">
-    
-      <a href="https://azhanglai-github-io.vercel.app/xo6GO5z-C/"># C语言学习笔记</a>
-    
-  </div>
-  <div class="nav">
-    <div class="nav-prev">
-      
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="C语言-数组与预处理命令" href="https://azhanglai-github-io.vercel.app/C语言-数组与预处理命令/">C语言-数组与预处理命令</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="C语言-数组与预处理命令" href="https://azhanglai-github-io.vercel.app/C语言-数组与预处理命令/">上一篇</a>
-      
-    </div>
-    <div class="nav-next">
-      
-        <a class="nav-pc-next" title="C语言-程序流程控制方法" href="https://azhanglai-github-io.vercel.app/C语言-程序流程控制方法/">C语言-程序流程控制方法</a>
-        <a class="nav-mobile-next" title="C语言-程序流程控制方法" href="https://azhanglai-github-io.vercel.app/C语言-程序流程控制方法/">下一篇</a>
-        <i class="fa fa-chevron-right"></i>
-      
-    </div>
-  </div>
 </div>
-            
-            
-  <script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
-<div id="vcomments" style="padding: 10px 0px 0px 0px"></div>
-
-<style>
-  .v .veditor {
-    min-height: 10rem;
-    background-image: url('');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: right;
-    background-color: rgba(255, 255, 255, 0);
-    resize: none;
-  }
-
-  .v .vwrap {
-    border: 1px solid #000 !important;
-  }
-
-  .v .vbtn {
-    padding: .4rem 1.2rem !important;
-    border-color: #fff !important;
-    background-color: #49b1f5 !important;
-    color: #fff !important;
-    font-size: .7rem !important;
-  }
-
-  .v .vcards .vcard .vh .vmeta .vat {
-    padding: 0 .8rem !important;
-    border: 1px solid #00c4b6 !important;
-    border-radius: 5px !important;
-    color: #00c4b6 !important;
-  }
-</style>
-<script>
-  new Valine({
-    el: '#vcomments',
-    appId: 'C2yIoDu5Gzzdf8TAxMWoEd1w-gzGzoHsz',
-    appKey: '38eqXPT7vq0raXMj2txOP2LI',
-    avatar: '',
-    placeholder: 'Say something...',
-    pageSize: '',
-    lang: 'zh-cn',
-    enableQQ: 'true' === 'true',
-    visitor: 'true' === 'true',
-    highlight: 'true' === 'true',
-    avatarForce: 'true' === 'true',
-  });
-</script>
-
-          </div>
+          </section>
         </div>
       </div>
     </div>
@@ -1788,223 +1112,6 @@ int my_printf(const char *frm, ...) {
   })
 </script>
 
-    <div class="reward-mask" style="display: none;">
-  <div class="reward-relative">
-    <span class="close" aria-hidden="true">x</span>
-    <div class="reward-body">
-      <h2>感谢您的支持，我会继续努力的!</h2>
-      <div class="reward-img-box">
-        <div style="position: relative; width: 140px; height: 140px;">
-          
-          
-          
-        </div>
-      </div>
-      <p class="reward-word">扫码打赏，你说多少就多少</p>
-      <p class="reward-tip">打开微信扫一扫，即可进行扫码打赏哦</p>
-    </div>
-    <div class="bottom">
-      
-      
-    </div>
-  </div>
-</div>
-<style>
-  .reward-mask {
-    position: fixed;
-    z-index: 99999;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #00000054;
-  }
-
-  .reward-relative {
-    position: relative;
-    width: 480px;
-    text-align: center;
-    margin: 0 auto;
-    border-radius: 5px;
-    background-color: #fff;
-    top: 50%;
-    margin-top: -205px;
-  }
-
-  .reward-relative .close {
-    position: absolute;
-    right: 10px;
-    font-weight: normal;
-    font-size: 16px;
-    color: #929292;
-  }
-
-  .reward-body {
-    padding: 40px 20px 20px;
-  }
-
-  .bottom {
-    display: flex;
-  }
-
-  .reward-btn {
-    text-align: center;
-  }
-
-  .reward-btn-text {
-    display: inline-block;
-    cursor: pointer;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    border-radius: 50%;
-    background-color: #ff9734;
-    color: #FFF;
-    margin-top: 20px;
-  }
-
-  .pay-text {
-    margin-top: 10px;
-    padding: 10px;
-    flex: 1;
-    transition: all .2s linear;
-  }
-
-  .pay-text:hover {
-    background-color: #a5a5a536;
-  }
-
-  .reward-body h2 {
-    padding-top: 10px;
-    text-align: center;
-    color: #a3a3a3;
-    font-size: 16px;
-    font-weight: normal;
-    margin: 0 0 20px;
-  }
-
-  .reward-body h2:after,
-  .reward-body h2:before {
-    font-family: Arial, Helvetica, sans-serif;
-    background: 0 0;
-    width: 0;
-    height: 0;
-    font-style: normal;
-    color: #eee;
-    font-size: 80px;
-    position: absolute;
-    top: 20px;
-  }
-
-  .reward-body h2:before {
-    content: '\201c';
-    left: 50px;
-  }
-
-  .reward-body h2:after {
-    content: '\201d';
-    right: 80px;
-  }
-
-  .reward-img-box {
-    display: inline-block;
-    padding: 10px;
-    border: 6px solid #ea5f00;
-    margin: 0 auto;
-    border-radius: 3px;
-    position: relative;
-  }
-
-  .reward-img {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-  }
-
-  @media (max-width: 767px) {
-    .reward-relative {
-      height: 100%;
-      top: 0px;
-      margin-top: 0;
-      width: auto;
-    }
-
-    .reward-relative .bottom {
-      flex-direction: column;
-    }
-
-    .reward-relative .pay-text {
-      width: 80%;
-      margin: 5px auto;
-      border: 1px solid silver;
-      padding: 6px;
-      border-radius: 4px;
-    }
-
-    .reward-body h2:after {
-      right: 40px;
-    }
-
-    .reward-body h2:after,
-    .reward-body h2:before {
-      font-size: 60px;
-    }
-
-    .reward-body h2:before {
-      left: 20px;
-    }
-  }
-</style>
-<script>
-  !function () {
-    var mask = document.querySelector('.reward-mask');
-    let close = document.querySelector('.reward-relative .close');
-    let rewardBtn = document.querySelector('.reward-btn');
-
-    let zfb = document.querySelector('#zfb'),
-      wx = document.querySelector('#wx'),
-      zfbBtn = document.querySelector('#zfbBtn'),
-      wxBtn = document.querySelector('#wxBtn');
-
-    if (zfbBtn && wxBtn) {
-      zfbBtn.addEventListener('click', () => {
-        jQuery.Velocity(zfb, 'transition.slideLeftIn', {
-          duration: 400
-        });
-        jQuery.Velocity(wx, 'transition.slideRightOut', {
-          display: 'none',
-          duration: 400
-        });
-      });
-
-      wxBtn.addEventListener('click', () => {
-        jQuery.Velocity(wx, 'transition.slideRightIn', {
-          duration: 400
-        });
-        jQuery.Velocity(zfb, 'transition.slideLeftOut', {
-          display: 'none',
-          duration: 400
-        });
-      });
-    }
-
-    rewardBtn.addEventListener('click', (e) => {
-      jQuery.Velocity(mask, 'transition.slideDownIn', {
-        duration: 400
-      })
-    });
-
-    close.addEventListener('click', (e) => {
-      e.preventDefault();
-      jQuery.Velocity(mask, 'transition.slideUpOut', {
-        duration: 400
-      })
-    })
-  }()
-</script>
-
   </div>
 </body>
 
@@ -2030,7 +1137,1556 @@ int my_printf(const char *frm, ...) {
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-工程项目开发/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-9.哈希表/"" data-c="
+          &lt;h2 id=&#34;哈希表&#34;&gt;哈希表&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+// 用拉链法解决哈希冲突
+/*
+哈希表结构定义：有一个哈希表（动态申请内存，哈希表大小为size），存放链表的首地址 **data。
+链表结构定义：节点值域存放 字符串（同一链表的字符串哈希值相等）， 指针域 直线下一个节点
+*/
+typedef struct Node {
+    char *str; // 值域 存放 字符串
+    struct Node *next; // 指针域
+} Node;
+
+typedef struct Hash {
+    Node **data; // 存放 每条链表的 首地址
+    int size; // 哈希表大小
+} Hash;
+// 构建新节点，值域存放字符串，指针域指向 同一哈希值的 链表head
+Node *getNewNode(const char *str, Node *head) {
+    Node *p = (Node *)malloc(sizeof(Node));
+    p-&amp;gt;str = strdup(str); // strdup 用到了 malloc,需要free
+    p-&amp;gt;next = head; // 指向 链表头
+    return p;
+}
+// 构建hashtable
+Hash *getHash(int n) {
+    Hash *h = (Hash *)malloc(sizeof(Hash));
+    h-&amp;gt;size = 2 * n; // 考虑哈希表的空间利用率50% ~ 90%，开辟空间大一倍
+     // calloc开辟，初始化为0，可以每个链表头部置空，安全
+    h-&amp;gt;data = (Node **)calloc(h-&amp;gt;size, sizeof(Node *));
+    return h;
+}
+// 链表内存回收
+void clear_node(Node *node) {
+    if (node == NULL) return ;
+    Node *p = node, *q;
+    while (p) {
+        q = p-&amp;gt;next;
+        free(p-&amp;gt;str); // strdup()出来的也要free
+        free(p);
+        p = q;
+    }
+    return ;
+}
+
+void clear(Hash *h) {
+    if (h == NULL) return ;
+    for (int i = 0; i &amp;lt; h-&amp;gt;size; ++i) {
+        clear_node(h-&amp;gt;data[i]); // 回收每条链表
+    }
+    free(h-&amp;gt;data); // 回收哈希表
+    free(h); // 回收哈希表
+    return ;
+}
+// BKDRHash
+/*
+把字符串的每个字符哈希成一个数字
+// 哈希公式： hash = hash * seed + str[i]
+// seed 初始化一个 素数（例如31）， hash初始化为0
+*/
+// 哈希函数
+int BKDRHash(const char *str) {
+    int seed = 31, hash = 0; 
+    for (int i = 0; str[i]; i++) {
+        hash = hash * sedd + str[i];
+    }
+    return hash &amp;amp; 0x7fffffff; // 防止哈希值溢出 按位与 0111111111变成整数
+}
+
+int insert(Hash *h, const char *str) {
+    int hash = BKDRHash(str); // 将字符串通过哈希函数，映射成哈希值
+    int ind = hash % h-&amp;gt;size; // 根据哈希表的大小，对哈希值取模,得到索引值
+    // p-&amp;gt;next = old_head, new_head-&amp;gt;next = p
+    h-&amp;gt;data[ind] = getNewNode(str, h-&amp;gt;data[ind]); // 去到索引值位置的链表用头插法
+    return 1;
+}
+
+int find(Hash *h, const char *str) {
+    int hash = BKDRHash(str);  // 将字符串通过哈希函数，映射成哈希值
+    int ind = hash % h-&amp;gt;size;  // 根据哈希表的大小，对哈希值取模,得到索引值
+    Node *p = h-&amp;gt;data[ind]; // 去到索引值位置的链表头部
+    while (p &amp;amp;&amp;amp; strcmp(p-&amp;gt;str, str) != 0) p = p-&amp;gt;next; // 遍历链表查找
+    return p != NULL; // p为空，说明字符串没有插入进来，没有找到
+}
+
+int main() {
+    #define maxn 105
+    int op;
+    char str[maxn] = {0};
+    Hash *h = getHash(maxn);
+    while (~scanf(&amp;quot;%d %s&amp;quot;, &amp;amp;op, str)) {
+        switch (op) {
+            case 0: insert(h, str); break;
+            case 1: printf(&amp;quot;%d\n&amp;quot;, find(h, str)); break;
+        }
+    }
+    clear(h);
+    #undef maxn
+    return 0;
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-9.哈希表</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-3.队列/"" data-c="
+          &lt;h2 id=&#34;队列queue&#34;&gt;队列（Queue）&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+#define COLOR(a, b) &amp;quot;\e[&amp;quot; #b &amp;quot;m&amp;quot; a &amp;quot;\e[0m&amp;quot;
+#define GREEN(a) COLOR(a, 32)
+
+// 结构定义
+/*
+动态开辟存储元素的容器：*data
+指向队列头的指针：head
+指向队列尾的指针：tail
+容器大小：size
+目前存储元素的个数：count
+*/
+typedef struct queue {
+    int *data;
+    int head, tail, size, count;
+} queue;
+
+// 结构操作
+/*
+给队列动态申请内存空间并初始化: *init(int);
+回收内存空间：void clear(que *);
+队列扩容：int expand(que *);
+队列判空操作：int empty(que *);
+尾部元素入队：int push(que *, int);
+头部元素出队：int pop(que *);
+查看队首元素：int front(que *);
+打印输出队列的元素： void output(que *);
+*/
+
+queue *init(int);  
+void clear(queue *);
+int empty(queue *);
+int front(queue *);
+int push(queue *, int);
+int expand(queue *);
+int pop(queue *);
+void output(queue *);
+
+int main() {
+    srand(time(0));
+    #define max_op 20
+    queue *que = init(max_op);
+    for (int i = 0; i &amp;lt; max_op * 2; ++i) {
+        int val = rand() % 100;
+        int op = rand() % 4;
+        switch(op) {
+            case 0:
+            case 1:
+            case 2: {
+                printf(&amp;quot;push %d to the Queue = %d\n&amp;quot;, val, push(que, val));
+            } break;
+            case 3: {
+                printf(&amp;quot;pop %d from the Queu = &amp;quot;, front(que));
+                printf(&amp;quot;%d\n&amp;quot;, pop(que));
+            }
+        }
+        output(que);
+    } 
+    clear(que);
+    #undef max_op
+    return 0;
+}
+
+queue *init(int n) {
+    queue *que = (queue *)malloc(sizeof(queue));
+    que-&amp;gt;data = (int *)malloc(sizeof(int) * n);
+    que-&amp;gt;size = n;
+    que-&amp;gt;head = que-&amp;gt;tail = que-&amp;gt;count = 0;
+    return que;
+}
+
+void clear(queue *que) {
+    if (que == NULL) return ;
+    free(que-&amp;gt;data);
+    free(que);
+    return ;
+}
+
+int empty(queue *que) {
+    return que-&amp;gt;count == 0;
+}
+
+int front(queue *que) {
+    return que-&amp;gt;data[que-&amp;gt;head];
+}
+
+int push(queue *que, int val) {
+    if (que == NULL) return 0;
+    if (que-&amp;gt;count &amp;gt;= que-&amp;gt;size) {
+        if (!expand(que)) return 0;
+        printf(GREEN(&amp;quot;expand successfully! queue-&amp;gt;size(%d)&amp;quot;) &amp;quot;\n&amp;quot;, que-&amp;gt;size);
+    }
+    que-&amp;gt;data[que-&amp;gt;tail++] = val;
+    if (que-&amp;gt;tail == que-&amp;gt;size) que-&amp;gt;tail = 0;
+    que-&amp;gt;count++;
+    return 1;
+}
+
+int expand(queue *que) {
+    int ex_size = que-&amp;gt;size;
+    int *p;
+    while (ex_size) {
+        p = (int *)malloc(sizeof(int) * (que-&amp;gt;size + ex_size));
+        if (p) break;
+        ex_size &amp;gt;&amp;gt;= 1;
+    }
+    if (p == NULL) return 0;
+    // 把原来的元素复制到 P 中
+    for (int i = que-&amp;gt;head, j = 0; j &amp;lt; que-&amp;gt;size; ++j) {
+        p[j] = que-&amp;gt;data[(i + j) % que-&amp;gt;size];
+    }
+    free(que-&amp;gt;data);
+    que-&amp;gt;data = p; 
+    que-&amp;gt;head = 0; 
+    que-&amp;gt;tail = que-&amp;gt;count;
+    que-&amp;gt;size += ex_size;
+    return 1;
+}
+
+int pop(queue *que) {
+    if (que == NULL) return 0;
+    if (empty(que)) return 0;
+    que-&amp;gt;head++;
+    if (que-&amp;gt;head == que-&amp;gt;size) que-&amp;gt;head = 0;
+    que-&amp;gt;count--;
+    return 1;
+}
+
+void output(queue *que) {
+    if (que == NULL) return ;
+    printf(&amp;quot;Queue : [&amp;quot;);
+    for (int i = que-&amp;gt;head, j = 0;j &amp;lt; que-&amp;gt;count; ++j) {
+        j &amp;amp;&amp;amp; printf(&amp;quot;, &amp;quot;);
+        printf(&amp;quot;%d&amp;quot;, que-&amp;gt;data[(i + j) % que-&amp;gt;size]);
+    }
+    printf(&amp;quot;]\n&amp;quot;);
+    return ;
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-3.队列</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-12.并查集/"" data-c="
+          &lt;h2 id=&#34;并查集&#34;&gt;并查集&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+typedef struct UnionSet {
+    int *data;
+    int size;
+} unionSet;
+
+unionSet *init(int n) {
+    unionSet *u = (unionSet *)malloc(sizeof(unionSet));
+    u-&amp;gt;data = (int *)malloc(sizeof(int) * (n + 1));
+    u-&amp;gt;size = n;
+    for (int i = 1; i &amp;lt;= n; ++i) u-&amp;gt;data[i] = i;
+    return u;
+}
+
+void clear(unionSet *u) {
+    if (u == NULL) return ;
+    free(u-&amp;gt;data);
+    free(u);
+    return ;
+}
+
+int find(unionSet *u, int x) {
+    return x == u-&amp;gt;data[x] ? x : (u-&amp;gt;data[x] = find(u, u-&amp;gt;data[x]));
+}
+
+void union_find(unionSet *u, int a, int b) {
+    int fa = find(u, a), fb = find(u, b);
+    if (fa == fb) return ;
+    u-&amp;gt;data[fa] = fb;
+    return ;
+}
+
+int main() {
+
+    return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-12.并查集</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-11.堆排序/"" data-c="
+          &lt;h2 id=&#34;堆排序&#34;&gt;堆排序&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+#define SWAP(a, b) {\
+    __typeof(a) _t = a;\
+    a = b; b = _t;\
+}
+// 线性建堆，（自顶向下，和pop操作一样）
+// 传入数组首地址， 调整开始的位置， 数组大小
+void nHeap(int *arr, int ind, int size) {
+    while (ind &amp;lt;&amp;lt; 1 &amp;lt;= size) {
+        int temp = ind, dl = ind &amp;lt;&amp;lt; 1, dr = ind &amp;lt;&amp;lt; 1 | 1;
+        if (arr[temp] &amp;lt; arr[dl]) temp = dl;
+        if (dr &amp;lt;= size &amp;amp;&amp;amp; arr[temp] &amp;lt; arr[dr]) temp = dr;
+        if (temp == ind) break;
+        SWAP(arr[ind], arr[temp]);
+        ind = temp;
+    }
+    return ;
+}
+// 堆排序
+void heap_sort(int *arr, int n) {
+    arr -= 1; //arr = arr - 1把数组首地址左移的一个位置,当访问arr[1] 其实是访问 arr[0]
+    // 从倒数第二排开始建堆（一直往前）， 因为倒数第一排不需要维持
+    for (int i = n &amp;gt;&amp;gt; 1; i &amp;gt; 0; --i) {
+        nHeap(arr, i, n);
+    }
+    // 第一次建堆完毕之后，最大（小）在堆顶了
+    for (int i = n; i &amp;gt; 0; --i) {
+        // 把最后一个元素和第一个元素交换，这样最后一个元素就变成最大（小）了
+        // 依次类推
+        SWAP(arr[i], arr[1]);
+        // 保持堆的状态，从第一元素开始了， 元素个数也是减一了
+        nHeap(arr, 1, i - 1);
+    }
+    return ;
+}
+
+void output(int *arr, int n) {
+    printf(&amp;quot;arr: [&amp;quot;);
+    for (int i = 0; i &amp;lt; n; ++i) {
+        i &amp;amp;&amp;amp; printf(&amp;quot;, &amp;quot;);
+        printf(&amp;quot;%d&amp;quot;, arr[i]);
+    }
+    printf(&amp;quot;]\n&amp;quot;);
+    return ;
+}
+
+
+int main() {
+    #define maxn 10
+    srand(time(0));
+    int nums[maxn];
+    for (int i = 0; i &amp;lt; maxn; ++i) {
+        int val = rand() % 100;
+        nums[i] = val;
+    }
+    output(nums, maxn);
+    heap_sort(nums, maxn);
+    output(nums, maxn);
+
+    return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-11.堆排序</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-10.堆优先队列/"" data-c="
+          &lt;h2 id=&#34;堆优先队列&#34;&gt;堆（优先队列）&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+#define SWAP(a, b) {\
+    __typeof(a) _t = a;\
+    a = b; b = _t;\
+}
+// 用顺序表实现
+/*
+开辟容器 *data
+元素个数 cnt, 容器大小 size
+*/  
+typedef struct priority_queue {
+    int *data;
+    int cnt, size;
+} priority_queue;
+
+// 开辟空间并初始化
+priority_queue *init(int n) {
+    priority_queue *q = (priority_queue *)malloc(sizeof(priority_queue));
+    q-&amp;gt;data = (int *)malloc(sizeof(int) * (n + 1));
+    q-&amp;gt;cnt = 0;
+    q-&amp;gt;size = n;
+    return q;
+}
+// 回收内存空间
+void clear(priority_queue *q) {
+    if (q == NULL) return ;
+    free(q-&amp;gt;data);
+    free(q);
+    return ;
+}
+// 优先队列 判空
+int empty(priority_queue *q) {
+    return q-&amp;gt;cnt == 0;
+}
+// 堆顶元素
+int top(priority_queue *q) {
+    return q-&amp;gt;data[1];
+}
+// 入堆
+int push(priority_queue *q, int val) {
+    if (q == NULL) return 0;
+    if (q-&amp;gt;cnt == q-&amp;gt;size) return 0;
+    q-&amp;gt;data[++(q-&amp;gt;cnt)] = val; // 从队尾插入元素（从第一个元素开始插入）
+    int ind = q-&amp;gt;cnt; 
+    // 自底向上维护 堆的状态 
+    while (ind &amp;gt;&amp;gt; 1 &amp;amp;&amp;amp; q-&amp;gt;data[ind] &amp;gt; q-&amp;gt;data[ind &amp;gt;&amp;gt; 1]) {
+        // ind / 2 &amp;gt;= 1 防止越界
+        // 如果儿子大于爸爸，往上浮
+        SWAP(q-&amp;gt;data[ind], q-&amp;gt;data[ind &amp;gt;&amp;gt; 1]);
+        ind &amp;gt;&amp;gt;= 1; // 向上传递
+    }
+    return 1;
+}
+// 出队
+int pop(priority_queue *q) {
+    if (q == NULL) return 0;
+    if (empty(q)) return 0;
+    // 用队尾元素把堆顶元素覆盖，并元素个数减一
+    q-&amp;gt;data[1] = q-&amp;gt;data[(q-&amp;gt;cnt)--];
+    // 自顶向下 维护 堆的状态
+    int ind = 1;
+    // ind 从1开始， ind * 2 &amp;lt;= cnt(元素个数)
+    while (ind &amp;lt;&amp;lt; 1 &amp;lt;= q-&amp;gt;cnt) {
+        int temp = ind, dl = ind &amp;lt;&amp;lt; 1, dr = ind &amp;lt;&amp;lt; 1 | 1;
+        // 爸爸先跟左孩子比较，满足条件的话，交换一下
+        // 和左孩子比较完后，再与右孩子比较，满足条件的话，交换一下
+        // 注意右孩子的 ind * 2 + 1 &amp;lt;= cnt(元素个数)，也不能越界
+        if (q-&amp;gt;data[temp] &amp;lt; q-&amp;gt;data[dl]) temp = dl;
+        if (dr &amp;lt;= q-&amp;gt;cnt &amp;amp;&amp;amp; q-&amp;gt;data[temp] &amp;lt; q-&amp;gt;data[dr]) temp = dr;
+        if (temp == ind) break; // 如果都没有交换，说明满足堆的状态，直接结束
+        SWAP(q-&amp;gt;data[ind], q-&amp;gt;data[temp]); // 真正的交换操作
+        ind = temp; // 向下传递
+    }
+    return 1;
+}
+
+int main() {
+    #define maxn 10 
+    srand(time(0));
+    priority_queue *q = init(maxn);
+    printf(&amp;quot;push: &amp;quot;);
+    for (int i = 0; i &amp;lt; maxn; ++i) {
+        int val = rand() % 100;
+        printf(&amp;quot;%d &amp;quot;, val);
+        push(q, val);
+    }
+    printf(&amp;quot;\npop: &amp;quot;);
+    for (int i = 0; i &amp;lt; maxn; ++i) {
+        printf(&amp;quot;%d &amp;quot;, top(q));
+        pop(q);
+    }
+    printf(&amp;quot;\n&amp;quot;);
+    clear(q);
+    #undef maxn
+    return 0;
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-10.堆优先队列</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-8.稳定排序/"" data-c="
+          &lt;h2 id=&#34;稳定排序&#34;&gt;稳定排序&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+#define swap(a, b) {\
+    __typeof(a) _temp = a;\
+    a = b;\
+    b = _temp;\
+}
+
+#define TEST(arr, n, func, args...) {\
+    int *num = (int *)malloc(sizeof(int) * n);\
+    memcpy(num, arr, sizeof(int) * n);\
+    output(num, n);\
+    printf(&amp;quot;%s = &amp;quot;, #func);\
+    func(args);\
+    output(num, n);\
+    free(num);\
+}
+// 冒泡排序
+/* 平均时间复杂度：O(n^2)
+前：待排序区； 后：已排序区
+优化点：当某一轮冒泡没有交换操作，说明已排序完成，可以直接结束
+最坏时间复杂度：完全逆序 O(n^2)
+**插入排序可理解为方向冒泡
+*/
+void bubble_sort(int *num, int n) {
+    int flag = 1; // 标记
+    // n-1轮冒泡
+    for (int i = 1; i &amp;lt; n &amp;amp;&amp;amp; flag == 1; ++i) {
+        flag = 0;  // 不交换时，标记0
+        for (int j = 0; j &amp;lt; n - i; ++j) {
+            // 数值大的元素往后冒泡
+            if (num[j] &amp;gt; num[j+1]) {
+                swap(num[j], num[j+1]);
+                flag = 1; // 有交换，标记1
+            }
+        }
+    }
+    return ;
+}
+
+// 插入排序
+/*平均复杂度O(n^2)
+前：已排序区； 后：待排序区
+注意：必须一个一个比较交换，再插入
+*/
+void insert_sort(int *num, int n) {
+    // n-1轮插入
+    for (int i = 1; i &amp;lt; n; ++i ) {
+        for (int j = i; j &amp;gt; 0; --j) {
+            // 后面元素比前面小，往前交换位置
+            if (num[j] &amp;lt; num[j-1]) {
+                swap(num[j], num[j-1]);
+            }
+        }
+    }
+    return ;
+}
+// 归并排序
+/*
+稳定排序
+先分治到两两可以比较大小，再把有序的数组两两合并
+时间复杂度(最优，最差，平均):O（nlogn）
+分治logn层，每层合并时间为O(n)
+*/
+void merge_sort(int *num, int l, int r) {
+    // 分治递归出口（当元素只有一个或两个）
+    if (r - l &amp;lt;= 1) {
+        // 当有两个时，左边元素大于右边时，交换位置
+        if (r - l == 1 &amp;amp;&amp;amp; num[l] &amp;gt; num[r]) {
+            swap(num[l], num[r]);
+        }
+        return ;
+    }
+    int mid = (l + r) &amp;gt;&amp;gt; 1; // 分治操作，平均分
+    merge_sort(num, l, mid); // 左边部分放入递归
+    merge_sort(num, mid + 1, r); // 右边部分放入递归
+    // 分治后，l ~ mid, 和 mid + 1 ~ r,这两个区间分别有序的
+    // 下面开始合并操作，先申请r-l+1大小的空间
+    int *temp = (int *)malloc(sizeof(int) * (r-l+1));
+    // 给左边区间 p1指针， 右边区间 p2指针，K是合并后区间的指针
+    int p1 = l, p2 = mid + 1, k = 0;
+    while (p1 &amp;lt;= mid || p2 &amp;lt;= r) {
+        if (p2 &amp;gt; r || (p1 &amp;lt;= mid &amp;amp;&amp;amp; num[p1] &amp;lt;= num[p2])) {
+            temp[k++] = num[p1++];
+        } else {
+            temp[k++] = num[p2++];
+        }
+    }
+    // 把合并后的temp 拷贝回来， num + l 是首地址
+    memcpy(num + l, temp, sizeof(int) * (r-l+1));
+    free(temp); // 回收temp内存空间
+    return ;
+
+}
+
+void randint(int *num, int n) {
+    while (n--) num[n] = rand() % 100;
+    return ;
+}
+
+void output(int *num, int n) {
+    printf(&amp;quot;[&amp;quot;);
+    for (int i = 0; i &amp;lt; n; ++i) {
+        printf(&amp;quot; %d&amp;quot;, num[i]);
+    }
+    printf(&amp;quot;]\n&amp;quot;);
+    return ;
+}
+
+int main() {
+    srand(time(0));
+    #define max_op 20
+    int arr[max_op];
+    randint(arr, max_op);
+    TEST(arr, max_op, bubble_sort, num, max_op);
+    TEST(arr, max_op, insert_sort, num, max_op);
+    TEST(arr, max_op, merge_sort, num, 0, max_op - 1);
+    return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-8.稳定排序</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-7.不稳定排序/"" data-c="
+          &lt;h2 id=&#34;不稳定排序&#34;&gt;不稳定排序&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+#define SWAP(a, b) {\
+    __typeof(a) _t = a;\
+    a = b; b = _t;\
+}
+
+#define COLOR(a, b) &amp;quot;\e[&amp;quot; #b &amp;quot;m&amp;quot; a &amp;quot;\e[0m&amp;quot;
+#define GREEN(a) COLOR(a, 32)
+
+#define TEST(arr, n, func, args...) {\
+    int *num = (int *)malloc(sizeof(int) * n);\
+    memcpy(num, arr, sizeof(int) * n);\
+    output(num, n);\
+    printf(&amp;quot;%s: &amp;quot;, #func);\
+    func(args);\
+    output(num, n);\
+    printf(&amp;quot;\n&amp;quot;);\
+    free(num);\
+}
+// 选择排序
+/* 时间复杂度（最优，最坏，平均）O(n^2)
+前：已排序，后：待排序
+不稳定：例如 22&#39;1 第一次后 12&#39;2
+每轮找一个最小的元素，与待排序区的第一个元素交换
+*/
+void select_sort(int *nums, int n) {
+    for (int i = 0; i &amp;lt; n - 1; ++i) {
+        int ind = i;
+        for (int j = i; j &amp;lt; n; ++j) {
+            if (nums[j] &amp;lt; nums[ind]) ind = j;
+        }
+        SWAP(nums[i], nums[ind]);
+    }
+    return ;
+}
+// 基础快排
+/*时间复杂度：O(NlogN)
+拿第一个元素作为基准值
+逆序数列选第一个元素为基准值时，退化为选择排序，O（n^2）
+*/
+void quick_sort1(int *nums, int l, int r) {
+    if (l &amp;gt;= r) return ;
+    int x = l, y = r, z = nums[x];
+    while (x &amp;lt; y) {
+        while (x &amp;lt; y &amp;amp;&amp;amp; nums[y] &amp;gt; z) y--;
+        if (x &amp;lt; y) nums[x++] = nums[y];
+        while (x &amp;lt; y &amp;amp;&amp;amp; nums[x] &amp;lt; z) x++;
+        if (x &amp;lt; y) nums[y--] = nums[x];
+    }
+    nums[x] = z;
+    quick_sort1(nums, l, x - 1);
+    quick_sort1(nums, x + 1, r);
+    return ;
+}
+// 优化后的快排
+void quick_sort2(int *nums, int l, int r) {
+    // 优化1，减少一半递归，增加循环
+    // 左半边用循环， 右半边用递归
+    while (l &amp;lt; r) { 
+        // 优化2 基准值选中间值
+        int x = l, y = r, z = nums[(l + (r - l) / 2)];
+        do {
+            // 优化3：两个指针都去找值，并交换
+            // 关键：x &amp;lt;= y,要用 &amp;lt;= 后面将 x,y错开
+            // num[] &amp;lt; z,要用&amp;lt; , 经过基准值要停下
+            while (x &amp;lt;= y &amp;amp;&amp;amp; nums[x] &amp;lt; z) x++;
+            while (x &amp;lt;= y &amp;amp;&amp;amp; z &amp;lt; nums[y]) y--;
+            if (x &amp;lt;= y) {
+                // 交换后，两个指针都要移动一下，交错，y到前面，x到后面
+                SWAP(nums[x], nums[y]);
+                x++, y--; 
+            }
+        } while (x &amp;lt;= y); // 此处 用小于或小于等于都可以
+        quick_sort2(nums, x, r); // 右半部分递归
+        r = y; // l ~ y 左半部分循环
+    }
+    return ;
+}
+
+void randArr(int *nums, int n) {
+    while (n--) nums[n] = rand() % 100;
+    return ;
+}
+
+void output(int *nums, int n) {
+    printf(&amp;quot;arr: [&amp;quot;);
+    for (int i = 0; i &amp;lt; n; ++i) {
+        i &amp;amp;&amp;amp; printf(&amp;quot;, &amp;quot;);
+        printf(&amp;quot;%d&amp;quot;, nums[i]);
+    }
+    printf(&amp;quot;]\n&amp;quot;);
+    return ;
+}
+
+int main() {
+    srand(time(0));
+    #define maxn 100
+    clock_t start, end, end2;
+    int arr[maxn];
+    start = clock();
+    TEST(arr, maxn, select_sort, num, maxn);
+    randArr(arr, maxn);
+    TEST(arr, maxn, quick_sort1, num, 0, maxn - 1);
+    end = clock();
+    printf(GREEN(&amp;quot;time : %lf\n&amp;quot;), (double)(end - start) / ((clock_t)(1000)));
+    TEST(arr, maxn, quick_sort2, num, 0, maxn - 1);
+    end2 = clock();
+    printf(GREEN(&amp;quot;time : %lf\n&amp;quot;), (double)(end2 - end) / ((clock_t)(1000)));
+    return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-7.不稳定排序</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-6.广义表二叉搜索树/"" data-c="
+          &lt;h2 id=&#34;广义表转二叉树binary_tree&#34;&gt;广义表转二叉树（binary_tree）&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+
+typedef struct Node{
+    char data;
+    struct Node *lchild, *rchild;
+} Node;
+
+typedef struct Tree{
+    Node *root;
+    int n;
+} Tree; 
+
+typedef struct Stack{
+    Node **data;
+    int top, size;
+} Stack;
+
+Node *getnewNode(char val) {
+    Node *node = (Node *)malloc(sizeof(Node));
+    node-&amp;gt;data = val;
+    node-&amp;gt;lchild = node-&amp;gt;rchild = NULL;
+    return node;
+}
+
+Tree *getTree() {
+    Tree *tree = (Tree *)malloc(sizeof(Tree));
+    tree-&amp;gt;root = NULL;
+    tree-&amp;gt;n = 0;
+    return tree;
+}
+
+Stack *init(int n) {
+    Stack *s = (Stack *)malloc(sizeof(Stack));
+    s-&amp;gt;data = (Node **)malloc(sizeof(Node *) * n);
+    s-&amp;gt;size = n;
+    s-&amp;gt;top = -1;
+    return s;
+}
+
+void clear_stack(Stack *s) {
+    if (s == NULL) return ;
+    free(s-&amp;gt;data);
+    free(s);
+    return ;
+}
+
+void clear_node(Node *node) {
+    if (node == NULL) return ;
+    clear_node(node-&amp;gt;lchild);
+    clear_node(node-&amp;gt;rchild);
+    free(node);
+    return ;
+}
+
+void clear_tree(Tree *t) {
+    if (t == NULL) return ;
+    clear_node(t-&amp;gt;root);
+    free(t);
+    return ;
+}
+
+int empty(Stack *s) {
+    return s-&amp;gt;top == -1;
+}
+
+Node *top(Stack *s) {
+    return s-&amp;gt;data[s-&amp;gt;top];
+}
+
+int push(Stack *s, Node *val) {
+    if (s == NULL) return 0;
+    if (s-&amp;gt;top &amp;gt;= s-&amp;gt;size - 1) return 0;
+    s-&amp;gt;data[++(s-&amp;gt;top)] = val;
+    return 1;
+
+}
+
+int pop(Stack *s) {
+    if (s == NULL) return 0;
+    if (empty(s)) return 0;
+    s-&amp;gt;top--;
+    return 1;
+}
+
+Node *build(const char *str, int *node_count) {
+    Stack *s = init(strlen(str));
+    Node *temp = NULL, *p = NULL;
+    int flag = 0;
+    while(str[0]) {
+        switch(str[0]) {
+            case &#39;(&#39;: {
+                push(s, temp);
+                flag = 0;
+            } break;
+            case &#39;)&#39;: {
+                p = top(s);
+                pop(s);
+            } break;
+            case &#39;,&#39;: {
+                flag = 1;
+            } break;
+            case &#39; &#39;: break;
+            default:
+                temp = getnewNode(str[0]);
+            if (!empty(s) &amp;amp;&amp;amp; flag == 0) {
+                top(s)-&amp;gt;lchild = temp;
+            } else if (!empty(s) &amp;amp;&amp;amp; flag == 1) {
+                top(s)-&amp;gt;rchild = temp;
+            }
+            *node_count++;
+            break;
+        }
+        str++;
+    }
+    if (temp &amp;amp;&amp;amp; !p) p = temp;
+    return p;
+}
+
+void pre_order_node(Node *node) {
+    if (node == NULL) return ;
+    printf(&amp;quot;%c&amp;quot;, node-&amp;gt;data);
+    pre_order_node(node-&amp;gt;lchild);
+    pre_order_node(node-&amp;gt;rchild);
+    return ;
+}
+
+void pre_order(Tree *t) {
+    if (t == NULL) return ;
+    printf(&amp;quot;pre_order : &amp;quot;);
+    pre_order_node(t-&amp;gt;root);
+    printf(&amp;quot;\n&amp;quot;);
+    return ; 
+}
+
+void in_order_node(Node *node) {
+    if (node == NULL) return ;
+    in_order_node(node-&amp;gt;lchild);
+    printf(&amp;quot;%c&amp;quot;, node-&amp;gt;data);
+    in_order_node(node-&amp;gt;rchild);
+    return ;
+}
+
+void in_order(Tree *t) {
+    if (t == NULL) return ;
+    printf(&amp;quot;in_order : &amp;quot;);
+    in_order_node(t-&amp;gt;root);
+    printf(&amp;quot;\n&amp;quot;);
+    return ;
+    
+}
+void post_order_node(Node *node) {
+    if (node == NULL) return ;
+    post_order_node(node-&amp;gt;lchild);
+    post_order_node(node-&amp;gt;rchild);
+    printf(&amp;quot;%c&amp;quot;, node-&amp;gt;data);
+    return ;
+}
+
+void post_order(Tree *t) {
+    if (t == NULL) return ;
+    printf(&amp;quot;post_order : &amp;quot;);
+    post_order_node(t-&amp;gt;root);
+    printf(&amp;quot;\n&amp;quot;);
+    return ;
+    
+}
+int main() {
+    char str[1000] = {0};
+    int node_count = 0;
+    scanf(&amp;quot;%[^\n]s&amp;quot;, str);
+    Tree *tree = getTree();
+    tree-&amp;gt;root = build(str, &amp;amp;node_count);
+    tree-&amp;gt;n = node_count;
+    pre_order(tree);
+    in_order(tree);
+    post_order(tree);
+    return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-6.广义表二叉搜索树</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-5.二叉搜索树/"" data-c="
+          &lt;h2 id=&#34;二叉树binary_tree&#34;&gt;二叉树（binary_tree）&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+//结构定义
+/*
+结点+边
+链表结构是一叉树，只有一个分支的树形结构
+对于三叉树，将链表的next指针变成next[3]指针数组即可，其他类比
+二叉树结点存储元素：data
+二叉树两条边：lchild, rchild
+*/
+typedef struct Node{
+    int data;
+    struct Node *lchild, *rchild;
+} Node;
+// 封装成树，虚拟头节点root，结点个数n
+typedef struct Tree{
+    Node *root;
+    int n;
+} Tree;
+
+Node *init_node(int); // 动态申请内存空间，构造新结点
+Tree *init_tree();  // 构造根节点，封装成树
+void clear_node(Node *); // 结点内存回收
+void clear_tree(Tree *); // 树内存回收
+Node *insert_node(Node *, int , int*); // 插入结点
+void insert(Tree *, int); // 封装插入操作
+void pre_order_node(Node *); // 前序遍历
+void pre_order(Tree *);
+void in_order_node(Node *);// 中序遍历
+void in_order(Tree *);
+void post_order_node(Node *);// 后序遍历
+void post_order(Tree *);
+void output_node(Node *); // 打印输出
+void output(Tree *);
+
+int main() {
+    srand(time(0));
+    #define max_op 10
+    Tree *tree = init_tree();
+    for (int i = 0; i &amp;lt; max_op; ++i) {
+        int val = rand() % 100;
+        insert(tree, val);
+        output(tree);
+    }
+    pre_order(tree);
+    in_order(tree);
+    post_order(tree);
+    return 0;
+}
+
+Node *init_node(int val) {
+    Node *node = (Node *)malloc(sizeof(Node));
+    node-&amp;gt;data = val;
+    node-&amp;gt;lchild = node-&amp;gt;rchild = NULL;
+    return node;
+}
+
+Tree *init_tree() {
+    Tree *tree = (Tree *)malloc(sizeof(Tree));
+    tree-&amp;gt;root = NULL;
+    tree-&amp;gt;n = 0;
+    return tree;
+}
+
+void clear_node(Node *node) {
+    if (node == NULL) return ;
+    clear_node(node-&amp;gt;lchild);
+    clear_node(node-&amp;gt;rchild);
+    free(node);
+    return ;
+}
+
+void clear_tree(Tree * tree) {
+    if (tree == NULL) return ;
+    clear_node(tree-&amp;gt;root);
+    free(tree);
+    return ;
+}
+
+Node *insert_node(Node *root, int val, int *flag) {
+    if (root == NULL) {
+        *flag = 1;
+        return init_node(val);
+    }
+    if (root-&amp;gt;data == val) return root;
+    if (root-&amp;gt;data &amp;gt; val) root-&amp;gt;lchild = insert_node(root-&amp;gt;lchild, val, flag);
+    else root-&amp;gt;rchild = insert_node(root-&amp;gt;rchild, val, flag);
+}
+
+void insert(Tree *tree, int val) {
+    if (tree == NULL) return ;
+    int flag = 0;
+    tree-&amp;gt;root = insert_node(tree-&amp;gt;root, val, &amp;amp;flag);
+    tree-&amp;gt;n += flag;
+    return ;
+}
+
+void pre_order_node(Node *node) {
+    if (node == NULL) return ;
+    printf(&amp;quot;%d &amp;quot;, node-&amp;gt;data);
+    pre_order_node(node-&amp;gt;lchild);
+    pre_order_node(node-&amp;gt;rchild);
+    return ;
+}
+
+void pre_order(Tree *tree) {
+    if (tree == NULL) return ;
+    printf(&amp;quot;pre_order : &amp;quot;);
+    pre_order_node(tree-&amp;gt;root);
+    printf(&amp;quot;\n&amp;quot;);
+    return ;
+}
+
+void in_order_node(Node *node) {
+    if (node == NULL) return ;
+    in_order_node(node-&amp;gt;lchild);
+    printf(&amp;quot;%d &amp;quot;, node-&amp;gt;data);
+    in_order_node(node-&amp;gt;rchild);
+    return ;
+}
+
+void in_order(Tree *tree) {
+    if (tree == NULL) return ;
+    printf(&amp;quot;in_order : &amp;quot;);
+    in_order_node(tree-&amp;gt;root);
+    printf(&amp;quot;\n&amp;quot;);
+    return ;
+}
+void post_order_node(Node *node) {
+    if (node == NULL) return ;
+    post_order_node(node-&amp;gt;lchild);
+    post_order_node(node-&amp;gt;rchild);
+    printf(&amp;quot;%d &amp;quot;, node-&amp;gt;data);
+    return ;
+}
+
+void post_order(Tree *tree) {
+    if (tree == NULL) return ;
+    printf(&amp;quot;post_order : &amp;quot;);
+    post_order_node(tree-&amp;gt;root);
+    printf(&amp;quot;\n&amp;quot;);
+    return ;
+}
+
+void output_node(Node *node) {
+    if (node == NULL) return ;
+    printf(&amp;quot;%d&amp;quot;, node-&amp;gt;data);
+    if (node-&amp;gt;lchild == NULL &amp;amp;&amp;amp; node-&amp;gt;rchild == NULL) return ;
+    printf(&amp;quot;(&amp;quot;);
+    output_node(node-&amp;gt;lchild);
+    printf(&amp;quot;,&amp;quot;);
+    output_node(node-&amp;gt;rchild);
+    printf(&amp;quot;)&amp;quot;);
+    return ;
+}
+
+void output(Tree *tree) {
+    if (tree == NULL) return ;
+    printf(&amp;quot;Tree(%d) : &amp;quot;, tree-&amp;gt;n);
+    output_node(tree-&amp;gt;root);
+    printf(&amp;quot;\n&amp;quot;);
+    return ;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-5.二叉搜索树</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-4.栈/"" data-c="
+          &lt;h2 id=&#34;栈stack&#34;&gt;栈（Stack）&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+
+// 结构定义
+/*
+动态申请内存空间存储元素的容器：data
+栈容器的大小：size
+栈顶：top
+*/
+typedef struct stack {
+    int *data;
+    int size, top;
+} stack;
+
+stack *init(int); // 申请内存空间并初始化
+void clear(stack *); // 回收内存空间
+int top(stack *); // 查看栈顶元素
+int empty(stack *); // 栈容器判空
+int expand(stack *); // 栈容器扩容
+int push(stack *, int); // 栈顶压入元素
+int pop(stack *); // 栈顶弹出元素
+void output(stack *); // 打印输出栈容器的元素
+
+int main() {
+    srand(time(0));
+    #define max_op 20
+    stack *s = init(max_op);
+    for (int i = 0; i &amp;lt; max_op; ++i) {
+        int op = rand() % 4;
+        int val = rand() % 100;
+        switch(op) {
+            case 0:
+            case 1:
+            case 2: {
+                printf(&amp;quot;push %d to the Stack = %d\n&amp;quot;, val, push(s, val));
+            } break;
+            case 3: {
+                printf(&amp;quot;pop %d from the Stack =&amp;quot;, top(s));
+                printf(&amp;quot;%d\n&amp;quot;, pop(s));
+            } break;
+        }
+        output(s);
+        printf(&amp;quot;\n&amp;quot;);
+    }
+    clear(s);
+    #undef max_op
+    return 0;
+}
+
+stack *init(int n) {
+    stack *s = (stack *)malloc(sizeof(stack));
+    s-&amp;gt;data = (int *)malloc(sizeof(int) * n);
+    s-&amp;gt;size = n;
+    s-&amp;gt;top = -1;
+    return s;
+}
+
+void clear(stack *s) {
+    if (s == NULL) return ;
+    free(s-&amp;gt;data);
+    free(s);
+    return ;
+}
+
+int empty(stack *s) {
+    return s-&amp;gt;top == -1;
+}
+
+int top(stack *s) {
+    return s-&amp;gt;data[s-&amp;gt;top];
+}
+
+int expand(stack *s) {
+    int ex_size = s-&amp;gt;size;
+    int *p;
+    while (ex_size) {
+        p = (int *)realloc(s-&amp;gt;data, sizeof(int) * (ex_size + s-&amp;gt;size));
+        if (p) break;
+        ex_size &amp;gt;&amp;gt;= 1;
+    }
+    if (ex_size == 0) return 0;
+    s-&amp;gt;data = p;
+    s-&amp;gt;size += ex_size;
+    return 1;
+}
+
+int push(stack *s, int val) {
+    if (s == NULL) return 0;
+    if (s-&amp;gt;top &amp;gt;= s-&amp;gt;size - 1) {
+        if (!expand(s)) return 0;
+    }
+    if (s-&amp;gt;top &amp;gt;= s-&amp;gt;size - 1) return 0;
+    s-&amp;gt;data[++(s-&amp;gt;top)] = val;
+    return 1;
+}
+
+int pop(stack *s) {
+    if (s == NULL) return 0;
+    if (empty(s)) return 0;
+    s-&amp;gt;top--;
+    return 1;
+}
+
+void output(stack *s) {
+    printf(&amp;quot;Stack(%d) = [&amp;quot;, s-&amp;gt;top + 1);
+    for (int i = 0; i &amp;lt;= s-&amp;gt;top; ++i) {
+        i &amp;amp;&amp;amp; printf(&amp;quot; &amp;quot;);
+        printf(&amp;quot;%d&amp;quot;, s-&amp;gt;data[i]);
+    }
+    printf(&amp;quot;]\n&amp;quot;);
+    return ;
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-4.栈</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-2.链表/"" data-c="
+          &lt;h2 id=&#34;链表linklist&#34;&gt;链表（LinkList）&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+#define COLOR(a, b) &amp;quot;\e[&amp;quot; #b &amp;quot;m&amp;quot; a &amp;quot;\e[0m&amp;quot;
+#define GREEN(a) COLOR(a, 32)
+
+
+// 链表结构节点定义
+/*
+data:  数据域（存储数据）
+*next: 指针域（最后一个节点的指针域为NULL）
+*/
+typedef struct LinkNode {
+    int data;
+    struct LinkNode *next;
+} Node;
+
+// 链表结构定义
+/*
+head: 给链表加一个虚拟头节点(静态分配)，比较稳定不需要free
+没有虚拟头节点的话，需要作特判（当插入的ind == 0时）
+1.有虚拟头节点可以一直往后插
+2.防止单链表是空的而设的，当链表为空时，头节点的头指针指向头节点
+length: 记录链表的长度
+*/
+
+typedef struct LinkList {
+    Node head;
+    int length;
+} List;
+
+/*
+链表结构操作
+节点初始化：Node *getNewNode(int);
+链表初始化：List *getLinkList();
+节点内存回收：clear_node(Node *);
+链表内存回收：clear(List *);
+增：节点插入，insert(List *, int, int);(给定位置插入值)
+删：节点删除，erase（List *， int）;(给定位置删除值)
+打印输出链表：output(List *);
+翻转链表：reverse(List *);
+*/
+
+Node *getNewNode(int);
+List *getLinkList();
+void clear_node(Node*);
+void clear(List*);
+int insert(List*, int, int);
+int erase(List*, int);
+void output(List*);
+void reverse(List*);
+
+int main() {
+    srand(time(0));
+    #define MAX_OP 20
+    List *l = getLinkList();
+    for (int i = 0; i &amp;lt; MAX_OP; ++i) {
+        int op = rand() % 4;
+        int val = rand() % 100;
+        int ind = rand() % (l-&amp;gt;length + 3) - 1;
+        switch (op) {
+            case 0:
+            case 1: {
+                printf(&amp;quot;insert %d at %d to LinkList = %d\n&amp;quot;, val, ind, insert(l, val, ind));
+            } break;
+            case 2: {
+                printf(&amp;quot;erase iterm at %d from LinkList = %d\n&amp;quot;, ind, erase(l, ind));
+            } break;
+            case 3: {
+                printf(GREEN(&amp;quot;reverse the LinkList!\n&amp;quot;));
+                reverse(l);
+            } break;
+        }
+        output(l);
+        printf(&amp;quot;\n&amp;quot;);
+    }
+    #undef MAX_OP
+    clear(l);
+    return 0;
+}
+
+Node *getNewNode(int val) {
+    Node *p = (Node *)malloc(sizeof(Node));
+    p-&amp;gt;data = val;
+    p-&amp;gt;next = NULL;
+    return p;
+}
+
+List *getLinkList() {
+    List *l = (List *)malloc(sizeof(List));
+    l-&amp;gt;head.next = NULL;
+    int length = 0;
+    return l;
+}
+
+void clear_node(Node *p) {
+    if (p == NULL) return ;
+    free(p);
+    return ;
+}
+
+void clear(List *l) {
+    if (l == NULL) return ;
+    Node *p = l-&amp;gt;head.next, *q;
+    while (p) {
+        q = p-&amp;gt;next;
+        clear_node(p);
+        p = q;
+    }
+    free(l);
+    return ;
+}
+
+int insert(List *l,int val, int ind) {
+    if (l == NULL) return 0;
+    if (ind &amp;lt; 0 || ind &amp;gt; l-&amp;gt;length) return 0;
+    Node *p = &amp;amp;(l-&amp;gt;head), *node = getNewNode(val);
+    while (ind--) p = p-&amp;gt;next; // 走到待插入的位置的前一个位置
+    node-&amp;gt;next = p-&amp;gt;next;
+    p-&amp;gt;next = node;
+    l-&amp;gt;length++;
+    return 1;
+}
+
+int erase(List *l, int ind) {
+    if (l == NULL) return 0;
+    if (ind &amp;lt; 0 || ind &amp;gt;= l-&amp;gt;length) return 0;
+    Node *p = &amp;amp;(l-&amp;gt;head), *q;
+    while (ind--) p = p-&amp;gt;next; // 走到待删除的位置的前一个位置
+    q = p-&amp;gt;next;
+    p-&amp;gt;next = q-&amp;gt;next;
+    free(q);
+    l-&amp;gt;length--;
+    return 1;
+}
+
+void reverse(List *l) {
+    Node *p = l-&amp;gt;head.next, *q;
+    l-&amp;gt;head.next = NULL;
+    while (p) {
+        q = p-&amp;gt;next;
+        p-&amp;gt;next = l-&amp;gt;head.next;
+        l-&amp;gt;head.next = p;
+        p = q;
+    }
+    return ;
+}
+
+void output(List *l) {
+    if (l == NULL) return ;
+    printf(&amp;quot;LinkList(%d) = [&amp;quot;, l-&amp;gt;length);
+    for (Node *p = l-&amp;gt;head.next; p; p = p-&amp;gt;next) {
+        printf(&amp;quot;%d-&amp;gt;&amp;quot;, p-&amp;gt;data);
+    }
+    printf(&amp;quot;NULL]\n&amp;quot;);
+    return ;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-2.链表</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-1.顺序表/"" data-c="
+          &lt;h2 id=&#34;顺序表vector&#34;&gt;顺序表（Vector）&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+三个等式：
+程序 = 算法 + 数据结构
+程序设计 = 算法 + 数据结构 + 编程范式
+数据结构 = 结构定义 + 结构操作
+1.通过算法与数据结构，使计算机合理利用资源，让计算资源更有价值
+
+*/
+
+// 空间连续，可以存储任意类型的相同元素（顺序表里也可以存顺序表）
+
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+#define COLOR_HL(a, b) &amp;quot;\e[1;&amp;quot; #b &amp;quot;m&amp;quot; a &amp;quot;\e[0m&amp;quot;
+#define GREEN_HL(a) COLOR_HL(a, 32)
+/* 结构定义
+顺序表的空间大小：size
+已存储的元素个数：length
+存储的元素类型：*data 
+*/
+typedef struct Vector {
+    int *data;
+    int size, length;
+} Vec;
+/*
+结构操作
+增删改查
+初始化顺序表Vec：给顺序表申请可以存储n个元素的内存空间并初始化，Vec *init(int n);
+内存回收：void clear(Vec *v);
+内存扩容： int expand(Vec *v);
+增：插入元素，给定位置插入值int insert(Vec *v, int val, int ind);
+删；删除元素，删除指定位置的元素int erase(Vec *v, int ind);
+打印输出顺序表的元素：void output(Vec *v);
+
+*/
+
+typedef struct Vector {
+    int *data;
+    int size, length;
+}Vec;
+
+Vec *init(int);
+void clear(Vec*);
+int insert(Vec*, int, int);
+int expand(Vec*);
+int erase(Vec*, int);
+void output(Vec*);
+
+int main() {
+    srand(time(0));
+    #define MAX_OP 20
+    Vec *v = init(5);
+    for (int i = 0; i &amp;lt; MAX_OP; ++i) {
+        int op = rand() % 4;
+        int val = rand() % 100;
+        int ind = rand() % (v-&amp;gt;length + 3) - 1;
+        switch (op) {
+            case 0:
+            case 1:
+            case 2: {
+                printf(&amp;quot;insert %d at %d to Vector = %d\n&amp;quot;, val, ind, insert(v, val, ind));
+            } break;
+            case 3: {
+                printf(&amp;quot;erase a iterm at %d from Vector = %d\n&amp;quot;, ind, erase(v, ind));
+            } break;
+        }
+        output(v);
+        printf(&amp;quot;\n&amp;quot;);
+    }
+    clear(v);
+    #undef MAX_OP
+    return 0;
+}
+
+Vec *init(int n) {
+    Vec *v = (Vec*)malloc(sizeof(Vec));
+    v-&amp;gt;data = (int*)malloc(sizeof(int) * n);
+    v-&amp;gt;size = n;
+    v-&amp;gt;length = 0;
+    return v;
+}
+
+void clear(Vec *v) {
+    if (v == NULL) return ;
+    free(v-&amp;gt;data);
+    free(v);
+    return ;
+}
+
+int insert(Vec *v, int val, int ind) {
+    if (v == NULL) return 0;
+    if (ind &amp;lt; 0 || ind &amp;gt; v-&amp;gt;length) return 0;
+    if (v-&amp;gt;length &amp;gt;= v-&amp;gt;size) {
+        if (!(expand(v))) return 0;
+        printf(GREEN_HL(&amp;quot;success to expand, the Vector size is %d\n&amp;quot;), v-&amp;gt;size);
+    }
+    for (int i = v-&amp;gt;length; i &amp;gt; ind; --i) {
+        v-&amp;gt;data[i] = v-&amp;gt;data[i-1];
+    }
+    v-&amp;gt;data[ind] = val;
+    v-&amp;gt;length++;
+    return 1;
+}
+
+int erase(Vec *v, int ind) {
+    if (v == NULL) return 0;
+    if (ind &amp;lt; 0 || ind &amp;gt;= v-&amp;gt;length) return 0;
+    for (int i = ind + 1; i &amp;lt; v-&amp;gt;length; ++i) {
+        v-&amp;gt;data[i-1] = v-&amp;gt;data[i];
+    }
+    v-&amp;gt;length--;
+    return 1;
+}
+
+//  动态内存分配函数
+/*
+1.malloc:只是开辟空间，值不确定（开房没有保洁阿姨）
+2.calloc:开辟空间，并且初始化（开房后有保洁阿姨打扫清理）
+3.realloc:重新开辟空间（升级房型）
+realloc的三种情况：
+情况1.先试探能不能在原地址后面直接加空间，空间首地址不变；如果不行（情况2）
+情况2.换个地址找找，申请空间，然后把原空间数据拷贝到新空间，并free掉原空间；如果不行（情况3）
+情况3.就返回空地址，不清空当前地址
+*/
+
+int expand(Vec *v) {
+    int ex_size = v-&amp;gt;size;
+    int *p;
+    while (ex_size) {
+        p = (int *)realloc(v-&amp;gt;data, sizeof(int) * (ex_size + v-&amp;gt;size));
+        if (p) break;
+        ex_size /= 2;
+    }
+    if (ex_size == 0) return 0;
+    v-&amp;gt;data = p;
+    v-&amp;gt;size += ex_size;
+    return 1;
+}
+
+void output(Vec *v) {
+    if (v == NULL) return ;
+    printf(&amp;quot;Vector [&amp;quot;);
+    for (int i = 0; i &amp;lt; v-&amp;gt;length; ++i) {
+        i &amp;amp;&amp;amp; printf(&amp;quot;, &amp;quot;);
+        printf(&amp;quot;%d&amp;quot;, v-&amp;gt;data[i]);
+    }
+    printf(&amp;quot;]\n&amp;quot;);
+    return ;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-1.顺序表</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-7.工程项目开发/"" data-c="
           &lt;h2 id=&#34;头文件的引入与静态链接库&#34;&gt;头文件的引入与静态链接库&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
 1.在测试目录下（有main.c或test.c），创建一个module目录
@@ -2323,11 +2979,11 @@ void add_func(pfunc func, const char *str) {
 }
 
 &lt;/code&gt;&lt;/pre&gt;
-">C语言-工程项目开发</a>
+">C语言-7.工程项目开发</a>
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-复杂结构与指针/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-6.复杂结构与指针/"" data-c="
           &lt;h2 id=&#34;结构体&#34;&gt;结构体&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;struct person {
     char name[20];
@@ -2593,11 +3249,11 @@ void output(int argc, char *agrv[], char **env) {
 
 
 &lt;/code&gt;&lt;/pre&gt;
-">C语言-复杂结构与指针</a>
+">C语言-6.复杂结构与指针</a>
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-数组与预处理命令/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-5.数组与预处理命令/"" data-c="
           &lt;h2 id=&#34;1素数筛算法&#34;&gt;1.素数筛算法&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
 #define MAX_NUM 100
@@ -2902,11 +3558,11 @@ int main() {
 
 
 &lt;/code&gt;&lt;/pre&gt;
-">C语言-数组与预处理命令</a>
+">C语言-5.数组与预处理命令</a>
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-函数/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-4.函数/"" data-c="
           &lt;h2 id=&#34;1函数的基础知识&#34;&gt;1.函数的基础知识&lt;/h2&gt;
 &lt;h3 id=&#34;函数说明&#34;&gt;函数说明&lt;/h3&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;int is_prime(int x) {
@@ -3250,11 +3906,11 @@ int my_printf(const char *frm, ...) {
 2. 取模（%）可以取数组低位
 */
 &lt;/code&gt;&lt;/pre&gt;
-">C语言-函数</a>
+">C语言-4.函数</a>
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-程序流程控制方法/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-3.程序流程控制方法/"" data-c="
           &lt;h2 id=&#34;1-分支结构&#34;&gt;1. 分支结构&lt;/h2&gt;
 &lt;h3 id=&#34;11练习题&#34;&gt;1.1练习题&lt;/h3&gt;
 &lt;h4 id=&#34;1程序读入一个正整数n代表学生的成绩根据分数输出分数档位&#34;&gt;1.程序读入一个正整数n,代表学生的成绩，根据分数输出分数档位。&lt;/h4&gt;
@@ -3438,11 +4094,11 @@ int is_prime(int n) {
     return 1;
 }
 &lt;/code&gt;&lt;/pre&gt;
-">C语言-程序流程控制方法</a>
+">C语言-3.程序流程控制方法</a>
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-数学运算/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-2.数学运算/"" data-c="
           &lt;h2 id=&#34;1c语言基本运算符&#34;&gt;1.C语言基本运算符&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;a = b; // = ： 赋值运算符
 a = (b + c) * d; // +、-、*、/、（）：基本四则运算符
@@ -3547,11 +4203,11 @@ int main() {
 最小值表示：1000 0000 0000 0000
 */
 &lt;/code&gt;&lt;/pre&gt;
-">C语言-数学运算</a>
+">C语言-2.数学运算</a>
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-输入输出学习/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-1.输入输出学习/"" data-c="
           &lt;h1 id=&#34;一-c语言入门基础&#34;&gt;一、C语言入门基础&lt;/h1&gt;
 &lt;h2 id=&#34;1scanf输入函数说明&#34;&gt;1.scanf()输入函数说明&lt;/h2&gt;
 &lt;p&gt;头文件： #include &amp;lt;stdio.h&amp;gt;&lt;/p&gt;
@@ -3640,7 +4296,7 @@ fprintf()函数原型：int fprintf(FILE *fp, const char *format, ...);
 可以用重定向文件（&amp;gt;）,把标准输出和错误标准输出分开。
 */
 &lt;/code&gt;&lt;/pre&gt;
-">C语言-输入输出学习</a>
+">C语言-1.输入输出学习</a>
       </div>
       
       <div class="item">
@@ -3977,6 +4633,7 @@ fprintf()函数原型：int fprintf(FILE *fp, const char *format, ...);
 
 
 <script src="/media/js/cool.js"></script>
+
 
 
 

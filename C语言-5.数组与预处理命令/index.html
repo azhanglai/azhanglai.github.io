@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
-<title>Bling</title>
+<title>C语言-5.数组与预处理命令 | Bling</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1631422506573">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -44,6 +44,8 @@
 
 
 
+  <meta name="description" content="C语言-5.数组与预处理命令" />
+  <meta name="keywords" content="C语言学习笔记" />
 </head>
 
 <body>
@@ -105,7 +107,7 @@
             
               
             
-            <li class="nav-item nav-item-active">
+            <li class="nav-item ">
               
               
                 <a href="/tags/" target="_self">
@@ -189,10 +191,26 @@
   <div class="main-continer">
     
     <div
-      class="section-layout  pisces">
+      class="section-layout pisces ">
       <div class="section-layout-wrapper">
-        <div id="sidebarMeta" class="sidebar">
-    
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -232,348 +250,748 @@
 
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1%E7%B4%A0%E6%95%B0%E7%AD%9B%E7%AE%97%E6%B3%95">1.素数筛算法</a>
+<ul>
+<li><a href="#2-%E7%BA%BF%E6%80%A7%E7%AD%9B">2. 线性筛</a>
+<ul>
+<li><a href="#1-%E8%AF%B7%E5%86%99%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F%E5%BF%AB%E9%80%9F%E6%B1%82%E5%87%BA%E4%B8%80%E4%B8%AA%E8%8C%83%E5%9B%B4%E5%86%85%E5%81%87%E8%AE%BE%E4%B8%BA10000%E6%89%80%E6%9C%89%E6%95%B0%E5%AD%97%E7%9A%84%E6%9C%80%E5%B0%8F%E7%B4%A0%E5%9B%A0%E5%AD%90">1.  请写一个程序，快速求出一个范围内（假设为10000）所有数字的最小素因子</a></li>
+<li><a href="#2-%E8%AF%B7%E5%86%99%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F%E5%BF%AB%E9%80%9F%E6%B1%82%E5%87%BA%E4%B8%80%E4%B8%AA%E8%8C%83%E5%9B%B4%E5%86%85%E5%81%87%E8%AE%BE%E4%B8%BA10000%E6%89%80%E6%9C%89%E6%95%B0%E5%AD%97%E7%9A%84%E6%9C%80%E5%A4%A7%E7%B4%A0%E5%9B%A0%E5%AD%90">2.  请写一个程序，快速求出一个范围内（假设为10000）所有数字的最大素因子</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%9E%E7%8E%B0%E7%B4%A0%E6%95%B0%E7%BA%BF%E6%80%A7%E7%AD%9B">实现素数线性筛</a></li>
+<li><a href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE">二分查找</a>
+<ul>
+<li><a href="#%E6%95%B0%E7%BB%84%E7%9A%84%E6%BC%94%E7%A4%BA%E4%BB%A3%E7%A0%81">数组的演示代码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E9%A2%84%E5%A4%84%E7%90%86%E5%91%BD%E4%BB%A4">预处理命令</a>
+<ul>
+<li><a href="#%E7%BB%83%E4%B9%A0-%E9%A2%98">练习 题</a></li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2">字符串</a></li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C">字符串相关操作</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
 </div>
+
 <script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'pisces';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
       }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
     });
   }
-  </script>
-        <div class="section-box box-shadow-wrapper">
-          <section class="section tags-section bg-color posts-expand">
-            <div class="tags-box">
-  <div class="tag-cloud-title language" data-lan="cloud-tags" data-count="3">
-    目前共计 3 个标签
-  </div>
-  <div class="tag-cloud-list" id="tags">
-    
-      
-      
-        
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-      
-        
-          
-        
-      
-      <a class="cloud-tag" href="https://azhanglai-github-io.vercel.app/xLHIeVlgF/" rel="12">数据结构与算法-C版基础篇</a>
-    
-      
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-          
-            
-      
-        
-      
-        
-          
-        
-      
-      <a class="cloud-tag" href="https://azhanglai-github-io.vercel.app/xo6GO5z-C/" rel="7">C语言学习笔记</a>
-    
-      
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-      
-        
-          
-            
-      
-      <a class="cloud-tag" href="https://azhanglai-github-io.vercel.app/wDapr16Um/" rel="1">Gridea</a>
-    
-  </div>
-</div>
-<script>
 
-  let fontStart = 12, fontEnd = 30, colorStart = '#666', colorEnd = '#000';
-  let tags = document.querySelector('#tags').children;
-  let counts = [];
-  for(let i = 0; i < tags.length; i++) {
-    counts.push(tags[i].rel);
-  }
-  let lowest = Math.min.apply(null,counts), highest = Math.max.apply(null,counts);;
-  let range = highest - lowest;
-  if (range === 0) {
-    range = 1;
-  }
-  let fontIncr, colorIncr;
-  fontIncr = (fontEnd - fontStart) / range;
-  
-  let sColorArr = toRGB(colorStart), eColorArr = toRGB(colorEnd);
-
-  for(let i = 0; i < tags.length; i++) {
-    let disCount = tags[i].rel - lowest;
-    let fontSize = fontStart + disCount * fontIncr;
-    let style = 'font-size: ' + fontSize + 'px;';
-    let arr = [];
-    for(let c = 0; c < sColorArr.length; c++) {
-      if (disCount === 0) {
-        disCount = 1;
-      }
-      let val = (sColorArr[c] - eColorArr[c]) / range * disCount;
-      if (val >= 100) {
-        val = eColorArr[c];
-      } else if (val <= 0) {
-        val = sColorArr[c];
-      }
-      arr[c] = Math.floor(val);
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
     }
-    style += 'color: ' + toHex(arr);
-    tags[i].style = style;
   }
 
-  function toRGB(code) {
-    if (code.length === 4) {
-      code = code.replace(/(\w)(\w)(\w)/gi, "\$1\$1\$2\$2\$3\$3");
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
     }
-    var hex = /(\w{2})(\w{2})(\w{2})/.exec(code);
-    return [parseInt(hex[1], 16), parseInt(hex[2], 16), parseInt(hex[3], 16)];
   }
 
-  function toHex(ary) {
-    return "#" + ((1 << 24) + (ary[0] << 16) + (ary[1] << 8) + ary[2]).toString(16).slice(1);
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
   }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
 
 </script>
-          </section>
+            </div>
+          
+        
+      </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    jQuery.Velocity(hideElement, 'stop');
+    jQuery.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        jQuery.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://azhanglai-github-io.vercel.app/C语言-5.数组与预处理命令/">
+      C语言-5.数组与预处理命令
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span class="language" data-lan="publish">发布于</span>
+      <span class="publish-time" data-t="2020-11-02 23:26:00">2020-11-02</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show language" data-lan="category-in">分类于</span>
+      
+      
+      <a href="https://azhanglai-github-io.vercel.app/xo6GO5z-C/">
+        <span>C语言学习笔记</span>
+      </a>
+      
+      
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>7<span class="language" data-lan="minute">分钟</span></span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>1380<span class="pc-show language" data-lan="words">字数</span></span>
+    </span>
+    
+    
+    
+    <span id="/C语言-5.数组与预处理命令/" data-flag-title="C语言-5.数组与预处理命令" class="meta-item pc-show leancloud_visitors">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-eye"></i>
+      <span><span class="language" data-lan="view">浏览量</span>：<span class="leancloud-visitors-count"></span></span>
+    </span>
+    
+  </div>
+</section>
+            <div class="post-body next-md-body" id="post_body">
+              <h2 id="1素数筛算法">1.素数筛算法</h2>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#define MAX_NUM 100
+
+int prime[MAX_NUM + 5] = {0}; //初始化数组
+void init(int *);  //素数筛选函数
+
+int main() {
+    init(prime);
+    for (int i = 1; i &lt;= prime[0]; ++i) {
+        printf(&quot;%d\n&quot;, prime[i]);
+    }
+    return 0;
+}
+
+void init(int *prime) {
+    for (int i = 2; i &lt;= MAX_NUM; ++i) {
+        if (prime[i]) continue;  // 标记为1，下一个
+        prime[++prime[0]] = i;  // 把数组第一个用来计数，
+        for (int j = i * i; j &lt;= MAX_NUM; j += i) { 
+            // 把 j = 2 * i 改为 j = i * i , 可以减少次数。
+            prime[j] = 1;  // 把素数的倍数标记为1
+        }
+    }
+}
+/*
+prime[++prime[0]] == count = ++prime[0]; prime[count];
+*/
+</code></pre>
+<h3 id="2-线性筛">2. 线性筛</h3>
+<h4 id="1-请写一个程序快速求出一个范围内假设为10000所有数字的最小素因子">1.  请写一个程序，快速求出一个范围内（假设为10000）所有数字的最小素因子</h4>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#define MAX_NUM 100
+
+int prime[MAX_NUM+5] = {0};
+void init(int *);
+
+int main() {
+    init(prime);
+    for (int i = 2; i &lt;= MAX_NUM; ++i) {
+        printf(&quot;facmin(%d) = %d\n&quot;, i, prime[i]);
+    }
+    return 0;
+}
+
+void init(int *prime) {
+    for (int i = 2; i &lt;= MAX_NUM; ++i) {
+        if (prime[i]) continue;
+        //prime[++prime[0]] = i;
+        for (int j = i; j &lt;= MAX_NUM; j += i) {
+            if (prime[j]) continue;
+            prime[j] = i;
+        }
+    }
+
+}
+
+</code></pre>
+<h4 id="2-请写一个程序快速求出一个范围内假设为10000所有数字的最大素因子">2.  请写一个程序，快速求出一个范围内（假设为10000）所有数字的最大素因子</h4>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#define MAX_NUM 100
+
+int prime[MAX_NUM+5] = {0};
+
+void init(int *);
+
+int main() {
+    init(prime);
+    for (int i = 2; i &lt;= MAX_NUM; ++i) {
+        printf(&quot;facmax(%d) = %d\n&quot;, i, prime[i]);
+    }
+    return 0;
+}
+
+void init(int *prime) {
+    for (int i = 2; i &lt;= MAX_NUM; ++i) {
+        if (prime[i]) continue;
+        for (int j = i; j &lt;= MAX_NUM; j += i) {
+            prime[j] = i;
+        }
+    }
+}
+
+</code></pre>
+<h3 id="实现素数线性筛">实现素数线性筛</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#define MAX_NUM 100
+
+int prime[MAX_NUM+5] = {0};
+
+void init(int *);
+
+int main() {
+    init(prime);
+    for (int i = 1; i &lt;= prime[0]; ++i) {
+        printf(&quot;%d\n&quot;, prime[i]);
+    }
+    return 0;
+}
+
+void init(int *prime) {
+    for (int i = 2; i &lt;= MAX_NUM; ++i) {   // 用一个整数i去标记N
+        if (!prime[i]) prime[++prime[0]] = i;  // 没有标记的是素数
+        for (int j = 1; j &lt;= prime[0]; ++j) { 
+            if (i * prime[j] &gt; MAX_NUM) break; // 超过数组最大的下标，直接结束 
+            prime[prime[j] * i] = 1; 
+            if (i % prime[j] == 0) break; //关键
+        }
+    }
+}
+
+/*
+用一个整数 i 去标记 N, i * p == N
+p为N的最小素因子，
+i 的 素因子小于等于 p
+*/
+</code></pre>
+<h3 id="二分查找">二分查找</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+double func(double x);
+double binary_search(double (*func)(double), double x);
+
+int main() {
+    double n;
+    while (~scanf(&quot;%lf&quot;, &amp;n)) {
+        double x = binary_search(func, n);
+        printf(&quot;%g * %g = %g\n&quot;, x, x, n);
+    }
+    return 0;
+}
+
+double func(double x) { 
+    return x * x;
+}
+
+double binary_search(double (*func)(double), double x) {
+    double head = 0, tail = x, mid;
+    if (x &lt; 1.0) tail = 1.0;
+    #define ESPL 1e-7
+    while (tail - head &gt; ESPL) {
+        mid = (head + tail) / 2.0;
+        if (func(mid) &lt; x) head = mid;
+        else tail = mid;
+    }
+    #undef ESPL
+    return head;
+}
+
+</code></pre>
+<h4 id="数组的演示代码">数组的演示代码</h4>
+<pre><code class="language-c">/*
+数组的表示方法
+1. arr[i] == *(arr + i)  
+2. arr + i == &amp;(arr[i])
+
+指针强转
+char *p = (char *)arr
+
+数组传参
+arr[i]或arr[i][j] 的首地址为arr (&amp;arr[0]);
+1. 一维数组的实参 func(arr) // 传入数组首地址
+形参：func(int *arr) 或 func(int arr[]) // *arr == *(arr + 0) == arr[]
+
+2.二维数组的实参 func(arr) // 传入数组首地址
+形参：func(int (*arr)[j]) 或 func(int arr[][j]) 
+
+3.数组sanf()函数传值
+for (int i = 0; i &lt; n; ++i) {
+	scanf(&quot;%d&quot;, &amp;arr[i]); // scanf(&quot;%d&quot;, arr + i);
+}
+
+*/
+</code></pre>
+<h2 id="预处理命令">预处理命令</h2>
+<pre><code class="language-c">/*
+预处理命令——条件式编译
+1. #ifdef DEBUG : 是否定义了DEBUG宏
+2. #ifndef DEBUG : 是否没定义DEBUG宏
+3. #if MAX_N == 5 : 宏MAX_N是否等于5
+4. #elif MAX_N == 4 : 否则宏MAX_N是否等于4
+5. #else
+6. #endif
+*/
+</code></pre>
+<h3 id="练习-题">练习 题</h3>
+<pre><code class="language-c">/*
+请实现一个没有BUG的MAX宏，需要通过如下测试：
+1. MAX(2, 3)
+2. 5 + MAX(2, 3)
+3. MAX(2, MAX(3, 4))
+4. MAX(2, 3 &gt; 4 ? 3 : 4)
+5. MAX(a++, 6) a的初值为7，函数返回值为 7，a的值变为8
+*/
+
+#include &lt;stdio.h&gt;
+
+#define MAX(a, b) ({\
+    __typeof(a) _a = a;\  
+    __typeof(b) _b = b;\
+    _a &gt; _b ? _a : _b;\
+})
+
+#define P(a) {\
+    printf(&quot;%s = %d\n&quot;, #a, a);\
+}
+
+int main() {
+    int a = 7;
+    P(MAX(2, 3));
+    P(5 + MAX(2, 3));
+    P(MAX(2, MAX(3, 4)));
+    P(MAX(2, 3 &gt; 4 ? 3 : 4));
+    P(MAX(a++, 6));
+    P(a);
+    return 0;
+}
+
+</code></pre>
+<pre><code class="language-c">/*
+实现一个打印LOG的函数，需要输出所在函数及行号等信息。
+注：
+1. 宏__FILE__ 以字符串形式返回所在文件名称
+2. 宏__func__ 以字符串形式返回所在函数名称
+3. 宏__LINE__ 以整数形式返回代码行号
+*/
+
+#include &lt;stdio.h&gt;
+
+#ifdef DEBUG  // 编译的时候加 -DDEBUG (g++ -DDEBUG ...) 
+// -D加入宏
+#define LOG(frm, agrc...) {\
+    printf(&quot;[%s : %d]&quot;, __func__, __LINE__);\
+    printf(frm, ##agrc);\  // ##是连接符号，可以为空。
+    printf(&quot;\n&quot;);\
+}
+#else
+
+#define LOG(frm, argc...)
+
+#endif  //结束宏的条件式编译
+
+void func(int a) {
+    a++;
+    LOG(&quot;%d&quot;, a);
+    return ;
+}
+
+int main() {
+    int a = 123;
+    func(a);
+    LOG(&quot;%d&quot;, a);
+    LOG(&quot;hello world!&quot;);
+    return 0;
+}
+
+
+</code></pre>
+<h3 id="字符串">字符串</h3>
+<pre><code class="language-c">/*
+定义字符数组：char str[size];
+
+初始化字符数组：
+1. char str[] = &quot;hello world&quot;; // 以字符'\0'结尾，12字节。sizeof(str) == 12
+2. char str[size] = {'h', 'e', 'l', 'l', 'o'}; 
+
+头文件：string.h
+strlen(str) : 计算字符串长度，以\0作为结束符
+strcmp(str1, str2) : 字符串比较 （使用字典序）
+strcpy(dest, src) : 字符串拷贝 （把src 拷贝到 dest）
+strncmp(str1, str2, n) : 安全的字符串比较 （比较n个字符）
+strncpy(str1, str2, n) : 安全的字符串拷贝
+memcpy(str1, str2, n) : 内存拷贝
+memcmp(str1, str2, n) : 内存比较
+memset(str, c, n) : 内存设置 （c 可以 为 0 或 -1， n为字节大小）
+用法：memeset(str, 0, sizeof(str));
+*/
+
+</code></pre>
+<h3 id="字符串相关操作">字符串相关操作</h3>
+<pre><code class="language-c">/*
+头文件：stdio.h
+1. sscanf(str1, format, ...); 从字符串str1读入内容
+2. sprintf(str1, format, ...); 将内容输出到str1中
+*/
+
+//请使用字符串相关操作方法，计算一个整型16进制表示的位数。
+
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main() {
+    int n;
+    char str[12];
+    while (~scanf(&quot;%d&quot;, &amp;n)) {
+        sprintf(str, &quot;%x&quot;, n);
+        printf(&quot;%d(%s) has %lu digit!\n&quot;, n, str, strlen(str));
+    }
+
+    return 0;
+}
+
+
+</code></pre>
+
+            </div>
+            
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      小张
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://azhanglai-github-io.vercel.app/C语言-5.数组与预处理命令/" title="C语言-5.数组与预处理命令">https://azhanglai-github-io.vercel.app/C语言-5.数组与预处理命令/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://azhanglai-github-io.vercel.app/xo6GO5z-C/"># C语言学习笔记</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+        <i class="fa fa-chevron-left"></i>
+        <a class="nav-pc-next" title="C语言-6.复杂结构与指针" href="https://azhanglai-github-io.vercel.app/C语言-6.复杂结构与指针/">C语言-6.复杂结构与指针</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="C语言-6.复杂结构与指针" href="https://azhanglai-github-io.vercel.app/C语言-6.复杂结构与指针/">上一篇</a>
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="C语言-4.函数" href="https://azhanglai-github-io.vercel.app/C语言-4.函数/">C语言-4.函数</a>
+        <a class="nav-mobile-next" title="C语言-4.函数" href="https://azhanglai-github-io.vercel.app/C语言-4.函数/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
+            
+  <script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<div id="vcomments" style="padding: 10px 0px 0px 0px"></div>
+
+<style>
+  .v .veditor {
+    min-height: 10rem;
+    background-image: url('');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-color: rgba(255, 255, 255, 0);
+    resize: none;
+  }
+
+  .v .vwrap {
+    border: 1px solid #000 !important;
+  }
+
+  .v .vbtn {
+    padding: .4rem 1.2rem !important;
+    border-color: #fff !important;
+    background-color: #49b1f5 !important;
+    color: #fff !important;
+    font-size: .7rem !important;
+  }
+
+  .v .vcards .vcard .vh .vmeta .vat {
+    padding: 0 .8rem !important;
+    border: 1px solid #00c4b6 !important;
+    border-radius: 5px !important;
+    color: #00c4b6 !important;
+  }
+</style>
+<script>
+  new Valine({
+    el: '#vcomments',
+    appId: 'C2yIoDu5Gzzdf8TAxMWoEd1w-gzGzoHsz',
+    appKey: '38eqXPT7vq0raXMj2txOP2LI',
+    avatar: '',
+    placeholder: 'Say something...',
+    pageSize: '',
+    lang: 'zh-cn',
+    enableQQ: 'true' === 'true',
+    visitor: 'true' === 'true',
+    highlight: 'true' === 'true',
+    avatarForce: 'true' === 'true',
+  });
+</script>
+
+          </div>
         </div>
       </div>
     </div>
@@ -1331,6 +1749,223 @@
     aelem.appendChild(image);
     parent.insertBefore(aelem, next);
   })
+</script>
+
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip">打开微信扫一扫，即可进行扫码打赏哦</p>
+    </div>
+    <div class="bottom">
+      
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        jQuery.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        jQuery.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        jQuery.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        jQuery.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      jQuery.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      jQuery.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
 </script>
 
   </div>
@@ -4854,7 +5489,6 @@ fprintf()函数原型：int fprintf(FILE *fp, const char *format, ...);
 
 
 <script src="/media/js/cool.js"></script>
-
 
 
 

@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
 <title>关于 | Bling</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631419334702">
+<link rel="shortcut icon" href="/favicon.ico?v=1631422506573">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -221,19 +221,19 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">9</span>
+        <span class="site-item-stat-count">21</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">2</span>
+        <span class="site-item-stat-count">3</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">2</span>
+        <span class="site-item-stat-count">3</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -1626,7 +1626,1556 @@
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-工程项目开发/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-9.哈希表/"" data-c="
+          &lt;h2 id=&#34;哈希表&#34;&gt;哈希表&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+// 用拉链法解决哈希冲突
+/*
+哈希表结构定义：有一个哈希表（动态申请内存，哈希表大小为size），存放链表的首地址 **data。
+链表结构定义：节点值域存放 字符串（同一链表的字符串哈希值相等）， 指针域 直线下一个节点
+*/
+typedef struct Node {
+    char *str; // 值域 存放 字符串
+    struct Node *next; // 指针域
+} Node;
+
+typedef struct Hash {
+    Node **data; // 存放 每条链表的 首地址
+    int size; // 哈希表大小
+} Hash;
+// 构建新节点，值域存放字符串，指针域指向 同一哈希值的 链表head
+Node *getNewNode(const char *str, Node *head) {
+    Node *p = (Node *)malloc(sizeof(Node));
+    p-&amp;gt;str = strdup(str); // strdup 用到了 malloc,需要free
+    p-&amp;gt;next = head; // 指向 链表头
+    return p;
+}
+// 构建hashtable
+Hash *getHash(int n) {
+    Hash *h = (Hash *)malloc(sizeof(Hash));
+    h-&amp;gt;size = 2 * n; // 考虑哈希表的空间利用率50% ~ 90%，开辟空间大一倍
+     // calloc开辟，初始化为0，可以每个链表头部置空，安全
+    h-&amp;gt;data = (Node **)calloc(h-&amp;gt;size, sizeof(Node *));
+    return h;
+}
+// 链表内存回收
+void clear_node(Node *node) {
+    if (node == NULL) return ;
+    Node *p = node, *q;
+    while (p) {
+        q = p-&amp;gt;next;
+        free(p-&amp;gt;str); // strdup()出来的也要free
+        free(p);
+        p = q;
+    }
+    return ;
+}
+
+void clear(Hash *h) {
+    if (h == NULL) return ;
+    for (int i = 0; i &amp;lt; h-&amp;gt;size; ++i) {
+        clear_node(h-&amp;gt;data[i]); // 回收每条链表
+    }
+    free(h-&amp;gt;data); // 回收哈希表
+    free(h); // 回收哈希表
+    return ;
+}
+// BKDRHash
+/*
+把字符串的每个字符哈希成一个数字
+// 哈希公式： hash = hash * seed + str[i]
+// seed 初始化一个 素数（例如31）， hash初始化为0
+*/
+// 哈希函数
+int BKDRHash(const char *str) {
+    int seed = 31, hash = 0; 
+    for (int i = 0; str[i]; i++) {
+        hash = hash * sedd + str[i];
+    }
+    return hash &amp;amp; 0x7fffffff; // 防止哈希值溢出 按位与 0111111111变成整数
+}
+
+int insert(Hash *h, const char *str) {
+    int hash = BKDRHash(str); // 将字符串通过哈希函数，映射成哈希值
+    int ind = hash % h-&amp;gt;size; // 根据哈希表的大小，对哈希值取模,得到索引值
+    // p-&amp;gt;next = old_head, new_head-&amp;gt;next = p
+    h-&amp;gt;data[ind] = getNewNode(str, h-&amp;gt;data[ind]); // 去到索引值位置的链表用头插法
+    return 1;
+}
+
+int find(Hash *h, const char *str) {
+    int hash = BKDRHash(str);  // 将字符串通过哈希函数，映射成哈希值
+    int ind = hash % h-&amp;gt;size;  // 根据哈希表的大小，对哈希值取模,得到索引值
+    Node *p = h-&amp;gt;data[ind]; // 去到索引值位置的链表头部
+    while (p &amp;amp;&amp;amp; strcmp(p-&amp;gt;str, str) != 0) p = p-&amp;gt;next; // 遍历链表查找
+    return p != NULL; // p为空，说明字符串没有插入进来，没有找到
+}
+
+int main() {
+    #define maxn 105
+    int op;
+    char str[maxn] = {0};
+    Hash *h = getHash(maxn);
+    while (~scanf(&amp;quot;%d %s&amp;quot;, &amp;amp;op, str)) {
+        switch (op) {
+            case 0: insert(h, str); break;
+            case 1: printf(&amp;quot;%d\n&amp;quot;, find(h, str)); break;
+        }
+    }
+    clear(h);
+    #undef maxn
+    return 0;
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-9.哈希表</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-3.队列/"" data-c="
+          &lt;h2 id=&#34;队列queue&#34;&gt;队列（Queue）&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+#define COLOR(a, b) &amp;quot;\e[&amp;quot; #b &amp;quot;m&amp;quot; a &amp;quot;\e[0m&amp;quot;
+#define GREEN(a) COLOR(a, 32)
+
+// 结构定义
+/*
+动态开辟存储元素的容器：*data
+指向队列头的指针：head
+指向队列尾的指针：tail
+容器大小：size
+目前存储元素的个数：count
+*/
+typedef struct queue {
+    int *data;
+    int head, tail, size, count;
+} queue;
+
+// 结构操作
+/*
+给队列动态申请内存空间并初始化: *init(int);
+回收内存空间：void clear(que *);
+队列扩容：int expand(que *);
+队列判空操作：int empty(que *);
+尾部元素入队：int push(que *, int);
+头部元素出队：int pop(que *);
+查看队首元素：int front(que *);
+打印输出队列的元素： void output(que *);
+*/
+
+queue *init(int);  
+void clear(queue *);
+int empty(queue *);
+int front(queue *);
+int push(queue *, int);
+int expand(queue *);
+int pop(queue *);
+void output(queue *);
+
+int main() {
+    srand(time(0));
+    #define max_op 20
+    queue *que = init(max_op);
+    for (int i = 0; i &amp;lt; max_op * 2; ++i) {
+        int val = rand() % 100;
+        int op = rand() % 4;
+        switch(op) {
+            case 0:
+            case 1:
+            case 2: {
+                printf(&amp;quot;push %d to the Queue = %d\n&amp;quot;, val, push(que, val));
+            } break;
+            case 3: {
+                printf(&amp;quot;pop %d from the Queu = &amp;quot;, front(que));
+                printf(&amp;quot;%d\n&amp;quot;, pop(que));
+            }
+        }
+        output(que);
+    } 
+    clear(que);
+    #undef max_op
+    return 0;
+}
+
+queue *init(int n) {
+    queue *que = (queue *)malloc(sizeof(queue));
+    que-&amp;gt;data = (int *)malloc(sizeof(int) * n);
+    que-&amp;gt;size = n;
+    que-&amp;gt;head = que-&amp;gt;tail = que-&amp;gt;count = 0;
+    return que;
+}
+
+void clear(queue *que) {
+    if (que == NULL) return ;
+    free(que-&amp;gt;data);
+    free(que);
+    return ;
+}
+
+int empty(queue *que) {
+    return que-&amp;gt;count == 0;
+}
+
+int front(queue *que) {
+    return que-&amp;gt;data[que-&amp;gt;head];
+}
+
+int push(queue *que, int val) {
+    if (que == NULL) return 0;
+    if (que-&amp;gt;count &amp;gt;= que-&amp;gt;size) {
+        if (!expand(que)) return 0;
+        printf(GREEN(&amp;quot;expand successfully! queue-&amp;gt;size(%d)&amp;quot;) &amp;quot;\n&amp;quot;, que-&amp;gt;size);
+    }
+    que-&amp;gt;data[que-&amp;gt;tail++] = val;
+    if (que-&amp;gt;tail == que-&amp;gt;size) que-&amp;gt;tail = 0;
+    que-&amp;gt;count++;
+    return 1;
+}
+
+int expand(queue *que) {
+    int ex_size = que-&amp;gt;size;
+    int *p;
+    while (ex_size) {
+        p = (int *)malloc(sizeof(int) * (que-&amp;gt;size + ex_size));
+        if (p) break;
+        ex_size &amp;gt;&amp;gt;= 1;
+    }
+    if (p == NULL) return 0;
+    // 把原来的元素复制到 P 中
+    for (int i = que-&amp;gt;head, j = 0; j &amp;lt; que-&amp;gt;size; ++j) {
+        p[j] = que-&amp;gt;data[(i + j) % que-&amp;gt;size];
+    }
+    free(que-&amp;gt;data);
+    que-&amp;gt;data = p; 
+    que-&amp;gt;head = 0; 
+    que-&amp;gt;tail = que-&amp;gt;count;
+    que-&amp;gt;size += ex_size;
+    return 1;
+}
+
+int pop(queue *que) {
+    if (que == NULL) return 0;
+    if (empty(que)) return 0;
+    que-&amp;gt;head++;
+    if (que-&amp;gt;head == que-&amp;gt;size) que-&amp;gt;head = 0;
+    que-&amp;gt;count--;
+    return 1;
+}
+
+void output(queue *que) {
+    if (que == NULL) return ;
+    printf(&amp;quot;Queue : [&amp;quot;);
+    for (int i = que-&amp;gt;head, j = 0;j &amp;lt; que-&amp;gt;count; ++j) {
+        j &amp;amp;&amp;amp; printf(&amp;quot;, &amp;quot;);
+        printf(&amp;quot;%d&amp;quot;, que-&amp;gt;data[(i + j) % que-&amp;gt;size]);
+    }
+    printf(&amp;quot;]\n&amp;quot;);
+    return ;
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-3.队列</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-12.并查集/"" data-c="
+          &lt;h2 id=&#34;并查集&#34;&gt;并查集&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+typedef struct UnionSet {
+    int *data;
+    int size;
+} unionSet;
+
+unionSet *init(int n) {
+    unionSet *u = (unionSet *)malloc(sizeof(unionSet));
+    u-&amp;gt;data = (int *)malloc(sizeof(int) * (n + 1));
+    u-&amp;gt;size = n;
+    for (int i = 1; i &amp;lt;= n; ++i) u-&amp;gt;data[i] = i;
+    return u;
+}
+
+void clear(unionSet *u) {
+    if (u == NULL) return ;
+    free(u-&amp;gt;data);
+    free(u);
+    return ;
+}
+
+int find(unionSet *u, int x) {
+    return x == u-&amp;gt;data[x] ? x : (u-&amp;gt;data[x] = find(u, u-&amp;gt;data[x]));
+}
+
+void union_find(unionSet *u, int a, int b) {
+    int fa = find(u, a), fb = find(u, b);
+    if (fa == fb) return ;
+    u-&amp;gt;data[fa] = fb;
+    return ;
+}
+
+int main() {
+
+    return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-12.并查集</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-11.堆排序/"" data-c="
+          &lt;h2 id=&#34;堆排序&#34;&gt;堆排序&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+#define SWAP(a, b) {\
+    __typeof(a) _t = a;\
+    a = b; b = _t;\
+}
+// 线性建堆，（自顶向下，和pop操作一样）
+// 传入数组首地址， 调整开始的位置， 数组大小
+void nHeap(int *arr, int ind, int size) {
+    while (ind &amp;lt;&amp;lt; 1 &amp;lt;= size) {
+        int temp = ind, dl = ind &amp;lt;&amp;lt; 1, dr = ind &amp;lt;&amp;lt; 1 | 1;
+        if (arr[temp] &amp;lt; arr[dl]) temp = dl;
+        if (dr &amp;lt;= size &amp;amp;&amp;amp; arr[temp] &amp;lt; arr[dr]) temp = dr;
+        if (temp == ind) break;
+        SWAP(arr[ind], arr[temp]);
+        ind = temp;
+    }
+    return ;
+}
+// 堆排序
+void heap_sort(int *arr, int n) {
+    arr -= 1; //arr = arr - 1把数组首地址左移的一个位置,当访问arr[1] 其实是访问 arr[0]
+    // 从倒数第二排开始建堆（一直往前）， 因为倒数第一排不需要维持
+    for (int i = n &amp;gt;&amp;gt; 1; i &amp;gt; 0; --i) {
+        nHeap(arr, i, n);
+    }
+    // 第一次建堆完毕之后，最大（小）在堆顶了
+    for (int i = n; i &amp;gt; 0; --i) {
+        // 把最后一个元素和第一个元素交换，这样最后一个元素就变成最大（小）了
+        // 依次类推
+        SWAP(arr[i], arr[1]);
+        // 保持堆的状态，从第一元素开始了， 元素个数也是减一了
+        nHeap(arr, 1, i - 1);
+    }
+    return ;
+}
+
+void output(int *arr, int n) {
+    printf(&amp;quot;arr: [&amp;quot;);
+    for (int i = 0; i &amp;lt; n; ++i) {
+        i &amp;amp;&amp;amp; printf(&amp;quot;, &amp;quot;);
+        printf(&amp;quot;%d&amp;quot;, arr[i]);
+    }
+    printf(&amp;quot;]\n&amp;quot;);
+    return ;
+}
+
+
+int main() {
+    #define maxn 10
+    srand(time(0));
+    int nums[maxn];
+    for (int i = 0; i &amp;lt; maxn; ++i) {
+        int val = rand() % 100;
+        nums[i] = val;
+    }
+    output(nums, maxn);
+    heap_sort(nums, maxn);
+    output(nums, maxn);
+
+    return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-11.堆排序</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-10.堆优先队列/"" data-c="
+          &lt;h2 id=&#34;堆优先队列&#34;&gt;堆（优先队列）&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+#define SWAP(a, b) {\
+    __typeof(a) _t = a;\
+    a = b; b = _t;\
+}
+// 用顺序表实现
+/*
+开辟容器 *data
+元素个数 cnt, 容器大小 size
+*/  
+typedef struct priority_queue {
+    int *data;
+    int cnt, size;
+} priority_queue;
+
+// 开辟空间并初始化
+priority_queue *init(int n) {
+    priority_queue *q = (priority_queue *)malloc(sizeof(priority_queue));
+    q-&amp;gt;data = (int *)malloc(sizeof(int) * (n + 1));
+    q-&amp;gt;cnt = 0;
+    q-&amp;gt;size = n;
+    return q;
+}
+// 回收内存空间
+void clear(priority_queue *q) {
+    if (q == NULL) return ;
+    free(q-&amp;gt;data);
+    free(q);
+    return ;
+}
+// 优先队列 判空
+int empty(priority_queue *q) {
+    return q-&amp;gt;cnt == 0;
+}
+// 堆顶元素
+int top(priority_queue *q) {
+    return q-&amp;gt;data[1];
+}
+// 入堆
+int push(priority_queue *q, int val) {
+    if (q == NULL) return 0;
+    if (q-&amp;gt;cnt == q-&amp;gt;size) return 0;
+    q-&amp;gt;data[++(q-&amp;gt;cnt)] = val; // 从队尾插入元素（从第一个元素开始插入）
+    int ind = q-&amp;gt;cnt; 
+    // 自底向上维护 堆的状态 
+    while (ind &amp;gt;&amp;gt; 1 &amp;amp;&amp;amp; q-&amp;gt;data[ind] &amp;gt; q-&amp;gt;data[ind &amp;gt;&amp;gt; 1]) {
+        // ind / 2 &amp;gt;= 1 防止越界
+        // 如果儿子大于爸爸，往上浮
+        SWAP(q-&amp;gt;data[ind], q-&amp;gt;data[ind &amp;gt;&amp;gt; 1]);
+        ind &amp;gt;&amp;gt;= 1; // 向上传递
+    }
+    return 1;
+}
+// 出队
+int pop(priority_queue *q) {
+    if (q == NULL) return 0;
+    if (empty(q)) return 0;
+    // 用队尾元素把堆顶元素覆盖，并元素个数减一
+    q-&amp;gt;data[1] = q-&amp;gt;data[(q-&amp;gt;cnt)--];
+    // 自顶向下 维护 堆的状态
+    int ind = 1;
+    // ind 从1开始， ind * 2 &amp;lt;= cnt(元素个数)
+    while (ind &amp;lt;&amp;lt; 1 &amp;lt;= q-&amp;gt;cnt) {
+        int temp = ind, dl = ind &amp;lt;&amp;lt; 1, dr = ind &amp;lt;&amp;lt; 1 | 1;
+        // 爸爸先跟左孩子比较，满足条件的话，交换一下
+        // 和左孩子比较完后，再与右孩子比较，满足条件的话，交换一下
+        // 注意右孩子的 ind * 2 + 1 &amp;lt;= cnt(元素个数)，也不能越界
+        if (q-&amp;gt;data[temp] &amp;lt; q-&amp;gt;data[dl]) temp = dl;
+        if (dr &amp;lt;= q-&amp;gt;cnt &amp;amp;&amp;amp; q-&amp;gt;data[temp] &amp;lt; q-&amp;gt;data[dr]) temp = dr;
+        if (temp == ind) break; // 如果都没有交换，说明满足堆的状态，直接结束
+        SWAP(q-&amp;gt;data[ind], q-&amp;gt;data[temp]); // 真正的交换操作
+        ind = temp; // 向下传递
+    }
+    return 1;
+}
+
+int main() {
+    #define maxn 10 
+    srand(time(0));
+    priority_queue *q = init(maxn);
+    printf(&amp;quot;push: &amp;quot;);
+    for (int i = 0; i &amp;lt; maxn; ++i) {
+        int val = rand() % 100;
+        printf(&amp;quot;%d &amp;quot;, val);
+        push(q, val);
+    }
+    printf(&amp;quot;\npop: &amp;quot;);
+    for (int i = 0; i &amp;lt; maxn; ++i) {
+        printf(&amp;quot;%d &amp;quot;, top(q));
+        pop(q);
+    }
+    printf(&amp;quot;\n&amp;quot;);
+    clear(q);
+    #undef maxn
+    return 0;
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-10.堆优先队列</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-8.稳定排序/"" data-c="
+          &lt;h2 id=&#34;稳定排序&#34;&gt;稳定排序&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+#define swap(a, b) {\
+    __typeof(a) _temp = a;\
+    a = b;\
+    b = _temp;\
+}
+
+#define TEST(arr, n, func, args...) {\
+    int *num = (int *)malloc(sizeof(int) * n);\
+    memcpy(num, arr, sizeof(int) * n);\
+    output(num, n);\
+    printf(&amp;quot;%s = &amp;quot;, #func);\
+    func(args);\
+    output(num, n);\
+    free(num);\
+}
+// 冒泡排序
+/* 平均时间复杂度：O(n^2)
+前：待排序区； 后：已排序区
+优化点：当某一轮冒泡没有交换操作，说明已排序完成，可以直接结束
+最坏时间复杂度：完全逆序 O(n^2)
+**插入排序可理解为方向冒泡
+*/
+void bubble_sort(int *num, int n) {
+    int flag = 1; // 标记
+    // n-1轮冒泡
+    for (int i = 1; i &amp;lt; n &amp;amp;&amp;amp; flag == 1; ++i) {
+        flag = 0;  // 不交换时，标记0
+        for (int j = 0; j &amp;lt; n - i; ++j) {
+            // 数值大的元素往后冒泡
+            if (num[j] &amp;gt; num[j+1]) {
+                swap(num[j], num[j+1]);
+                flag = 1; // 有交换，标记1
+            }
+        }
+    }
+    return ;
+}
+
+// 插入排序
+/*平均复杂度O(n^2)
+前：已排序区； 后：待排序区
+注意：必须一个一个比较交换，再插入
+*/
+void insert_sort(int *num, int n) {
+    // n-1轮插入
+    for (int i = 1; i &amp;lt; n; ++i ) {
+        for (int j = i; j &amp;gt; 0; --j) {
+            // 后面元素比前面小，往前交换位置
+            if (num[j] &amp;lt; num[j-1]) {
+                swap(num[j], num[j-1]);
+            }
+        }
+    }
+    return ;
+}
+// 归并排序
+/*
+稳定排序
+先分治到两两可以比较大小，再把有序的数组两两合并
+时间复杂度(最优，最差，平均):O（nlogn）
+分治logn层，每层合并时间为O(n)
+*/
+void merge_sort(int *num, int l, int r) {
+    // 分治递归出口（当元素只有一个或两个）
+    if (r - l &amp;lt;= 1) {
+        // 当有两个时，左边元素大于右边时，交换位置
+        if (r - l == 1 &amp;amp;&amp;amp; num[l] &amp;gt; num[r]) {
+            swap(num[l], num[r]);
+        }
+        return ;
+    }
+    int mid = (l + r) &amp;gt;&amp;gt; 1; // 分治操作，平均分
+    merge_sort(num, l, mid); // 左边部分放入递归
+    merge_sort(num, mid + 1, r); // 右边部分放入递归
+    // 分治后，l ~ mid, 和 mid + 1 ~ r,这两个区间分别有序的
+    // 下面开始合并操作，先申请r-l+1大小的空间
+    int *temp = (int *)malloc(sizeof(int) * (r-l+1));
+    // 给左边区间 p1指针， 右边区间 p2指针，K是合并后区间的指针
+    int p1 = l, p2 = mid + 1, k = 0;
+    while (p1 &amp;lt;= mid || p2 &amp;lt;= r) {
+        if (p2 &amp;gt; r || (p1 &amp;lt;= mid &amp;amp;&amp;amp; num[p1] &amp;lt;= num[p2])) {
+            temp[k++] = num[p1++];
+        } else {
+            temp[k++] = num[p2++];
+        }
+    }
+    // 把合并后的temp 拷贝回来， num + l 是首地址
+    memcpy(num + l, temp, sizeof(int) * (r-l+1));
+    free(temp); // 回收temp内存空间
+    return ;
+
+}
+
+void randint(int *num, int n) {
+    while (n--) num[n] = rand() % 100;
+    return ;
+}
+
+void output(int *num, int n) {
+    printf(&amp;quot;[&amp;quot;);
+    for (int i = 0; i &amp;lt; n; ++i) {
+        printf(&amp;quot; %d&amp;quot;, num[i]);
+    }
+    printf(&amp;quot;]\n&amp;quot;);
+    return ;
+}
+
+int main() {
+    srand(time(0));
+    #define max_op 20
+    int arr[max_op];
+    randint(arr, max_op);
+    TEST(arr, max_op, bubble_sort, num, max_op);
+    TEST(arr, max_op, insert_sort, num, max_op);
+    TEST(arr, max_op, merge_sort, num, 0, max_op - 1);
+    return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-8.稳定排序</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-7.不稳定排序/"" data-c="
+          &lt;h2 id=&#34;不稳定排序&#34;&gt;不稳定排序&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+#define SWAP(a, b) {\
+    __typeof(a) _t = a;\
+    a = b; b = _t;\
+}
+
+#define COLOR(a, b) &amp;quot;\e[&amp;quot; #b &amp;quot;m&amp;quot; a &amp;quot;\e[0m&amp;quot;
+#define GREEN(a) COLOR(a, 32)
+
+#define TEST(arr, n, func, args...) {\
+    int *num = (int *)malloc(sizeof(int) * n);\
+    memcpy(num, arr, sizeof(int) * n);\
+    output(num, n);\
+    printf(&amp;quot;%s: &amp;quot;, #func);\
+    func(args);\
+    output(num, n);\
+    printf(&amp;quot;\n&amp;quot;);\
+    free(num);\
+}
+// 选择排序
+/* 时间复杂度（最优，最坏，平均）O(n^2)
+前：已排序，后：待排序
+不稳定：例如 22&#39;1 第一次后 12&#39;2
+每轮找一个最小的元素，与待排序区的第一个元素交换
+*/
+void select_sort(int *nums, int n) {
+    for (int i = 0; i &amp;lt; n - 1; ++i) {
+        int ind = i;
+        for (int j = i; j &amp;lt; n; ++j) {
+            if (nums[j] &amp;lt; nums[ind]) ind = j;
+        }
+        SWAP(nums[i], nums[ind]);
+    }
+    return ;
+}
+// 基础快排
+/*时间复杂度：O(NlogN)
+拿第一个元素作为基准值
+逆序数列选第一个元素为基准值时，退化为选择排序，O（n^2）
+*/
+void quick_sort1(int *nums, int l, int r) {
+    if (l &amp;gt;= r) return ;
+    int x = l, y = r, z = nums[x];
+    while (x &amp;lt; y) {
+        while (x &amp;lt; y &amp;amp;&amp;amp; nums[y] &amp;gt; z) y--;
+        if (x &amp;lt; y) nums[x++] = nums[y];
+        while (x &amp;lt; y &amp;amp;&amp;amp; nums[x] &amp;lt; z) x++;
+        if (x &amp;lt; y) nums[y--] = nums[x];
+    }
+    nums[x] = z;
+    quick_sort1(nums, l, x - 1);
+    quick_sort1(nums, x + 1, r);
+    return ;
+}
+// 优化后的快排
+void quick_sort2(int *nums, int l, int r) {
+    // 优化1，减少一半递归，增加循环
+    // 左半边用循环， 右半边用递归
+    while (l &amp;lt; r) { 
+        // 优化2 基准值选中间值
+        int x = l, y = r, z = nums[(l + (r - l) / 2)];
+        do {
+            // 优化3：两个指针都去找值，并交换
+            // 关键：x &amp;lt;= y,要用 &amp;lt;= 后面将 x,y错开
+            // num[] &amp;lt; z,要用&amp;lt; , 经过基准值要停下
+            while (x &amp;lt;= y &amp;amp;&amp;amp; nums[x] &amp;lt; z) x++;
+            while (x &amp;lt;= y &amp;amp;&amp;amp; z &amp;lt; nums[y]) y--;
+            if (x &amp;lt;= y) {
+                // 交换后，两个指针都要移动一下，交错，y到前面，x到后面
+                SWAP(nums[x], nums[y]);
+                x++, y--; 
+            }
+        } while (x &amp;lt;= y); // 此处 用小于或小于等于都可以
+        quick_sort2(nums, x, r); // 右半部分递归
+        r = y; // l ~ y 左半部分循环
+    }
+    return ;
+}
+
+void randArr(int *nums, int n) {
+    while (n--) nums[n] = rand() % 100;
+    return ;
+}
+
+void output(int *nums, int n) {
+    printf(&amp;quot;arr: [&amp;quot;);
+    for (int i = 0; i &amp;lt; n; ++i) {
+        i &amp;amp;&amp;amp; printf(&amp;quot;, &amp;quot;);
+        printf(&amp;quot;%d&amp;quot;, nums[i]);
+    }
+    printf(&amp;quot;]\n&amp;quot;);
+    return ;
+}
+
+int main() {
+    srand(time(0));
+    #define maxn 100
+    clock_t start, end, end2;
+    int arr[maxn];
+    start = clock();
+    TEST(arr, maxn, select_sort, num, maxn);
+    randArr(arr, maxn);
+    TEST(arr, maxn, quick_sort1, num, 0, maxn - 1);
+    end = clock();
+    printf(GREEN(&amp;quot;time : %lf\n&amp;quot;), (double)(end - start) / ((clock_t)(1000)));
+    TEST(arr, maxn, quick_sort2, num, 0, maxn - 1);
+    end2 = clock();
+    printf(GREEN(&amp;quot;time : %lf\n&amp;quot;), (double)(end2 - end) / ((clock_t)(1000)));
+    return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-7.不稳定排序</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-6.广义表二叉搜索树/"" data-c="
+          &lt;h2 id=&#34;广义表转二叉树binary_tree&#34;&gt;广义表转二叉树（binary_tree）&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+
+typedef struct Node{
+    char data;
+    struct Node *lchild, *rchild;
+} Node;
+
+typedef struct Tree{
+    Node *root;
+    int n;
+} Tree; 
+
+typedef struct Stack{
+    Node **data;
+    int top, size;
+} Stack;
+
+Node *getnewNode(char val) {
+    Node *node = (Node *)malloc(sizeof(Node));
+    node-&amp;gt;data = val;
+    node-&amp;gt;lchild = node-&amp;gt;rchild = NULL;
+    return node;
+}
+
+Tree *getTree() {
+    Tree *tree = (Tree *)malloc(sizeof(Tree));
+    tree-&amp;gt;root = NULL;
+    tree-&amp;gt;n = 0;
+    return tree;
+}
+
+Stack *init(int n) {
+    Stack *s = (Stack *)malloc(sizeof(Stack));
+    s-&amp;gt;data = (Node **)malloc(sizeof(Node *) * n);
+    s-&amp;gt;size = n;
+    s-&amp;gt;top = -1;
+    return s;
+}
+
+void clear_stack(Stack *s) {
+    if (s == NULL) return ;
+    free(s-&amp;gt;data);
+    free(s);
+    return ;
+}
+
+void clear_node(Node *node) {
+    if (node == NULL) return ;
+    clear_node(node-&amp;gt;lchild);
+    clear_node(node-&amp;gt;rchild);
+    free(node);
+    return ;
+}
+
+void clear_tree(Tree *t) {
+    if (t == NULL) return ;
+    clear_node(t-&amp;gt;root);
+    free(t);
+    return ;
+}
+
+int empty(Stack *s) {
+    return s-&amp;gt;top == -1;
+}
+
+Node *top(Stack *s) {
+    return s-&amp;gt;data[s-&amp;gt;top];
+}
+
+int push(Stack *s, Node *val) {
+    if (s == NULL) return 0;
+    if (s-&amp;gt;top &amp;gt;= s-&amp;gt;size - 1) return 0;
+    s-&amp;gt;data[++(s-&amp;gt;top)] = val;
+    return 1;
+
+}
+
+int pop(Stack *s) {
+    if (s == NULL) return 0;
+    if (empty(s)) return 0;
+    s-&amp;gt;top--;
+    return 1;
+}
+
+Node *build(const char *str, int *node_count) {
+    Stack *s = init(strlen(str));
+    Node *temp = NULL, *p = NULL;
+    int flag = 0;
+    while(str[0]) {
+        switch(str[0]) {
+            case &#39;(&#39;: {
+                push(s, temp);
+                flag = 0;
+            } break;
+            case &#39;)&#39;: {
+                p = top(s);
+                pop(s);
+            } break;
+            case &#39;,&#39;: {
+                flag = 1;
+            } break;
+            case &#39; &#39;: break;
+            default:
+                temp = getnewNode(str[0]);
+            if (!empty(s) &amp;amp;&amp;amp; flag == 0) {
+                top(s)-&amp;gt;lchild = temp;
+            } else if (!empty(s) &amp;amp;&amp;amp; flag == 1) {
+                top(s)-&amp;gt;rchild = temp;
+            }
+            *node_count++;
+            break;
+        }
+        str++;
+    }
+    if (temp &amp;amp;&amp;amp; !p) p = temp;
+    return p;
+}
+
+void pre_order_node(Node *node) {
+    if (node == NULL) return ;
+    printf(&amp;quot;%c&amp;quot;, node-&amp;gt;data);
+    pre_order_node(node-&amp;gt;lchild);
+    pre_order_node(node-&amp;gt;rchild);
+    return ;
+}
+
+void pre_order(Tree *t) {
+    if (t == NULL) return ;
+    printf(&amp;quot;pre_order : &amp;quot;);
+    pre_order_node(t-&amp;gt;root);
+    printf(&amp;quot;\n&amp;quot;);
+    return ; 
+}
+
+void in_order_node(Node *node) {
+    if (node == NULL) return ;
+    in_order_node(node-&amp;gt;lchild);
+    printf(&amp;quot;%c&amp;quot;, node-&amp;gt;data);
+    in_order_node(node-&amp;gt;rchild);
+    return ;
+}
+
+void in_order(Tree *t) {
+    if (t == NULL) return ;
+    printf(&amp;quot;in_order : &amp;quot;);
+    in_order_node(t-&amp;gt;root);
+    printf(&amp;quot;\n&amp;quot;);
+    return ;
+    
+}
+void post_order_node(Node *node) {
+    if (node == NULL) return ;
+    post_order_node(node-&amp;gt;lchild);
+    post_order_node(node-&amp;gt;rchild);
+    printf(&amp;quot;%c&amp;quot;, node-&amp;gt;data);
+    return ;
+}
+
+void post_order(Tree *t) {
+    if (t == NULL) return ;
+    printf(&amp;quot;post_order : &amp;quot;);
+    post_order_node(t-&amp;gt;root);
+    printf(&amp;quot;\n&amp;quot;);
+    return ;
+    
+}
+int main() {
+    char str[1000] = {0};
+    int node_count = 0;
+    scanf(&amp;quot;%[^\n]s&amp;quot;, str);
+    Tree *tree = getTree();
+    tree-&amp;gt;root = build(str, &amp;amp;node_count);
+    tree-&amp;gt;n = node_count;
+    pre_order(tree);
+    in_order(tree);
+    post_order(tree);
+    return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-6.广义表二叉搜索树</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-5.二叉搜索树/"" data-c="
+          &lt;h2 id=&#34;二叉树binary_tree&#34;&gt;二叉树（binary_tree）&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+//结构定义
+/*
+结点+边
+链表结构是一叉树，只有一个分支的树形结构
+对于三叉树，将链表的next指针变成next[3]指针数组即可，其他类比
+二叉树结点存储元素：data
+二叉树两条边：lchild, rchild
+*/
+typedef struct Node{
+    int data;
+    struct Node *lchild, *rchild;
+} Node;
+// 封装成树，虚拟头节点root，结点个数n
+typedef struct Tree{
+    Node *root;
+    int n;
+} Tree;
+
+Node *init_node(int); // 动态申请内存空间，构造新结点
+Tree *init_tree();  // 构造根节点，封装成树
+void clear_node(Node *); // 结点内存回收
+void clear_tree(Tree *); // 树内存回收
+Node *insert_node(Node *, int , int*); // 插入结点
+void insert(Tree *, int); // 封装插入操作
+void pre_order_node(Node *); // 前序遍历
+void pre_order(Tree *);
+void in_order_node(Node *);// 中序遍历
+void in_order(Tree *);
+void post_order_node(Node *);// 后序遍历
+void post_order(Tree *);
+void output_node(Node *); // 打印输出
+void output(Tree *);
+
+int main() {
+    srand(time(0));
+    #define max_op 10
+    Tree *tree = init_tree();
+    for (int i = 0; i &amp;lt; max_op; ++i) {
+        int val = rand() % 100;
+        insert(tree, val);
+        output(tree);
+    }
+    pre_order(tree);
+    in_order(tree);
+    post_order(tree);
+    return 0;
+}
+
+Node *init_node(int val) {
+    Node *node = (Node *)malloc(sizeof(Node));
+    node-&amp;gt;data = val;
+    node-&amp;gt;lchild = node-&amp;gt;rchild = NULL;
+    return node;
+}
+
+Tree *init_tree() {
+    Tree *tree = (Tree *)malloc(sizeof(Tree));
+    tree-&amp;gt;root = NULL;
+    tree-&amp;gt;n = 0;
+    return tree;
+}
+
+void clear_node(Node *node) {
+    if (node == NULL) return ;
+    clear_node(node-&amp;gt;lchild);
+    clear_node(node-&amp;gt;rchild);
+    free(node);
+    return ;
+}
+
+void clear_tree(Tree * tree) {
+    if (tree == NULL) return ;
+    clear_node(tree-&amp;gt;root);
+    free(tree);
+    return ;
+}
+
+Node *insert_node(Node *root, int val, int *flag) {
+    if (root == NULL) {
+        *flag = 1;
+        return init_node(val);
+    }
+    if (root-&amp;gt;data == val) return root;
+    if (root-&amp;gt;data &amp;gt; val) root-&amp;gt;lchild = insert_node(root-&amp;gt;lchild, val, flag);
+    else root-&amp;gt;rchild = insert_node(root-&amp;gt;rchild, val, flag);
+}
+
+void insert(Tree *tree, int val) {
+    if (tree == NULL) return ;
+    int flag = 0;
+    tree-&amp;gt;root = insert_node(tree-&amp;gt;root, val, &amp;amp;flag);
+    tree-&amp;gt;n += flag;
+    return ;
+}
+
+void pre_order_node(Node *node) {
+    if (node == NULL) return ;
+    printf(&amp;quot;%d &amp;quot;, node-&amp;gt;data);
+    pre_order_node(node-&amp;gt;lchild);
+    pre_order_node(node-&amp;gt;rchild);
+    return ;
+}
+
+void pre_order(Tree *tree) {
+    if (tree == NULL) return ;
+    printf(&amp;quot;pre_order : &amp;quot;);
+    pre_order_node(tree-&amp;gt;root);
+    printf(&amp;quot;\n&amp;quot;);
+    return ;
+}
+
+void in_order_node(Node *node) {
+    if (node == NULL) return ;
+    in_order_node(node-&amp;gt;lchild);
+    printf(&amp;quot;%d &amp;quot;, node-&amp;gt;data);
+    in_order_node(node-&amp;gt;rchild);
+    return ;
+}
+
+void in_order(Tree *tree) {
+    if (tree == NULL) return ;
+    printf(&amp;quot;in_order : &amp;quot;);
+    in_order_node(tree-&amp;gt;root);
+    printf(&amp;quot;\n&amp;quot;);
+    return ;
+}
+void post_order_node(Node *node) {
+    if (node == NULL) return ;
+    post_order_node(node-&amp;gt;lchild);
+    post_order_node(node-&amp;gt;rchild);
+    printf(&amp;quot;%d &amp;quot;, node-&amp;gt;data);
+    return ;
+}
+
+void post_order(Tree *tree) {
+    if (tree == NULL) return ;
+    printf(&amp;quot;post_order : &amp;quot;);
+    post_order_node(tree-&amp;gt;root);
+    printf(&amp;quot;\n&amp;quot;);
+    return ;
+}
+
+void output_node(Node *node) {
+    if (node == NULL) return ;
+    printf(&amp;quot;%d&amp;quot;, node-&amp;gt;data);
+    if (node-&amp;gt;lchild == NULL &amp;amp;&amp;amp; node-&amp;gt;rchild == NULL) return ;
+    printf(&amp;quot;(&amp;quot;);
+    output_node(node-&amp;gt;lchild);
+    printf(&amp;quot;,&amp;quot;);
+    output_node(node-&amp;gt;rchild);
+    printf(&amp;quot;)&amp;quot;);
+    return ;
+}
+
+void output(Tree *tree) {
+    if (tree == NULL) return ;
+    printf(&amp;quot;Tree(%d) : &amp;quot;, tree-&amp;gt;n);
+    output_node(tree-&amp;gt;root);
+    printf(&amp;quot;\n&amp;quot;);
+    return ;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-5.二叉搜索树</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-4.栈/"" data-c="
+          &lt;h2 id=&#34;栈stack&#34;&gt;栈（Stack）&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+
+// 结构定义
+/*
+动态申请内存空间存储元素的容器：data
+栈容器的大小：size
+栈顶：top
+*/
+typedef struct stack {
+    int *data;
+    int size, top;
+} stack;
+
+stack *init(int); // 申请内存空间并初始化
+void clear(stack *); // 回收内存空间
+int top(stack *); // 查看栈顶元素
+int empty(stack *); // 栈容器判空
+int expand(stack *); // 栈容器扩容
+int push(stack *, int); // 栈顶压入元素
+int pop(stack *); // 栈顶弹出元素
+void output(stack *); // 打印输出栈容器的元素
+
+int main() {
+    srand(time(0));
+    #define max_op 20
+    stack *s = init(max_op);
+    for (int i = 0; i &amp;lt; max_op; ++i) {
+        int op = rand() % 4;
+        int val = rand() % 100;
+        switch(op) {
+            case 0:
+            case 1:
+            case 2: {
+                printf(&amp;quot;push %d to the Stack = %d\n&amp;quot;, val, push(s, val));
+            } break;
+            case 3: {
+                printf(&amp;quot;pop %d from the Stack =&amp;quot;, top(s));
+                printf(&amp;quot;%d\n&amp;quot;, pop(s));
+            } break;
+        }
+        output(s);
+        printf(&amp;quot;\n&amp;quot;);
+    }
+    clear(s);
+    #undef max_op
+    return 0;
+}
+
+stack *init(int n) {
+    stack *s = (stack *)malloc(sizeof(stack));
+    s-&amp;gt;data = (int *)malloc(sizeof(int) * n);
+    s-&amp;gt;size = n;
+    s-&amp;gt;top = -1;
+    return s;
+}
+
+void clear(stack *s) {
+    if (s == NULL) return ;
+    free(s-&amp;gt;data);
+    free(s);
+    return ;
+}
+
+int empty(stack *s) {
+    return s-&amp;gt;top == -1;
+}
+
+int top(stack *s) {
+    return s-&amp;gt;data[s-&amp;gt;top];
+}
+
+int expand(stack *s) {
+    int ex_size = s-&amp;gt;size;
+    int *p;
+    while (ex_size) {
+        p = (int *)realloc(s-&amp;gt;data, sizeof(int) * (ex_size + s-&amp;gt;size));
+        if (p) break;
+        ex_size &amp;gt;&amp;gt;= 1;
+    }
+    if (ex_size == 0) return 0;
+    s-&amp;gt;data = p;
+    s-&amp;gt;size += ex_size;
+    return 1;
+}
+
+int push(stack *s, int val) {
+    if (s == NULL) return 0;
+    if (s-&amp;gt;top &amp;gt;= s-&amp;gt;size - 1) {
+        if (!expand(s)) return 0;
+    }
+    if (s-&amp;gt;top &amp;gt;= s-&amp;gt;size - 1) return 0;
+    s-&amp;gt;data[++(s-&amp;gt;top)] = val;
+    return 1;
+}
+
+int pop(stack *s) {
+    if (s == NULL) return 0;
+    if (empty(s)) return 0;
+    s-&amp;gt;top--;
+    return 1;
+}
+
+void output(stack *s) {
+    printf(&amp;quot;Stack(%d) = [&amp;quot;, s-&amp;gt;top + 1);
+    for (int i = 0; i &amp;lt;= s-&amp;gt;top; ++i) {
+        i &amp;amp;&amp;amp; printf(&amp;quot; &amp;quot;);
+        printf(&amp;quot;%d&amp;quot;, s-&amp;gt;data[i]);
+    }
+    printf(&amp;quot;]\n&amp;quot;);
+    return ;
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-4.栈</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-2.链表/"" data-c="
+          &lt;h2 id=&#34;链表linklist&#34;&gt;链表（LinkList）&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+#define COLOR(a, b) &amp;quot;\e[&amp;quot; #b &amp;quot;m&amp;quot; a &amp;quot;\e[0m&amp;quot;
+#define GREEN(a) COLOR(a, 32)
+
+
+// 链表结构节点定义
+/*
+data:  数据域（存储数据）
+*next: 指针域（最后一个节点的指针域为NULL）
+*/
+typedef struct LinkNode {
+    int data;
+    struct LinkNode *next;
+} Node;
+
+// 链表结构定义
+/*
+head: 给链表加一个虚拟头节点(静态分配)，比较稳定不需要free
+没有虚拟头节点的话，需要作特判（当插入的ind == 0时）
+1.有虚拟头节点可以一直往后插
+2.防止单链表是空的而设的，当链表为空时，头节点的头指针指向头节点
+length: 记录链表的长度
+*/
+
+typedef struct LinkList {
+    Node head;
+    int length;
+} List;
+
+/*
+链表结构操作
+节点初始化：Node *getNewNode(int);
+链表初始化：List *getLinkList();
+节点内存回收：clear_node(Node *);
+链表内存回收：clear(List *);
+增：节点插入，insert(List *, int, int);(给定位置插入值)
+删：节点删除，erase（List *， int）;(给定位置删除值)
+打印输出链表：output(List *);
+翻转链表：reverse(List *);
+*/
+
+Node *getNewNode(int);
+List *getLinkList();
+void clear_node(Node*);
+void clear(List*);
+int insert(List*, int, int);
+int erase(List*, int);
+void output(List*);
+void reverse(List*);
+
+int main() {
+    srand(time(0));
+    #define MAX_OP 20
+    List *l = getLinkList();
+    for (int i = 0; i &amp;lt; MAX_OP; ++i) {
+        int op = rand() % 4;
+        int val = rand() % 100;
+        int ind = rand() % (l-&amp;gt;length + 3) - 1;
+        switch (op) {
+            case 0:
+            case 1: {
+                printf(&amp;quot;insert %d at %d to LinkList = %d\n&amp;quot;, val, ind, insert(l, val, ind));
+            } break;
+            case 2: {
+                printf(&amp;quot;erase iterm at %d from LinkList = %d\n&amp;quot;, ind, erase(l, ind));
+            } break;
+            case 3: {
+                printf(GREEN(&amp;quot;reverse the LinkList!\n&amp;quot;));
+                reverse(l);
+            } break;
+        }
+        output(l);
+        printf(&amp;quot;\n&amp;quot;);
+    }
+    #undef MAX_OP
+    clear(l);
+    return 0;
+}
+
+Node *getNewNode(int val) {
+    Node *p = (Node *)malloc(sizeof(Node));
+    p-&amp;gt;data = val;
+    p-&amp;gt;next = NULL;
+    return p;
+}
+
+List *getLinkList() {
+    List *l = (List *)malloc(sizeof(List));
+    l-&amp;gt;head.next = NULL;
+    int length = 0;
+    return l;
+}
+
+void clear_node(Node *p) {
+    if (p == NULL) return ;
+    free(p);
+    return ;
+}
+
+void clear(List *l) {
+    if (l == NULL) return ;
+    Node *p = l-&amp;gt;head.next, *q;
+    while (p) {
+        q = p-&amp;gt;next;
+        clear_node(p);
+        p = q;
+    }
+    free(l);
+    return ;
+}
+
+int insert(List *l,int val, int ind) {
+    if (l == NULL) return 0;
+    if (ind &amp;lt; 0 || ind &amp;gt; l-&amp;gt;length) return 0;
+    Node *p = &amp;amp;(l-&amp;gt;head), *node = getNewNode(val);
+    while (ind--) p = p-&amp;gt;next; // 走到待插入的位置的前一个位置
+    node-&amp;gt;next = p-&amp;gt;next;
+    p-&amp;gt;next = node;
+    l-&amp;gt;length++;
+    return 1;
+}
+
+int erase(List *l, int ind) {
+    if (l == NULL) return 0;
+    if (ind &amp;lt; 0 || ind &amp;gt;= l-&amp;gt;length) return 0;
+    Node *p = &amp;amp;(l-&amp;gt;head), *q;
+    while (ind--) p = p-&amp;gt;next; // 走到待删除的位置的前一个位置
+    q = p-&amp;gt;next;
+    p-&amp;gt;next = q-&amp;gt;next;
+    free(q);
+    l-&amp;gt;length--;
+    return 1;
+}
+
+void reverse(List *l) {
+    Node *p = l-&amp;gt;head.next, *q;
+    l-&amp;gt;head.next = NULL;
+    while (p) {
+        q = p-&amp;gt;next;
+        p-&amp;gt;next = l-&amp;gt;head.next;
+        l-&amp;gt;head.next = p;
+        p = q;
+    }
+    return ;
+}
+
+void output(List *l) {
+    if (l == NULL) return ;
+    printf(&amp;quot;LinkList(%d) = [&amp;quot;, l-&amp;gt;length);
+    for (Node *p = l-&amp;gt;head.next; p; p = p-&amp;gt;next) {
+        printf(&amp;quot;%d-&amp;gt;&amp;quot;, p-&amp;gt;data);
+    }
+    printf(&amp;quot;NULL]\n&amp;quot;);
+    return ;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-2.链表</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/BDS-1.顺序表/"" data-c="
+          &lt;h2 id=&#34;顺序表vector&#34;&gt;顺序表（Vector）&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+三个等式：
+程序 = 算法 + 数据结构
+程序设计 = 算法 + 数据结构 + 编程范式
+数据结构 = 结构定义 + 结构操作
+1.通过算法与数据结构，使计算机合理利用资源，让计算资源更有价值
+
+*/
+
+// 空间连续，可以存储任意类型的相同元素（顺序表里也可以存顺序表）
+
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;time.h&amp;gt;
+
+#define COLOR_HL(a, b) &amp;quot;\e[1;&amp;quot; #b &amp;quot;m&amp;quot; a &amp;quot;\e[0m&amp;quot;
+#define GREEN_HL(a) COLOR_HL(a, 32)
+/* 结构定义
+顺序表的空间大小：size
+已存储的元素个数：length
+存储的元素类型：*data 
+*/
+typedef struct Vector {
+    int *data;
+    int size, length;
+} Vec;
+/*
+结构操作
+增删改查
+初始化顺序表Vec：给顺序表申请可以存储n个元素的内存空间并初始化，Vec *init(int n);
+内存回收：void clear(Vec *v);
+内存扩容： int expand(Vec *v);
+增：插入元素，给定位置插入值int insert(Vec *v, int val, int ind);
+删；删除元素，删除指定位置的元素int erase(Vec *v, int ind);
+打印输出顺序表的元素：void output(Vec *v);
+
+*/
+
+typedef struct Vector {
+    int *data;
+    int size, length;
+}Vec;
+
+Vec *init(int);
+void clear(Vec*);
+int insert(Vec*, int, int);
+int expand(Vec*);
+int erase(Vec*, int);
+void output(Vec*);
+
+int main() {
+    srand(time(0));
+    #define MAX_OP 20
+    Vec *v = init(5);
+    for (int i = 0; i &amp;lt; MAX_OP; ++i) {
+        int op = rand() % 4;
+        int val = rand() % 100;
+        int ind = rand() % (v-&amp;gt;length + 3) - 1;
+        switch (op) {
+            case 0:
+            case 1:
+            case 2: {
+                printf(&amp;quot;insert %d at %d to Vector = %d\n&amp;quot;, val, ind, insert(v, val, ind));
+            } break;
+            case 3: {
+                printf(&amp;quot;erase a iterm at %d from Vector = %d\n&amp;quot;, ind, erase(v, ind));
+            } break;
+        }
+        output(v);
+        printf(&amp;quot;\n&amp;quot;);
+    }
+    clear(v);
+    #undef MAX_OP
+    return 0;
+}
+
+Vec *init(int n) {
+    Vec *v = (Vec*)malloc(sizeof(Vec));
+    v-&amp;gt;data = (int*)malloc(sizeof(int) * n);
+    v-&amp;gt;size = n;
+    v-&amp;gt;length = 0;
+    return v;
+}
+
+void clear(Vec *v) {
+    if (v == NULL) return ;
+    free(v-&amp;gt;data);
+    free(v);
+    return ;
+}
+
+int insert(Vec *v, int val, int ind) {
+    if (v == NULL) return 0;
+    if (ind &amp;lt; 0 || ind &amp;gt; v-&amp;gt;length) return 0;
+    if (v-&amp;gt;length &amp;gt;= v-&amp;gt;size) {
+        if (!(expand(v))) return 0;
+        printf(GREEN_HL(&amp;quot;success to expand, the Vector size is %d\n&amp;quot;), v-&amp;gt;size);
+    }
+    for (int i = v-&amp;gt;length; i &amp;gt; ind; --i) {
+        v-&amp;gt;data[i] = v-&amp;gt;data[i-1];
+    }
+    v-&amp;gt;data[ind] = val;
+    v-&amp;gt;length++;
+    return 1;
+}
+
+int erase(Vec *v, int ind) {
+    if (v == NULL) return 0;
+    if (ind &amp;lt; 0 || ind &amp;gt;= v-&amp;gt;length) return 0;
+    for (int i = ind + 1; i &amp;lt; v-&amp;gt;length; ++i) {
+        v-&amp;gt;data[i-1] = v-&amp;gt;data[i];
+    }
+    v-&amp;gt;length--;
+    return 1;
+}
+
+//  动态内存分配函数
+/*
+1.malloc:只是开辟空间，值不确定（开房没有保洁阿姨）
+2.calloc:开辟空间，并且初始化（开房后有保洁阿姨打扫清理）
+3.realloc:重新开辟空间（升级房型）
+realloc的三种情况：
+情况1.先试探能不能在原地址后面直接加空间，空间首地址不变；如果不行（情况2）
+情况2.换个地址找找，申请空间，然后把原空间数据拷贝到新空间，并free掉原空间；如果不行（情况3）
+情况3.就返回空地址，不清空当前地址
+*/
+
+int expand(Vec *v) {
+    int ex_size = v-&amp;gt;size;
+    int *p;
+    while (ex_size) {
+        p = (int *)realloc(v-&amp;gt;data, sizeof(int) * (ex_size + v-&amp;gt;size));
+        if (p) break;
+        ex_size /= 2;
+    }
+    if (ex_size == 0) return 0;
+    v-&amp;gt;data = p;
+    v-&amp;gt;size += ex_size;
+    return 1;
+}
+
+void output(Vec *v) {
+    if (v == NULL) return ;
+    printf(&amp;quot;Vector [&amp;quot;);
+    for (int i = 0; i &amp;lt; v-&amp;gt;length; ++i) {
+        i &amp;amp;&amp;amp; printf(&amp;quot;, &amp;quot;);
+        printf(&amp;quot;%d&amp;quot;, v-&amp;gt;data[i]);
+    }
+    printf(&amp;quot;]\n&amp;quot;);
+    return ;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">BDS-1.顺序表</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-7.工程项目开发/"" data-c="
           &lt;h2 id=&#34;头文件的引入与静态链接库&#34;&gt;头文件的引入与静态链接库&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
 1.在测试目录下（有main.c或test.c），创建一个module目录
@@ -1919,11 +3468,11 @@ void add_func(pfunc func, const char *str) {
 }
 
 &lt;/code&gt;&lt;/pre&gt;
-">C语言-工程项目开发</a>
+">C语言-7.工程项目开发</a>
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-复杂结构与指针/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-6.复杂结构与指针/"" data-c="
           &lt;h2 id=&#34;结构体&#34;&gt;结构体&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;struct person {
     char name[20];
@@ -2189,11 +3738,11 @@ void output(int argc, char *agrv[], char **env) {
 
 
 &lt;/code&gt;&lt;/pre&gt;
-">C语言-复杂结构与指针</a>
+">C语言-6.复杂结构与指针</a>
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-数组与预处理命令/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-5.数组与预处理命令/"" data-c="
           &lt;h2 id=&#34;1素数筛算法&#34;&gt;1.素数筛算法&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
 #define MAX_NUM 100
@@ -2498,11 +4047,11 @@ int main() {
 
 
 &lt;/code&gt;&lt;/pre&gt;
-">C语言-数组与预处理命令</a>
+">C语言-5.数组与预处理命令</a>
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-函数/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-4.函数/"" data-c="
           &lt;h2 id=&#34;1函数的基础知识&#34;&gt;1.函数的基础知识&lt;/h2&gt;
 &lt;h3 id=&#34;函数说明&#34;&gt;函数说明&lt;/h3&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;int is_prime(int x) {
@@ -2846,11 +4395,11 @@ int my_printf(const char *frm, ...) {
 2. 取模（%）可以取数组低位
 */
 &lt;/code&gt;&lt;/pre&gt;
-">C语言-函数</a>
+">C语言-4.函数</a>
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-程序流程控制方法/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-3.程序流程控制方法/"" data-c="
           &lt;h2 id=&#34;1-分支结构&#34;&gt;1. 分支结构&lt;/h2&gt;
 &lt;h3 id=&#34;11练习题&#34;&gt;1.1练习题&lt;/h3&gt;
 &lt;h4 id=&#34;1程序读入一个正整数n代表学生的成绩根据分数输出分数档位&#34;&gt;1.程序读入一个正整数n,代表学生的成绩，根据分数输出分数档位。&lt;/h4&gt;
@@ -3034,11 +4583,11 @@ int is_prime(int n) {
     return 1;
 }
 &lt;/code&gt;&lt;/pre&gt;
-">C语言-程序流程控制方法</a>
+">C语言-3.程序流程控制方法</a>
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-数学运算/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-2.数学运算/"" data-c="
           &lt;h2 id=&#34;1c语言基本运算符&#34;&gt;1.C语言基本运算符&lt;/h2&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;a = b; // = ： 赋值运算符
 a = (b + c) * d; // +、-、*、/、（）：基本四则运算符
@@ -3143,11 +4692,11 @@ int main() {
 最小值表示：1000 0000 0000 0000
 */
 &lt;/code&gt;&lt;/pre&gt;
-">C语言-数学运算</a>
+">C语言-2.数学运算</a>
       </div>
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-输入输出学习/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-1.输入输出学习/"" data-c="
           &lt;h1 id=&#34;一-c语言入门基础&#34;&gt;一、C语言入门基础&lt;/h1&gt;
 &lt;h2 id=&#34;1scanf输入函数说明&#34;&gt;1.scanf()输入函数说明&lt;/h2&gt;
 &lt;p&gt;头文件： #include &amp;lt;stdio.h&amp;gt;&lt;/p&gt;
@@ -3236,7 +4785,7 @@ fprintf()函数原型：int fprintf(FILE *fp, const char *format, ...);
 可以用重定向文件（&amp;gt;）,把标准输出和错误标准输出分开。
 */
 &lt;/code&gt;&lt;/pre&gt;
-">C语言-输入输出学习</a>
+">C语言-1.输入输出学习</a>
       </div>
       
       <div class="item">
