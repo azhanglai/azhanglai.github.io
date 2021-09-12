@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
 <title>BDS-2.链表 | Bling</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631449651300">
+<link rel="shortcut icon" href="/favicon.ico?v=1631450803087">
 <link rel="stylesheet" href="/media/css/muse.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -247,7 +247,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">25</span>
+        <span class="site-item-stat-count">26</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -6142,6 +6142,439 @@ public:
  */
 &lt;/code&gt;&lt;/pre&gt;
 ">栈-刷题集</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/堆优先队列-刷题集/"" data-c="
+          &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h3 id=&#34;1-leetcode-23合并k个升序链表&#34;&gt;1. LeetCode-23(合并K个升序链表)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/Kl5pJP9D1Fw3sjC.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+#define SWAP(a, b) {\
+    __typeof(a) _t = a;\
+    a = b; b = _t;\
+}
+
+typedef struct pq {
+    struct ListNode **data;
+    int cnt, size;
+} PQ;
+
+PQ *init(int n) {
+    PQ *p = (PQ *)malloc(sizeof(PQ));
+    p-&amp;gt;data = (struct ListNode **)malloc(sizeof(struct ListNode *) * (n + 1));
+    p-&amp;gt;cnt = 0;
+    p-&amp;gt;size = n;
+    return p;
+}
+
+void clear(PQ *q) {
+    if (q == NULL) return ;
+    free(q-&amp;gt;data);
+    free(q);
+    return ;
+}
+
+int empty(PQ *q) {
+    return q-&amp;gt;cnt == 0;
+}
+
+struct ListNode *top(PQ *q) {
+    return q-&amp;gt;data[1];
+}
+
+void push(PQ *q, struct ListNode *node) {
+    if (q == NULL) return ;
+    if (q-&amp;gt;cnt == q-&amp;gt;size) return ;
+    q-&amp;gt;data[++(q-&amp;gt;cnt)] = node;
+    int ind = q-&amp;gt;cnt;
+    while (ind &amp;gt;&amp;gt; 1 &amp;amp;&amp;amp; q-&amp;gt;data[ind]-&amp;gt;val &amp;lt; q-&amp;gt;data[ind &amp;gt;&amp;gt; 1]-&amp;gt;val) {
+        SWAP(q-&amp;gt;data[ind], q-&amp;gt;data[ind &amp;gt;&amp;gt; 1]);
+        ind &amp;gt;&amp;gt;= 1;
+    }
+    return ;
+}
+
+void pop(PQ *q) {
+    if (q == NULL) return ;
+    if (empty(q)) return ;
+    q-&amp;gt;data[1] = q-&amp;gt;data[(q-&amp;gt;cnt)--];
+    int ind = 1;
+    while (ind &amp;lt;&amp;lt; 1 &amp;lt;= q-&amp;gt;cnt) {
+        int tmp = ind, dl = ind &amp;lt;&amp;lt; 1, dr = ind &amp;lt;&amp;lt; 1 | 1;
+        if (q-&amp;gt;data[tmp]-&amp;gt;val &amp;gt; q-&amp;gt;data[dl]-&amp;gt;val) tmp = dl;
+        if (dr &amp;lt;= q-&amp;gt;cnt &amp;amp;&amp;amp; q-&amp;gt;data[tmp]-&amp;gt;val &amp;gt; q-&amp;gt;data[dr]-&amp;gt;val) tmp = dr;
+        if (tmp == ind) break;
+        SWAP(q-&amp;gt;data[ind], q-&amp;gt;data[tmp]);
+        ind = tmp;
+    } 
+    return ;
+}
+
+struct ListNode* mergeKLists(struct ListNode** lists, int listsSize){
+    // 动态申请 dummy并初始化
+    struct ListNode *dummy = (struct ListNode *)calloc(1, sizeof(struct ListNode));
+    struct ListNode *head = dummy;
+    if (listsSize == 0) return NULL;
+    PQ *pq = init(10005);
+    for (int i = 0; i &amp;lt; listsSize; ++i) {
+        if (lists[i]) push(pq, lists[i]);
+    }
+    while (!empty(pq)) {
+        struct ListNode *node = top(pq); pop(pq);
+        head-&amp;gt;next = node;
+        head = head-&amp;gt;next;
+        if (node-&amp;gt;next) push(pq, node-&amp;gt;next);
+    }
+    clear(pq);
+    struct ListNode *ans = dummy-&amp;gt;next;
+    free(dummy);
+    return ans;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+/*  // 重载小于号
+    struct obj {
+        int val;
+        ListNode *ptr;
+        bool operator&amp;lt;(const obj &amp;amp;b) const {
+            return this-&amp;gt;val &amp;gt; b.val; // 大于号是小根堆，小于号是大根堆
+        }
+    };
+*/  // 仿函数，重载()
+    struct CMP {
+        bool operator()(const ListNode *a, const ListNode *b) {
+            return a-&amp;gt;val &amp;gt; b-&amp;gt;val; // 大于号是小根堆
+        }
+    };
+
+    ListNode* mergeKLists(vector&amp;lt;ListNode*&amp;gt;&amp;amp; lists) {
+        //priority_queue&amp;lt;obj&amp;gt; pq;
+        // 第1个参数是数据类型，2参数是容器，3参数是比较函数 
+        priority_queue&amp;lt;ListNode *, vector&amp;lt;ListNode *&amp;gt;, CMP&amp;gt; pq;
+        for (auto node : lists) {
+            if (node) pq.push(node);
+        }
+        ListNode dummy;
+        ListNode *head = &amp;amp;dummy;
+        while (!pq.empty()) {
+            auto t = pq.top(); pq.pop();
+            head-&amp;gt;next = t;
+            head = head-&amp;gt;next;
+            if (t-&amp;gt;next) pq.push(t-&amp;gt;next);
+        }
+        return dummy.next;
+    }
+};
+/*
+// 归并操作
+class Solution {
+public:
+    ListNode *mySort(ListNode *a, ListNode *b) {
+        if (a == NULL || b == NULL) return a ? a : b;
+        ListNode dummy;
+        ListNode *head = &amp;amp;dummy, *p1 = a, *p2 = b;
+        while (p1 || p2) {
+            if (!p2 || (p1 &amp;amp;&amp;amp; p1-&amp;gt;val &amp;lt; p2-&amp;gt;val)) {
+                head-&amp;gt;next = p1;
+                p1 = p1-&amp;gt;next;
+                head = head-&amp;gt;next;
+            } else {
+                head-&amp;gt;next = p2;
+                p2 = p2-&amp;gt;next;
+                head = head-&amp;gt;next;
+            }
+        }
+        return dummy.next;
+    }
+	// 把分治链表，把左半部分，和右半部分再归并
+    ListNode *merge(vector&amp;lt;ListNode *&amp;gt; &amp;amp;arr, int l, int r) {
+        if (l &amp;gt; r) return nullptr;
+        if (l == r) return arr[l];
+        int mid = l + (r - l) / 2;
+        return mySort(merge(arr, l, mid), merge(arr, mid + 1, r));
+    }
+
+    ListNode* mergeKLists(vector&amp;lt;ListNode*&amp;gt;&amp;amp; lists) {
+        return merge(lists, 0, lists.size() - 1);
+    }
+};
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;2leetcode-264丑数ii&#34;&gt;2.LeetCode-264(丑数Ⅱ)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/h6i7ekWmn3S8tLC.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class Solution {
+public:
+    typedef long long LL;
+   
+    int nthUglyNumber(int n) {
+        if (n == 1) return 1;
+        vector&amp;lt;LL&amp;gt; dp(n + 1);
+        dp[1] = 1; // 初始化dp数组的第一个位置
+        LL p2 = 1, p3 = 1, p5 = 1; // 构建3个指针，初始化指定dp数组的1位置
+        for (int i = 2; i &amp;lt;= n; ++i) {
+            // 指针乘上之前dp数组的值，取最小值，放入dp数组
+            LL num2 = dp[p2] * 2, num3 = dp[p3] * 3, num5 = dp[p5] * 5;
+            dp[i] = min(min(num2, num3), num5);
+            // 可以去重
+            if (dp[i] == num2) (p2)++;
+            if (dp[i] == num3) (p3)++;
+            if (dp[i] == num5) (p5)++;
+        }
+        return dp[n];
+    }
+};
+
+/*
+class Solution {
+public:
+    typedef long long LL;
+    struct CMP {
+        bool operator()(const LL a, const LL b) {
+            return a &amp;gt; b;
+        }
+    };
+    int nthUglyNumber(int n) {
+        if (n == 1) return 1;
+        LL nums[3] = {2, 3, 5}, ans = 0;
+        priority_queue&amp;lt;LL, vector&amp;lt;LL&amp;gt;, CMP&amp;gt; pq;
+        unordered_set&amp;lt;LL&amp;gt; mySet; // 集合去重
+        pq.push(1); mySet.insert(1);
+        for (int i = 1; i &amp;lt;= n; ++i) {
+            LL uglyNum = pq.top(); pq.pop();
+            ans = uglyNum;
+            // 丑数的2，3，5倍数一定是丑数
+            for (int i = 0; i &amp;lt; 3; ++i) {
+                LL t = uglyNum * nums[i];
+                if (mySet.count(t) == 0) {
+                    pq.push(t); mySet.insert(t);
+                }
+            }
+        }
+        return ans;
+    }
+};
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;3leetcode-295数据流的中位数&#34;&gt;3.LeetCode-295(数据流的中位数)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/IqPrBfsovkNnp3c.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class MedianFinder {
+public:
+    /** initialize your data structure here. */
+    // 使用两个堆（大小根堆），在两个堆倒来倒去，如果元素个数是奇数，小根堆多1
+    void addNum(int num) {
+        bigHeap.push(num); // 把每个数据先放入大根堆
+        // 把大根堆的堆顶元素元素弹出放入小根堆（关键）
+        smallHeap.push(bigHeap.top()); bigHeap.pop();
+        int l = bigHeap.size(), r = smallHeap.size();
+        // 如果小根的元素比大根堆的元素多，把堆顶元素弹出放回大根堆
+        // 保证大根堆的元素比小根堆的元素相等或多1个
+        if (r &amp;gt; l) { 
+            bigHeap.push(smallHeap.top());
+            smallHeap.pop();
+        }
+        return ;
+    }
+    
+    double findMedian() {
+        int l = bigHeap.size(), r = smallHeap.size();
+        return l - r ? (double)bigHeap.top() : (smallHeap.top() + bigHeap.top()) / 2.0;
+    }
+private:
+    priority_queue&amp;lt;int&amp;gt; bigHeap;
+    priority_queue&amp;lt;int, vector&amp;lt;int&amp;gt;, greater&amp;lt;int&amp;gt; &amp;gt; smallHeap;
+};
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj-&amp;gt;addNum(num);
+ * double param_2 = obj-&amp;gt;findMedian();
+ */
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;4leetcode-313超级丑数&#34;&gt;4.LeetCode-313(超级丑数)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/BqHwrFXWVsY1lc2.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/*
+// 最小堆  + 集合去重
+// 丑数的技巧就是，丑数 * 丑数 还是丑数
+class Solution {
+public:
+    typedef long long LL; // 数据范围
+    int nthSuperUglyNumber(int n, vector&amp;lt;int&amp;gt;&amp;amp; primes) {
+        if (n == 1) return 1;
+        priority_queue&amp;lt;LL, vector&amp;lt;LL&amp;gt;, greater&amp;lt;LL&amp;gt; &amp;gt; pq; // 最小堆
+        unordered_set&amp;lt;LL&amp;gt; mySet; // 集合
+        pq.push(1); mySet.insert(1);
+        LL ans = 0;
+        for (int i = 1; i &amp;lt;= n; ++i) {
+            LL uglyNum = pq.top(); pq.pop();
+            ans = uglyNum; // 把最小丑数拿出来
+            for (auto it : primes) {
+                LL t = uglyNum * it; // 丑数 * 丑数 还是丑数
+                if (mySet.insert(t).second) {
+                    pq.push(t);
+                }
+            }
+        }
+        return ans;
+    }
+};
+*/
+// 用动态规划 每次 把最小的丑数放入 dp数组，然后用最小的丑数 * primes里面的丑数， 在把最小丑数放入dp
+class Solution {
+public:
+    typedef long long LL;
+    int nthSuperUglyNumber(int n, vector&amp;lt;int&amp;gt;&amp;amp; primes) {
+        if (n == 1) return 1;
+        vector&amp;lt;LL&amp;gt; dp(n + 1, 0); // 答案DP
+        int pSize = primes.size();
+        vector&amp;lt;LL&amp;gt; ptr(pSize, 1); // 指针数组，初始指向dp[1]
+        dp[1] = 1; 
+        for (int i = 2; i &amp;lt;= n; ++i) {
+            // 遍历primes数组， 用最小丑数 * 数组的每个元素，取最小值放入dp[i]
+            LL t = dp[ptr[0]] * primes[0]; 
+            for (int j = 1; j &amp;lt; pSize; ++j) {
+                t = min(t, dp[ptr[j]] * primes[j]); 
+            }
+            dp[i] = t;
+            // 被取走的元素的指针 + 1（相同的元素的指针都 + 1）
+            for (int k = 0; k &amp;lt; pSize; ++k) {
+                if (dp[i] == dp[ptr[k]] * primes[k]) ptr[k]++;
+            }
+        }
+        return dp[n];
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;5leetcode-703数据流中的第k大元素&#34;&gt;5.LeetCode-703(数据流中的第K大元素)&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/12/EsAC1kB6hM2rIfy.png&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;class KthLargest {
+public:
+    // 放入最小堆
+    KthLargest(int k, vector&amp;lt;int&amp;gt;&amp;amp; nums) : _k(k) {
+        for (auto it : nums) { add(it); } // 这里add()函数，每次都会调用
+    }
+    int add(int val) {
+        pq.push(val);
+        while (pq.size() &amp;gt; _k) pq.pop(); // 让堆顶的元素等于第K大元素（让堆只剩K个元素）
+        return pq.top();
+    }
+    int _k;
+    priority_queue&amp;lt;int, vector&amp;lt;int&amp;gt;, greater&amp;lt;int&amp;gt; &amp;gt; pq;
+    
+};
+
+/**
+ * Your KthLargest object will be instantiated and called as such:
+ * KthLargest* obj = new KthLargest(k, nums);
+ * int param_1 = obj-&amp;gt;add(val);
+ */
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#define SWAP(a, b) {\
+    __typeof(a) _t = a;\
+    a = b; b = _t;\
+}
+
+typedef struct {
+    int *data;
+    int cnt, size;
+} KthLargest;
+
+KthLargest *init(int n) {
+    KthLargest *k = (KthLargest *)malloc(sizeof(KthLargest));
+    k-&amp;gt;data = (int *)malloc(sizeof(int) * ( n + 1));
+    k-&amp;gt;cnt = 0;
+    k-&amp;gt;size = n;
+    return k;
+}
+
+int empty(KthLargest *k) {
+    return k-&amp;gt;cnt == 0;
+}
+
+int top(KthLargest *k) {
+    return k-&amp;gt;data[1];
+}
+
+void push(KthLargest *k, int val) {
+    if (k == NULL) return ;
+    if (k-&amp;gt;cnt == k-&amp;gt;size) return ;
+    k-&amp;gt;data[++(k-&amp;gt;cnt)] = val;
+    int ind = k-&amp;gt;cnt;
+    while (ind &amp;gt;&amp;gt; 1 &amp;amp;&amp;amp; k-&amp;gt;data[ind] &amp;lt; k-&amp;gt;data[ind &amp;gt;&amp;gt; 1]) {
+        SWAP(k-&amp;gt;data[ind], k-&amp;gt;data[ind &amp;gt;&amp;gt; 1]);
+        ind &amp;gt;&amp;gt;= 1;
+    }
+    return ;
+}
+
+void pop(KthLargest *k) {
+    if (k == NULL) return ;
+    if (empty(k)) return ;
+    k-&amp;gt;data[1] = k-&amp;gt;data[(k-&amp;gt;cnt)--];
+    int ind = 1;
+    while (ind &amp;lt;&amp;lt; 1 &amp;lt;= k-&amp;gt;cnt) {
+        int tmp = ind, dl = ind &amp;lt;&amp;lt; 1, dr = ind &amp;lt;&amp;lt; 1 | 1;
+        if (k-&amp;gt;data[tmp] &amp;gt; k-&amp;gt;data[dl]) tmp = dl;
+        if (dr &amp;lt;= k-&amp;gt;cnt &amp;amp;&amp;amp; k-&amp;gt;data[tmp] &amp;gt; k-&amp;gt;data[dr]) tmp = dr;
+        if (tmp == ind) break;
+        SWAP(k-&amp;gt;data[tmp], k-&amp;gt;data[ind]);
+        ind = tmp;
+    }
+    return ;
+}
+
+int _k;
+KthLargest* kthLargestCreate(int k, int* nums, int numsSize) {
+    KthLargest *pq = init(10005);
+    for (int i = 0; i &amp;lt; numsSize; ++i) {
+        push(pq, nums[i]);
+    }
+    _k = k;
+    return pq;
+}
+
+int kthLargestAdd(KthLargest* obj, int val) {
+    push(obj, val);
+    while (obj-&amp;gt;cnt &amp;gt; _k) {
+        pop(obj);
+    }
+    return top(obj);
+}
+
+void kthLargestFree(KthLargest* obj) {
+    if (obj == NULL) return ;
+    free(obj-&amp;gt;data);
+    free(obj);
+    return ;
+}
+
+/**
+ * Your KthLargest struct will be instantiated and called as such:
+ * KthLargest* obj = kthLargestCreate(k, nums, numsSize);
+ * int param_1 = kthLargestAdd(obj, val);
+ 
+ * kthLargestFree(obj);
+*/
+&lt;/code&gt;&lt;/pre&gt;
+">堆优先队列-刷题集</a>
       </div>
       
       <div class="item">
