@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://azhanglai-github-io.vercel.app</id>
     <title>Bling</title>
-    <updated>2021-09-12T03:02:48.625Z</updated>
+    <updated>2021-09-12T04:02:38.033Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://azhanglai-github-io.vercel.app"/>
     <link rel="self" href="https://azhanglai-github-io.vercel.app/atom.xml"/>
@@ -11,25 +11,60 @@
     <icon>https://azhanglai-github-io.vercel.app/favicon.ico</icon>
     <rights>All rights reserved 2021, Bling</rights>
     <entry>
-        <title type="html"><![CDATA[C++]]></title>
-        <id>https://azhanglai-github-io.vercel.app/c/</id>
-        <link href="https://azhanglai-github-io.vercel.app/c/">
-        </link>
-        <updated>2021-09-11T07:38:51.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[嘻嘻]]></title>
-        <id>https://azhanglai-github-io.vercel.app/linux/</id>
-        <link href="https://azhanglai-github-io.vercel.app/linux/">
-        </link>
-        <updated>2021-09-11T07:38:51.000Z</updated>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[可爱的小西瓜]]></title>
         <id>https://azhanglai-github-io.vercel.app/zhuer/</id>
         <link href="https://azhanglai-github-io.vercel.app/zhuer/">
         </link>
         <updated>2021-09-11T07:38:51.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[C语言-工程项目开发]]></title>
+        <id>https://azhanglai-github-io.vercel.app/C语言-工程项目开发/</id>
+        <link href="https://azhanglai-github-io.vercel.app/C语言-工程项目开发/">
+        </link>
+        <updated>2021-01-22T13:08:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[C语言-复杂结构与指针]]></title>
+        <id>https://azhanglai-github-io.vercel.app/C语言-复杂结构与指针/</id>
+        <link href="https://azhanglai-github-io.vercel.app/C语言-复杂结构与指针/">
+        </link>
+        <updated>2020-11-05T13:49:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[C语言-数组与预处理命令]]></title>
+        <id>https://azhanglai-github-io.vercel.app/C语言-数组与预处理命令/</id>
+        <link href="https://azhanglai-github-io.vercel.app/C语言-数组与预处理命令/">
+        </link>
+        <updated>2020-11-02T15:26:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[C语言-函数]]></title>
+        <id>https://azhanglai-github-io.vercel.app/C语言-函数/</id>
+        <link href="https://azhanglai-github-io.vercel.app/C语言-函数/">
+        </link>
+        <updated>2020-11-01T08:07:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[C语言-程序流程控制方法]]></title>
+        <id>https://azhanglai-github-io.vercel.app/C语言-程序流程控制方法/</id>
+        <link href="https://azhanglai-github-io.vercel.app/C语言-程序流程控制方法/">
+        </link>
+        <updated>2020-10-25T14:33:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[C语言-数学运算]]></title>
+        <id>https://azhanglai-github-io.vercel.app/C语言-数学运算/</id>
+        <link href="https://azhanglai-github-io.vercel.app/C语言-数学运算/">
+        </link>
+        <updated>2020-10-25T11:01:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[C语言-输入输出学习]]></title>
+        <id>https://azhanglai-github-io.vercel.app/C语言-输入输出学习/</id>
+        <link href="https://azhanglai-github-io.vercel.app/C语言-输入输出学习/">
+        </link>
+        <updated>2020-10-24T14:43:00.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>

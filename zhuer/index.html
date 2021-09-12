@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
 <title>可爱的小西瓜 | Bling</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631415762307">
+<link rel="shortcut icon" href="/favicon.ico?v=1631419334702">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -220,19 +220,19 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">4</span>
+        <span class="site-item-stat-count">9</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">1</span>
+        <span class="site-item-stat-count">2</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">1</span>
+        <span class="site-item-stat-count">2</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -396,15 +396,11 @@
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="嘻嘻" href="https://azhanglai-github-io.vercel.app/linux/">嘻嘻</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="嘻嘻" href="https://azhanglai-github-io.vercel.app/linux/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="Hello Gridea" href="https://azhanglai-github-io.vercel.app/hello-gridea/">Hello Gridea</a>
-        <a class="nav-mobile-next" title="Hello Gridea" href="https://azhanglai-github-io.vercel.app/hello-gridea/">下一篇</a>
+        <a class="nav-pc-next" title="C语言-工程项目开发" href="https://azhanglai-github-io.vercel.app/C语言-工程项目开发/">C语言-工程项目开发</a>
+        <a class="nav-mobile-next" title="C语言-工程项目开发" href="https://azhanglai-github-io.vercel.app/C语言-工程项目开发/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
@@ -1457,136 +1453,1623 @@
     <div class="result" id="result">
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/c/"" data-c="
-          &lt;p&gt;阻塞与非阻塞极简解释（烧开水例子）：&lt;/p&gt;
-&lt;p&gt;同步：就是普通水壶烧开水，要没事儿自己过来看开没开；&lt;/p&gt;
-&lt;p&gt;异步：就是响水壶烧开水，水开了水壶响了通知你；&lt;/p&gt;
-&lt;p&gt;阻塞：就是烧开水的过程中，你不能干其他事情（即你被阻塞住了），只能站那等水开；&lt;/p&gt;
-&lt;p&gt;非阻塞：就是烧开水的过程里可以干其他事情，比如去客厅看看电视。&lt;/p&gt;
-&lt;p&gt;同步与异步说的是获得水开了的方式不同。&lt;/p&gt;
-&lt;p&gt;阻塞与非阻塞说的是你得到结果之前能不能干其他事。&lt;/p&gt;
-&lt;p&gt;两组概念描述的是不同的内容&lt;/p&gt;
-&lt;p&gt;分析写文件的过程（open(打开文件)--&amp;gt; write(写入) --&amp;gt; close(关闭文件)）&lt;/p&gt;
-&lt;p&gt;1.其中write属于系统调用，具体过程：数据--&amp;gt;内核--&amp;gt;磁盘,内核拷贝数据，放在缓冲区（块缓冲），清刷缓冲时，调度IO设备，找到inode和block,将数据写入磁盘。（第一步数据--&amp;gt;内核是用户态，第二步 内核--&amp;gt;磁盘是内核态。存在转换）&lt;/p&gt;
-&lt;p&gt;2.NON_BLOCK设置的是用户态（数据--&amp;gt;内核 或 内核 --&amp;gt; 数据）的过程；大部分的阻塞是在从内核拿数据出来&lt;/p&gt;
-&lt;p&gt;3.内核--&amp;gt;磁盘的过程实际是阻塞的。为了方便上层应用快速返回写的状态，内核将数据写到磁盘的过程，普通用户不需要感知；内核拷贝完数据，程序返回，普通用户就认为写成功了，但数据很有可能还在缓冲区（缓冲IO）&lt;/p&gt;
-&lt;p&gt;fcntl()函数（操作文件描述符，可以将文件变成非阻塞的）&lt;/p&gt;
-&lt;p&gt;1.函数原型：int fcntl(int fd, int cmd, .../* arg */);&lt;/p&gt;
-&lt;p&gt;参数cmd：操作方式&lt;/p&gt;
-&lt;p&gt;.../* arg */：可变参数，arg,指示该参数是前面参数（cmd）的参数，其含义取决于cmd&lt;/p&gt;
-&lt;p&gt;2.函数返回值：出错都是返回-1，设置操作成功都是返回0&lt;/p&gt;
-&lt;p&gt;select()函数（同步I/O多路复用接口）&lt;/p&gt;
-&lt;p&gt;1.函数原型：int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);&lt;/p&gt;
-&lt;p&gt;参数nfds:文件描述符的数量&lt;/p&gt;
-&lt;p&gt;fd_set：文件描述符的集合， （可读、可写、异常）底层是用数组实现的&lt;/p&gt;
-&lt;p&gt;参数 timeout：时间间隔&lt;/p&gt;
-&lt;p&gt;描述：&lt;br&gt;
-允许程序去监控多个文件描述符，等待一个或多个文件描述符的I/O操作“ready”的情况&lt;/p&gt;
-&lt;p&gt;ready：就绪，可以对文件进行相应的IO操作，如没有阻塞的读，或足够小的写。&lt;br&gt;
-可监控的文件描述符数量小于FD_SETSIZE（一般为1024）&lt;/p&gt;
-&lt;p&gt;退出的时候，每个文件描述符集合会被修改，只留下状态发生变化的文件描述符，起指示作用；&lt;br&gt;
-所以如果循环使用select，每次调用select前需要重新初始化每个集合。&lt;/p&gt;
-&lt;p&gt;集合可以是NULL，说明该类事件中没有文件被监控&lt;/p&gt;
-&lt;p&gt;宏用来操作集合&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;FD_ZERO：清空一个集合&lt;br&gt;
-2.FD_SET：向一个集合添加一个文件描述符&lt;br&gt;
-3.FD_CLR：从一个集合移除一个文件描述符&lt;br&gt;
-4.FD_ISSET：判断一个文件描述符的所属集合，可用于select返回后，因为集合已被修改&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;nfds的值是三个集合中数字最大的文件描述符加1&lt;br&gt;
-1.文件描述符的索引是从0开始的&lt;/p&gt;
-&lt;p&gt;struct timeval timeout&lt;br&gt;
-1.指定select阻塞着等待每个文件描述符就绪的时间间隔；&lt;br&gt;
-2.这里阻塞的含义就是单纯的阻塞，不是阻塞I/O的阻塞；&lt;br&gt;
-3.同步I/O的多路复用的同步就体现在这&lt;/p&gt;
-&lt;p&gt;三个停止阻塞的情况&lt;br&gt;
-1.一个文件描述符就绪&lt;br&gt;
-2.信号中断（kill）&lt;br&gt;
-3.超时&lt;/p&gt;
-&lt;p&gt;时间间隔不是精确的，很难做到真正的精确；系统时钟粒度、内核调度延迟。&lt;/p&gt;
-&lt;p&gt;timeval结构体中两个成员：秒、微妙，如果两者都为0，就会立即返回，可用于轮询（polling）&lt;br&gt;
-如果为NULL，就会无期限等待&lt;br&gt;
-timeout更新功能只在linux上生效，为了兼容性，尽量别用，尽量使用比较公共的功能。&lt;/p&gt;
-&lt;p&gt;函数返回值：返回此时所有集合文件描述符（ready）数量，根据数量，再通过宏定义FD_ISSET询问所有文件描述符的所在集合，来感知状态变化&lt;br&gt;
-0：时间过完了，也没有感兴趣的事件发生&lt;br&gt;
--1：error，并设置error；此时集合不会改变，timeout变成未定义的了&lt;/p&gt;
-&lt;p&gt;（select--&amp;gt;poll--&amp;gt;epoll，越来越高级）&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;//common.h
-#ifndef _COMMON_H
-#define _COMMON_H
-
-int make_nonblock(int fd); // 声明非阻塞
-int make_block(int fd);   // 声明阻塞
-~~~c
-
-
-&lt;/code&gt;&lt;/pre&gt;
-">C++</a>
-      </div>
-      
-      <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/linux/"" data-c="
-          &lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt; 
-```c
-#include &amp;lt;stdio.h&amp;gt;
-#include &amp;lt;stdlib.h&amp;gt;
-#include &amp;lt;unistd.h&amp;gt;
-
-int main(int argc, char *argv[]) {
-    int opt;
-    while (~(opt = getopt(argc, argv, &amp;quot;alm:o::&amp;quot;))) {
-        switch(opt) {
-            case &#39;a&#39;: {
-                printf(&amp;quot;a found!\n&amp;quot;);
-            }; break;
-            case &#39;l&#39;: {
-                printf(&amp;quot;l found!\n&amp;quot;);
-            }; break;
-            case &#39;m&#39;: {
-                printf(&amp;quot;m_msg = %s\n&amp;quot;, optarg);
-            }; break;
-            case &#39;o&#39;: {
-                printf(&amp;quot;o_msg = %s\n&amp;quot;, optarg);
-            }; break;
-            default: 
-                fprintf(stderr, &amp;quot;Usage : %s -al\n&amp;quot;, argv[0]);
-                exit(1);
-        }
-    }
-    return 0;
-}
-/*
-1. vim 1.getopt.c --创建源文件
-2. gcc 1,getopt.c --编译
-3. ./a.out -al -m &amp;quot;xixi&amp;quot; -o&amp;quot;haha&amp;quot; (m后面可以有空格， o后面不可以有空格)
-*/
-```xxxxxxxxxx10 1//common.h2#ifndef _COMMON_H3#define _COMMON_H45int make_nonblock(int fd); // 声明非阻塞6int make_block(int fd);   // 声明阻塞7~~~c8910c
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;getopt函数命令行解析函数&#34;&gt;getopt函数：命令行解析函数&lt;/h3&gt;
-&lt;h3 id=&#34;头文件unistdh&#34;&gt;头文件：&amp;lt;unistd.h&amp;gt;&lt;/h3&gt;
-&lt;h4 id=&#34;原型int-getoptint-argc-char-const-argv-const-char-optstring&#34;&gt;原型：int getopt(int argc, char *const argv[],  const char *optstring);&lt;/h4&gt;
-&lt;h4 id=&#34;argc-argv-由main函数的参数直接传递而来&#34;&gt;argc argv : 由main函数的参数直接传递而来&lt;/h4&gt;
-&lt;h4 id=&#34;optstring-一个包含准确选项字符的字符串&#34;&gt;optstring: 一个包含准确选项字符的字符串&lt;/h4&gt;
-&lt;h4 id=&#34;返回值返回下一个选项&#34;&gt;返回值：返回下一个选项&lt;/h4&gt;
-&lt;h3 id=&#34;getopt设置的一些全局变量&#34;&gt;getopt设置的一些全局变量&lt;/h3&gt;
-&lt;h4 id=&#34;1char-optarg-指向当前选项参数如果有的指针&#34;&gt;1.char *optarg : 指向当前选项参数（如果有）的指针。&lt;/h4&gt;
-&lt;h4 id=&#34;2int-optind-再次调用getopt时的下一个argv指针的索引&#34;&gt;2.int optind: 再次调用getopt()时的下一个argv指针的索引。&lt;/h4&gt;
-&lt;h4 id=&#34;3int-optopt-最后一个已知选项&#34;&gt;3.int optopt: 最后一个已知选项。&lt;/h4&gt;
-&lt;h4 id=&#34;4-int-opterr-这个变量非零时向stderr打印错误-默认为1&#34;&gt;4. int opterr: 这个变量非零时，向stderr打印错误。默认为1.&lt;/h4&gt;
-&lt;h3 id=&#34;参数optstring详解&#34;&gt;参数optstring详解&lt;/h3&gt;
-&lt;h4 id=&#34;getopt函数的第三个参数optstring是一个有所有合法的可选字符所组成的字符串&#34;&gt;getopt()函数的第三个参数optstring是一个有所有合法的“可选字符”所组成的字符串。&lt;/h4&gt;
-&lt;h5 id=&#34;1-单个字符表示选项&#34;&gt;1. 单个字符，表示选项。&lt;/h5&gt;
-&lt;h5 id=&#34;2-单个字符后接一个冒号表示该选项后必须跟一个参数值-参数紧跟在选项后或者以空格隔开-该参数的指针赋给optarg&#34;&gt;2. 单个字符后接一个冒号“：”，表示该选项后必须跟一个参数值。参数紧跟在选项后或者以空格隔开。该参数的指针赋给optarg。&lt;/h5&gt;
-&lt;h5 id=&#34;3-单个字符后跟两个冒号表示该选项后可以带参数也可以不带-但参数必须紧跟在选项后不能以空格隔开-该参数的指针赋给optarg&#34;&gt;3. 单个字符后跟两个冒号“：：”，表示该选项后可以带参数也可以不带。但参数必须紧跟在选项后不能以空格隔开。该参数的指针赋给optarg。&lt;/h5&gt;
-&lt;h4 id=&#34;例子xyz-表示x选项没有选项参数y选项必须有选项参数中间可有空格可没有z参数可有参数选项也可没有参数选项但是如果有选项参数的话必须紧跟在选项之后不能有空格&#34;&gt;例子：“xy:z::” 表示x选项没有选项参数，y选项必须有选项参数，中间可有空格可没有，z参数可有参数选项，也可没有参数选项，但是如果有选项参数的话必须紧跟在选项之后不能有空格。&lt;/h4&gt;
-">嘻嘻</a>
-      </div>
-      
-      <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/zhuer/"" data-c="
           &lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://i.loli.net/2021/09/11/uFNiMR9nY2a5Ujw.jpg&#34; alt=&#34;img&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 ">可爱的小西瓜</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-工程项目开发/"" data-c="
+          &lt;h2 id=&#34;头文件的引入与静态链接库&#34;&gt;头文件的引入与静态链接库&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+1.在测试目录下（有main.c或test.c），创建一个module目录
+2.在module目录下创建 include目录，src目录，lib目录
+3.在include目录下放 项目头文件（.h后缀结尾的文件）
+4.在src目录下放 项目原代码（c语言，.c后缀结尾的文件，c++，.cc后缀结尾的文件）
+5.在lib目录下放 静态链接库（打包生成.a后缀链接库）或动态链接库
+*/
+// ./include/目录下
+// header1.h
+#ifndef _HEADER1_H
+#define _HEADER1_H
+void funcA(int);
+void funcB(int);
+#endif
+
+// header2.h
+#ifndef _HEADER2_H
+#define _HEADER2_H
+void funcC(int, int);
+#endif
+
+// header3.h
+#ifndef _HEADER3_H
+#define _HEADER3_H
+
+void funcD(int, int);
+
+#endif
+
+
+// ./src/目录下
+
+// header1.c
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;header1.h&amp;gt;
+
+void funcA(int n) {
+    if (n == 0) return ;
+    printf(&amp;quot;funcA: %d\n&amp;quot;, n);
+    funcB(n - 1);
+    return ;
+}
+
+void funcB(int n) {
+    if (n == 0) return ;
+    printf(&amp;quot;funcB: %d\n&amp;quot;, n);
+    funcA(n - 1);
+    return ;
+}
+
+// header2.c
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;header1.h&amp;gt;
+
+void funcC(int a, int b) {
+    printf(&amp;quot;funcC: %d + %d = %d\n&amp;quot;, a, b, a + b);
+    funcA(a);
+    return ;
+}
+
+// header3.c
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;header1.h&amp;gt;
+
+void funcD(int a, int b) {
+    printf(&amp;quot;%d + %d = %d\n&amp;quot;, a, b, a + b);
+    funcA(a);
+    return ;
+}
+
+// ./lib/ 目录下
+
+1. 把源文件编译成对象文件 （gcc -I./include/ -c ***.c）
+2. 把对象文件打包成静态链接库 （ar -a lib***.a ***.o ***.o）
+    
+/*
+生成执行文件  （gcc main.o -L./** ***(静态链接库)）
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;makefile&#34;&gt;Makefile&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;.PHONY: clean run 
+
+all: test.o ./src/header1.o ./src/header2.o ./src/header3.o 
+	gcc test.o ./src/header1.o ./src/header2.o ./src/header3.o -o ./bin/lai
+test.o: test.c
+	gcc -I./include -c test.c
+./src/header1.o: ./src/header1.c 
+	gcc -I./include -c ./src/header1.c -o ./src/header1.o
+./src/header2.o: ./src/header2.c 
+	gcc -I./include -c ./src/header2.c -o ./src/header2.o
+./src/header3.o: ./src/header3.c 
+	gcc -I./include -c ./src/header3.c -o ./src/header3.o
+clean:
+	rm -rf ./src/*.o ./bin/lai *.o
+run:
+	./bin/lai
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;测试框架&#34;&gt;测试框架&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201109201450322.png&#34; alt=&#34;image-20201109201450322&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+1.在测试目录下（有main.c或test.c），创建一个module目录和main.c源文件和Makefile
+2.在module目录下创建 include目录，src目录，lib目录
+3.在include目录下放 项目头文件（.h后缀结尾的文件）
+4.在str目录下放 项目原代码（c语言，.c后缀结尾的文件，c++，.cc后缀结尾的文件）
+*/
+
+// main.c
+
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;lai.h&amp;gt;
+int add(int a, int b) {
+    return a + b;
+}
+
+TEST(func, add1) {
+    EXPECT_EQ(add(2, 3), 5);
+    EXPECT_LT(add(3, 4), 9);
+    EXPECT_LE(add(3, 6), 9);
+    EXPECT_GT(add(-2, 3), 5);
+    EXPECT_EQ(add(0, 3), 3);
+}
+
+TEST(func, add2) {
+    EXPECT_EQ(add(1, 2), 3);
+    EXPECT_EQ(add(3, 3), 6);
+}
+
+TEST(func, add3) {
+    EXPECT_NE(add(0, -1), 2);
+    EXPECT_EQ(add(-2, -3), -5);
+}
+
+int main(int argc, char *argv[]) {
+    return RUN_ALL_TESTS();
+}
+
+// Makefile
+
+.PHONY: clean run
+
+all: main.o ./str/lai.o ./include/lai.h 
+	gcc  main.o ./str/lai.o -o ./bin/zhu
+main.o: main.c ./include/lai.h 
+	gcc -I./include -c main.c 
+./str/lai.o: ./str/lai.c ./include/lai.h 
+	gcc -I./include -c ./str/lai.c -o ./str/lai.o 
+clean:
+	rm -rf ./bin/lai *.o ./str/lai.o 
+run:
+	./bin/zhu
+
+// ./include/lai.h
+
+#ifndef _LAI_H
+#define _LAI_H
+#include &amp;lt;listnode.h&amp;gt;
+
+#define COLOR(a, b) &amp;quot;\e[&amp;quot; #b &amp;quot;m&amp;quot; a &amp;quot;\e[0m&amp;quot;    // &amp;quot;\e[31m&amp;quot; 上色部分 &amp;quot;\e[0m&amp;quot;
+#define COLOR_HL(a, b) &amp;quot;\e[1;&amp;quot; #b &amp;quot;m&amp;quot; a &amp;quot;\e[0m&amp;quot;  // &amp;quot;\e[1;31m&amp;quot; 上色部分 &amp;quot;\e[0m&amp;quot;
+#define RED(a) COLOR(a, 31)
+#define GREEN(a) COLOR(a, 32)
+#define YELLOW(a) COLOR(a, 33)
+#define BLUE(a) COLOR(a, 34)
+
+#define RED_HL(a) COLOR_HL(a, 31)
+#define GREEN_HL(a) COLOR_HL(a, 32)
+#define YELLOW_HL(a) COLOR_HL(a, 33)
+#define BLUE_HL(a) COLOR_HL(a, 34)
+
+#define TEST(a, b)\
+void a##_lai_##b();\
+__attribute__((constructor))\   // 在main函数之前执行
+void add_##a##b##test() {\
+    add_func(a##_lai_##b, #a&amp;quot;.&amp;quot;#b);\ 
+}\
+void a##_lai_##b()
+
+#define TYPE(a) _Generic((a),\    //泛型宏
+    int : &amp;quot;%d&amp;quot;,\
+    float : &amp;quot;%f&amp;quot;,\
+    double : &amp;quot;%lf&amp;quot;,\
+    long long : &amp;quot;%lld&amp;quot;,\
+    char* : &amp;quot;%s&amp;quot;\
+)
+
+#define P(a, color) {\
+    char str[1000];\
+    sprintf(str, color(&amp;quot;%s&amp;quot;), TYPE(a));\
+    printf(str, a);\
+}
+
+#define EXPECT(a, b, comp) {\ 
+    __typeof(a) _a = a;\ 
+    __typeof(b) _b = b;\
+    info.total++;\
+    if (_a comp _b) info.success++;\
+    else {\
+        printf(&amp;quot;\n\t&amp;quot; YELLOW_HL(&amp;quot;%s:%d: Failure\n&amp;quot;), __func__, __LINE__);\
+        printf(&amp;quot;\t\t&amp;quot; YELLOW_HL(&amp;quot;expect : &amp;quot; #a &amp;quot; &amp;quot; #comp &amp;quot; &amp;quot; #b &amp;quot;\n&amp;quot;));\
+        printf(&amp;quot;\t\t&amp;quot; YELLOW_HL(&amp;quot;actual : &amp;quot;));\
+        P(_a, YELLOW_HL);\
+        P(&amp;quot; vs &amp;quot;, YELLOW_HL);\
+        P(_b, YELLOW_HL);\
+        printf(&amp;quot;\n\n&amp;quot;);\
+    }\
+    printf(GREEN(&amp;quot;[-----------]&amp;quot;));\
+    printf(&amp;quot; &amp;quot; #a &amp;quot; &amp;quot; #comp &amp;quot; &amp;quot; #b);\
+    printf(&amp;quot; %s\n&amp;quot;, _a comp _b ? GREEN_HL(&amp;quot;True&amp;quot;) : RED_HL(&amp;quot;False&amp;quot;));\
+}
+
+#define EXPECT_EQ(a, b) EXPECT(a, b, ==)
+#define EXPECT_NE(a, b) EXPECT(a, b, !=)
+#define EXPECT_LT(a, b) EXPECT(a, b, &amp;lt;)
+#define EXPECT_LE(a, b) EXPECT(a, b, &amp;lt;=)
+#define EXPECT_GT(a, b) EXPECT(a, b, &amp;gt;)
+#define EXPECT_GE(a, b) EXPECT(a, b, &amp;gt;=)
+
+typedef void (*pfunc)();  //函数指针类型
+
+typedef struct functest {
+    pfunc func;
+    const char *str;
+    Node p;   //“外骨骼”
+}functest;
+
+typedef struct func_info {
+    int total, success;
+} funcinfo;
+
+extern funcinfo info; 
+
+int RUN_ALL_TESTS();
+void add_func(pfunc, const char*);
+
+#endif
+
+// ./include/listnode.h
+
+#ifndef _LISTNODE_H
+#define _LISTNODE_H
+
+#define offset(T, name) (long long)(&amp;amp;(((T *)(NULL))-&amp;gt;name))
+#define Head(p, T, name) (T *)((char *)(p) - offset(T, name))
+
+typedef struct ListNode {
+    struct ListNode *next; //外骨骼实现
+}Node;
+
+#endif
+
+// ./src/lai.c
+
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;lai.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+
+functest func_head, *func_tail = &amp;amp;func_head;
+funcinfo info;
+
+int RUN_ALL_TESTS() {
+    for (Node *p = func_head.p.next; p; p = p-&amp;gt;next) {
+        functest *func_res = Head(p, functest, p);
+        printf(GREEN(&amp;quot;[====RUN====]&amp;quot;));
+        printf(RED(&amp;quot; %s\n&amp;quot;), func_res-&amp;gt;str);
+        info.total = 0; info.success = 0;
+        func_res-&amp;gt;func();
+        printf(GREEN(&amp;quot;[  &amp;quot;));
+        double res = 100.0 * info.success / info.total;
+        if (info.total == info.total &amp;amp;&amp;amp; info.total != 0) {
+            printf(BLUE_HL(&amp;quot;%6.2lf%%&amp;quot;), res);   
+        } else {
+            printf(RED_HL(&amp;quot;%6.2lf%%&amp;quot;), res);
+        }
+        printf(GREEN(&amp;quot;  ]&amp;quot;));
+        printf(&amp;quot; total : %d success : %d\n&amp;quot;, info.total, info.success);
+    }
+    return 0;
+}
+
+void add_func(pfunc func, const char *str) {
+    functest *temp = (functest *)calloc(1, sizeof(functest)); //实例化
+    temp-&amp;gt;func = func;
+    temp-&amp;gt;str = strdup(str);
+    func_tail-&amp;gt;p.next = &amp;amp;(temp-&amp;gt;p);
+    func_tail = temp;
+    return ;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">C语言-工程项目开发</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-复杂结构与指针/"" data-c="
+          &lt;h2 id=&#34;结构体&#34;&gt;结构体&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;struct person {
+    char name[20];
+  	int age;
+    char gender;
+    float height;
+};
+
+/*
+1. 结构体类型：struct person(变量名)， 没有变量名，匿名结构体
+2. 内存对齐
+3. 引用方式：直接引用：person.age(值.变量) ，间接引用：&amp;amp;person-&amp;gt;age(地址-&amp;gt;变量)
+*/
+
+//请写出node1 和 node2 所在的字节数。
+struct node1 { // 8字节
+    char a;
+    char b;
+    int c;
+};
+
+struct node2 { // 12字节 
+    char a;
+    int c;
+    char b;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;共用体&#34;&gt;共用体&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+union register { // 共用体
+	struct { // 匿名结构体
+		unsigned char byte1;
+		unsigned char byte2;
+		unsigned char byte3;
+		unsigned char byte4;
+	} bytes; //结构体类型
+	unsigned int number;
+};
+*/
+
+//请使用共用体，实现ip转整数的功能。
+/*
+#include &amp;lt;stdio.h&amp;gt;
+
+union IP {
+    struct {
+        unsigned char a1;
+        unsigned char a2;
+        unsigned char a3;
+        unsigned char a4;
+    } ip;
+    unsigned int num;
+};
+
+int is_little() {
+    static int num = 1; // 0001 
+    return ((char *)(&amp;amp;num))[0]; //1000
+
+}
+
+int main() {
+    printf(&amp;quot;%d\n&amp;quot;, is_little());
+    char str[100];
+    int arr[4];
+    union IP p;
+    while (~scanf(&amp;quot;%s&amp;quot;, str)) {
+        sscanf(str, &amp;quot;%d.%d.%d.%d&amp;quot;, arr, arr + 1, arr + 2, arr + 3);
+        p.ip.a1 = arr[3];
+        p.ip.a2 = arr[2];
+        p.ip.a3 = arr[1];
+        p.ip.a4 = arr[0];
+        printf(&amp;quot;%d\n&amp;quot;, p.num);
+    }
+    return 0;
+}
+*/
+
+#include &amp;lt;stdio.h&amp;gt;
+
+typedef union IP {
+    unsigned int n;
+    char part[4];
+} ip;
+
+int main() {
+    ip p; // 共用体类型 变量
+    int num[4];
+    scanf(&amp;quot;%d.%d.%d.%d&amp;quot;, num + 3, num + 2, num + 1, num);
+    //输入 192.168.0.1， num数组为 [1, 0, 168, 192]
+    for (int i = 0; i &amp;lt; 4; ++i) {
+        p.part[i] = num[i] &amp;amp; ((1 &amp;lt;&amp;lt; 8) - 1); // num[i] &amp;amp; 01111111
+        printf(&amp;quot;%02x\n&amp;quot;, num[i]);
+    }
+    printf(&amp;quot;%08x\n&amp;quot;, p.n);
+    return 0;
+}
+/*
+小端系统（一般都是）： 数字的低位 放低地址位，如 数字 1234，放入地址 变 4321
+大端系统：数字的高位 放 高地址位， 如 数字 1234 ，放入地址 变 1234
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;指针与地址&#34;&gt;指针与地址&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+int a;
+int *p = &amp;amp;a;
+
+1. 64位系统，不管指针是什么数据类型（int* double* char*）,指针大小都是8个字节
+2. 32位系统，不管指针是什么数据类型（int* double* char*）,指针大小都是4个字节
+3. *p == a; p + 1 == &amp;amp;P[1]
+p-&amp;gt;filed == (*p).feiled == a.filed
+*/
+
+/*
+假设有如下代码：
+
+struct Data {
+	int x, y;
+};
+struct Data a[2], *p = a;
+请用尽可能多的形式表示 a[1].x
+*/
+#include &amp;lt;stdio.h&amp;gt;
+
+#define P(a) {\
+    printf(&amp;quot;%s = %d\n&amp;quot;, #a, a);\
+}
+
+typedef struct Data {
+    int x, y;
+} Data;
+
+int main() {
+    Data a[2];
+    Data *p = a;
+    a[0].x = 1, a[0].y = 1;
+    a[1].x = 2, a[1].y = 2;
+    P(a[1].x);
+    P(p[1].x);
+    P((*(a + 1)).x);
+    P(1[a].x);
+    P((a + 1)-&amp;gt;x);
+    P((p + 1)-&amp;gt;x);
+    P((&amp;amp;a[1])-&amp;gt;x);
+    P((&amp;amp;p[1])-&amp;gt;x);
+    return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;函数指针与mian函数&#34;&gt;函数指针与mian函数&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+函数变量：int (*add)(int, int);
+函数类型：typedef int (*add)(int, int);
+*/
+/*
+1.内建类型的重名：
+typedef long long lint;
+typedef char *pchar;
+
+2.结构体类型的重命名：
+typedef struct __node{
+	int x, y;
+} Node, *pNode;
+3.函数指针命名：
+typedef int (*func)(int);
+*/
+/*
+main函数参数
+int main();
+int main(int argc, char *argc[]);
+int main(int argc, char *argv[], char **env);
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;指针与地址的代码演示&#34;&gt;指针与地址的代码演示&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+#define P(a) {\
+    printf(&amp;quot;%s = %s\n&amp;quot;, #a, a);\
+}
+
+int main() {
+    int num1 = 0x616263;  // 十六进制，小端系统：（63 62 61 0x）（&#39;c&#39; &#39;b&#39; &#39;a&#39; &#39;\0&#39;）
+    int num2 = 0x61626364; 
+    P((char *)(&amp;amp;num2));  //
+    return 0;
+}
+
+
+
+#include &amp;lt;stdio.h&amp;gt;
+
+#define P(a) {\
+    __typeof(a) _a = a;\  // __typeof(a): 根据a判断数据类型
+    printf(&amp;quot;%s = %ld\n&amp;quot;, #a, _a);\
+}
+
+#define OFFSET(T, a) (long)(&amp;amp;(((T *)(NULL))-&amp;gt;a)) // 结构体字段偏移量
+//1. 声明指向结构体类型的空指针(T *)(NULL)
+//2.空指针间接引用结构体的字段 ((T *)(NULL))-&amp;gt;a
+//3.取字段地址 &amp;amp;(((T*)(NULL))-&amp;gt;a)
+//4.地址转长整形数据类型 (long)(&amp;amp;(((T *)(NULL))-&amp;gt;a))
+typedef struct Data {
+    int a;   //偏移 0
+    double b; //偏移 8
+    char c;  // 偏移 16
+} Data;
+
+int main() {
+    P(OFFSET(Data, a));
+    P(OFFSET(Data, b));
+    P(OFFSET(Data, c));
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;main函数的演示代码&#34;&gt;main函数的演示代码&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// typedef 和 #define 的区别
+//  #define 只是代码替换， typedef 是数据类型重名。
+#include &amp;lt;stdio.h&amp;gt;
+
+#define ppchar char*
+
+typedef char* pchar;
+
+int main() {
+    pchar p1, p2; // char* p1, char* p2;
+    ppchar p3, p4; // char* p3, p4;
+    printf(&amp;quot;p1 = %lu, p2 = %lu\n&amp;quot;, sizeof(p1), sizeof(p2)); // p1 == 8, p2 == 8
+    printf(&amp;quot;p3 = %lu, p4 = %lu\n&amp;quot;, sizeof(p3), sizeof(p4)); // p3 == 8, p4 == 1
+
+    return 0;
+}
+
+
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+
+void output(int, char *argc[], char **env);
+
+int main(int argc, char *argv[], char **env) {
+    output(argc, argv, env);
+    return 0;
+}
+
+void output(int argc, char *agrv[], char **env) {
+    //argc : 命令行参数个数，空格分开 （haha == 1个， ha ha == 2个， &amp;quot;haha&amp;quot; == 1个）
+    printf(&amp;quot;argc = %d\n&amp;quot;, argc); 
+    for (int i = 0; i &amp;lt; argc; ++i) {
+        //输出命令行 字符
+        printf(&amp;quot;%s\n&amp;quot;, agrv[i]);
+    }
+    for (int i = 0; env[i]; ++i) {
+        // 环境变量
+        if (!(strncmp(env[i], &amp;quot;USER=&amp;quot;, 5))) {
+            if(!(strcmp((&amp;amp;(env[i][5])), &amp;quot;cpp&amp;quot;))) {
+                printf(&amp;quot;Welcome Captain lai!\n&amp;quot;);
+            } else {
+                printf(&amp;quot;you are not the user! please gun!\n&amp;quot;);
+                exit(0); // exit()的头文件为&amp;lt;stdlib.h&amp;gt;
+            }
+        }
+    }
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;
+">C语言-复杂结构与指针</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-数组与预处理命令/"" data-c="
+          &lt;h2 id=&#34;1素数筛算法&#34;&gt;1.素数筛算法&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#define MAX_NUM 100
+
+int prime[MAX_NUM + 5] = {0}; //初始化数组
+void init(int *);  //素数筛选函数
+
+int main() {
+    init(prime);
+    for (int i = 1; i &amp;lt;= prime[0]; ++i) {
+        printf(&amp;quot;%d\n&amp;quot;, prime[i]);
+    }
+    return 0;
+}
+
+void init(int *prime) {
+    for (int i = 2; i &amp;lt;= MAX_NUM; ++i) {
+        if (prime[i]) continue;  // 标记为1，下一个
+        prime[++prime[0]] = i;  // 把数组第一个用来计数，
+        for (int j = i * i; j &amp;lt;= MAX_NUM; j += i) { 
+            // 把 j = 2 * i 改为 j = i * i , 可以减少次数。
+            prime[j] = 1;  // 把素数的倍数标记为1
+        }
+    }
+}
+/*
+prime[++prime[0]] == count = ++prime[0]; prime[count];
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;2-线性筛&#34;&gt;2. 线性筛&lt;/h3&gt;
+&lt;h4 id=&#34;1-请写一个程序快速求出一个范围内假设为10000所有数字的最小素因子&#34;&gt;1.  请写一个程序，快速求出一个范围内（假设为10000）所有数字的最小素因子&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#define MAX_NUM 100
+
+int prime[MAX_NUM+5] = {0};
+void init(int *);
+
+int main() {
+    init(prime);
+    for (int i = 2; i &amp;lt;= MAX_NUM; ++i) {
+        printf(&amp;quot;facmin(%d) = %d\n&amp;quot;, i, prime[i]);
+    }
+    return 0;
+}
+
+void init(int *prime) {
+    for (int i = 2; i &amp;lt;= MAX_NUM; ++i) {
+        if (prime[i]) continue;
+        //prime[++prime[0]] = i;
+        for (int j = i; j &amp;lt;= MAX_NUM; j += i) {
+            if (prime[j]) continue;
+            prime[j] = i;
+        }
+    }
+
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;2-请写一个程序快速求出一个范围内假设为10000所有数字的最大素因子&#34;&gt;2.  请写一个程序，快速求出一个范围内（假设为10000）所有数字的最大素因子&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#define MAX_NUM 100
+
+int prime[MAX_NUM+5] = {0};
+
+void init(int *);
+
+int main() {
+    init(prime);
+    for (int i = 2; i &amp;lt;= MAX_NUM; ++i) {
+        printf(&amp;quot;facmax(%d) = %d\n&amp;quot;, i, prime[i]);
+    }
+    return 0;
+}
+
+void init(int *prime) {
+    for (int i = 2; i &amp;lt;= MAX_NUM; ++i) {
+        if (prime[i]) continue;
+        for (int j = i; j &amp;lt;= MAX_NUM; j += i) {
+            prime[j] = i;
+        }
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;实现素数线性筛&#34;&gt;实现素数线性筛&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#define MAX_NUM 100
+
+int prime[MAX_NUM+5] = {0};
+
+void init(int *);
+
+int main() {
+    init(prime);
+    for (int i = 1; i &amp;lt;= prime[0]; ++i) {
+        printf(&amp;quot;%d\n&amp;quot;, prime[i]);
+    }
+    return 0;
+}
+
+void init(int *prime) {
+    for (int i = 2; i &amp;lt;= MAX_NUM; ++i) {   // 用一个整数i去标记N
+        if (!prime[i]) prime[++prime[0]] = i;  // 没有标记的是素数
+        for (int j = 1; j &amp;lt;= prime[0]; ++j) { 
+            if (i * prime[j] &amp;gt; MAX_NUM) break; // 超过数组最大的下标，直接结束 
+            prime[prime[j] * i] = 1; 
+            if (i % prime[j] == 0) break; //关键
+        }
+    }
+}
+
+/*
+用一个整数 i 去标记 N, i * p == N
+p为N的最小素因子，
+i 的 素因子小于等于 p
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;二分查找&#34;&gt;二分查找&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+double func(double x);
+double binary_search(double (*func)(double), double x);
+
+int main() {
+    double n;
+    while (~scanf(&amp;quot;%lf&amp;quot;, &amp;amp;n)) {
+        double x = binary_search(func, n);
+        printf(&amp;quot;%g * %g = %g\n&amp;quot;, x, x, n);
+    }
+    return 0;
+}
+
+double func(double x) { 
+    return x * x;
+}
+
+double binary_search(double (*func)(double), double x) {
+    double head = 0, tail = x, mid;
+    if (x &amp;lt; 1.0) tail = 1.0;
+    #define ESPL 1e-7
+    while (tail - head &amp;gt; ESPL) {
+        mid = (head + tail) / 2.0;
+        if (func(mid) &amp;lt; x) head = mid;
+        else tail = mid;
+    }
+    #undef ESPL
+    return head;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;数组的演示代码&#34;&gt;数组的演示代码&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+数组的表示方法
+1. arr[i] == *(arr + i)  
+2. arr + i == &amp;amp;(arr[i])
+
+指针强转
+char *p = (char *)arr
+
+数组传参
+arr[i]或arr[i][j] 的首地址为arr (&amp;amp;arr[0]);
+1. 一维数组的实参 func(arr) // 传入数组首地址
+形参：func(int *arr) 或 func(int arr[]) // *arr == *(arr + 0) == arr[]
+
+2.二维数组的实参 func(arr) // 传入数组首地址
+形参：func(int (*arr)[j]) 或 func(int arr[][j]) 
+
+3.数组sanf()函数传值
+for (int i = 0; i &amp;lt; n; ++i) {
+	scanf(&amp;quot;%d&amp;quot;, &amp;amp;arr[i]); // scanf(&amp;quot;%d&amp;quot;, arr + i);
+}
+
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;预处理命令&#34;&gt;预处理命令&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+预处理命令——条件式编译
+1. #ifdef DEBUG : 是否定义了DEBUG宏
+2. #ifndef DEBUG : 是否没定义DEBUG宏
+3. #if MAX_N == 5 : 宏MAX_N是否等于5
+4. #elif MAX_N == 4 : 否则宏MAX_N是否等于4
+5. #else
+6. #endif
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;练习-题&#34;&gt;练习 题&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+请实现一个没有BUG的MAX宏，需要通过如下测试：
+1. MAX(2, 3)
+2. 5 + MAX(2, 3)
+3. MAX(2, MAX(3, 4))
+4. MAX(2, 3 &amp;gt; 4 ? 3 : 4)
+5. MAX(a++, 6) a的初值为7，函数返回值为 7，a的值变为8
+*/
+
+#include &amp;lt;stdio.h&amp;gt;
+
+#define MAX(a, b) ({\
+    __typeof(a) _a = a;\  
+    __typeof(b) _b = b;\
+    _a &amp;gt; _b ? _a : _b;\
+})
+
+#define P(a) {\
+    printf(&amp;quot;%s = %d\n&amp;quot;, #a, a);\
+}
+
+int main() {
+    int a = 7;
+    P(MAX(2, 3));
+    P(5 + MAX(2, 3));
+    P(MAX(2, MAX(3, 4)));
+    P(MAX(2, 3 &amp;gt; 4 ? 3 : 4));
+    P(MAX(a++, 6));
+    P(a);
+    return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+实现一个打印LOG的函数，需要输出所在函数及行号等信息。
+注：
+1. 宏__FILE__ 以字符串形式返回所在文件名称
+2. 宏__func__ 以字符串形式返回所在函数名称
+3. 宏__LINE__ 以整数形式返回代码行号
+*/
+
+#include &amp;lt;stdio.h&amp;gt;
+
+#ifdef DEBUG  // 编译的时候加 -DDEBUG (g++ -DDEBUG ...) 
+// -D加入宏
+#define LOG(frm, agrc...) {\
+    printf(&amp;quot;[%s : %d]&amp;quot;, __func__, __LINE__);\
+    printf(frm, ##agrc);\  // ##是连接符号，可以为空。
+    printf(&amp;quot;\n&amp;quot;);\
+}
+#else
+
+#define LOG(frm, argc...)
+
+#endif  //结束宏的条件式编译
+
+void func(int a) {
+    a++;
+    LOG(&amp;quot;%d&amp;quot;, a);
+    return ;
+}
+
+int main() {
+    int a = 123;
+    func(a);
+    LOG(&amp;quot;%d&amp;quot;, a);
+    LOG(&amp;quot;hello world!&amp;quot;);
+    return 0;
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;字符串&#34;&gt;字符串&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+定义字符数组：char str[size];
+
+初始化字符数组：
+1. char str[] = &amp;quot;hello world&amp;quot;; // 以字符&#39;\0&#39;结尾，12字节。sizeof(str) == 12
+2. char str[size] = {&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;}; 
+
+头文件：string.h
+strlen(str) : 计算字符串长度，以\0作为结束符
+strcmp(str1, str2) : 字符串比较 （使用字典序）
+strcpy(dest, src) : 字符串拷贝 （把src 拷贝到 dest）
+strncmp(str1, str2, n) : 安全的字符串比较 （比较n个字符）
+strncpy(str1, str2, n) : 安全的字符串拷贝
+memcpy(str1, str2, n) : 内存拷贝
+memcmp(str1, str2, n) : 内存比较
+memset(str, c, n) : 内存设置 （c 可以 为 0 或 -1， n为字节大小）
+用法：memeset(str, 0, sizeof(str));
+*/
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;字符串相关操作&#34;&gt;字符串相关操作&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+头文件：stdio.h
+1. sscanf(str1, format, ...); 从字符串str1读入内容
+2. sprintf(str1, format, ...); 将内容输出到str1中
+*/
+
+//请使用字符串相关操作方法，计算一个整型16进制表示的位数。
+
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+
+int main() {
+    int n;
+    char str[12];
+    while (~scanf(&amp;quot;%d&amp;quot;, &amp;amp;n)) {
+        sprintf(str, &amp;quot;%x&amp;quot;, n);
+        printf(&amp;quot;%d(%s) has %lu digit!\n&amp;quot;, n, str, strlen(str));
+    }
+
+    return 0;
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;
+">C语言-数组与预处理命令</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-函数/"" data-c="
+          &lt;h2 id=&#34;1函数的基础知识&#34;&gt;1.函数的基础知识&lt;/h2&gt;
+&lt;h3 id=&#34;函数说明&#34;&gt;函数说明&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;int is_prime(int x) {
+    for (int i = 2; i &amp;lt;= x/2; ++i) {
+        if (x % i == 0) {
+            return 0;
+        }
+    }
+    return 1;
+}
+//int is_prime(int x)
+//int : 返回值
+//is_prime : 函数名
+//int x : 参数声明列表
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;练习题&#34;&gt;练习题&lt;/h3&gt;
+&lt;h4 id=&#34;1请实现一个程序先读入-两个整数k-b输出-y-kx-b直线方程中-x1-到-x100时的y的值&#34;&gt;1.请实现一个程序，先读入 两个整数，k, b,输出 y = k*x + b直线方程中 x=1 到 x=100时的y的值。&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+int func(int, int, int);
+
+int main() {
+    int  k, b;
+    scanf(&amp;quot;%d %d&amp;quot;, &amp;amp;k, &amp;amp;b);
+    for (int x = 1; x &amp;lt;= 100; ++x) {
+        printf(&amp;quot;f(%d) = %d\n&amp;quot;,x, func(k, b, x));
+    }
+    return 0;
+}
+
+int func(int k, int b, int x) {
+    int y;
+    return y = k * x + b;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;递归函数设计&#34;&gt;递归函数设计&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+递归程序的组成部分
+1.边界条件处理
+2.针对于问题的“处理过程”和“递归过程”
+3.结果返回
+*/
+
+//练习题
+/*
+请实现一个程序，读入n,计算n的阶乘。
+*/
+#include &amp;lt;stdio.h&amp;gt;
+
+int fac(int n) {
+    if (n == 0 || n == 1) {
+        return 1;
+    }
+    return fac(n-1) * n;
+}
+
+int main() {
+    int n;
+    while (~scanf(&amp;quot;%d&amp;quot;, &amp;amp;n)) {
+        printf(&amp;quot;fac(%d) = %d\n&amp;quot;, n, fac(n));
+    }
+    return 0;
+}
+//栈区内存为8MB,超过会爆栈，栈溢出。
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;函数指针&#34;&gt;函数指针&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;int g(int (*f1)(int), int (*f2)(int), int (*f3)(int), int x) {
+    if (x &amp;lt; 0) {
+        return f1(x);
+    }
+    if (x &amp;lt; 100) {
+        return f2(x);
+    }
+    return f3(x);
+}
+// int (*f1)(int) : 函数指针变量 函数地址传参。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;函数指针与应用&#34;&gt;函数指针与应用&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/* 欧拉计划 45题*/
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;inttypes.h&amp;gt;
+
+int64_t binary_search(int64_t (*func)(int64_t), int64_t x);
+int64_t Tn(int64_t n);
+int64_t Pn(int64_t n);
+int64_t Hn(int64_t n);
+
+
+int main() {
+    int64_t n = 143;
+    while (1) {
+        n++;
+        int64_t val = Hn(n);
+      //if (binary_search(Tn, val) == -1) continue;
+        if (binary_search(Pn, val) == -1) continue;
+        break;
+    }
+    printf(&amp;quot;%&amp;quot; PRId64 &amp;quot;\n&amp;quot;, Hn(n));
+    return 0;
+}
+//使用二分查找的方法，传入一个函数，和一个目标值，
+//查找这个目标值是这个函数的第几项，找不到则返回-1。
+int64_t binary_search(int64_t (*func)(int64_t), int64_t x) {
+    int64_t head = 1, tail = x, mid;
+    while(head &amp;lt;= tail) {
+        mid = (head + tail) &amp;gt;&amp;gt; 1;
+        if (func(mid) == x) return mid;
+        else if (func(mid) &amp;gt; x) tail = mid - 1;
+        else head = mid + 1;
+    }
+    return -1;
+}
+
+int64_t Tn(int64_t n) {
+    return n * (n + 1) /2;
+}
+
+int64_t Pn(int64_t n) {
+    return n * (3 * n - 1) / 2;
+}
+
+int64_t Hn(int64_t n) {
+    return n * (2 * n - 1);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;欧几里得算法讲解&#34;&gt;欧几里得算法讲解&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+int gcd(int, int); 
+
+int main() {
+    int a, b;
+    while (~scanf(&amp;quot;%d %d&amp;quot;, &amp;amp;a, &amp;amp;b)) {
+        printf(&amp;quot;gcd(%d, %d) = %d\n&amp;quot;, a, b, gcd(a, b)); 
+    }
+    return 0;
+}
+int gcd(int a, int b) {
+    return b ? gcd(b, a % b) : a;
+}
+/*
+欧几里得算法： gcd(a, b) == gcd(b, a % b);
+当 b 为 0 时，最大公因数为 a;
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;扩展欧几里得演示代码&#34;&gt;扩展欧几里得演示代码&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+int ex_gcd(int a, int b, int *x, int *y); //int *x,需要传入地址&amp;amp;x
+
+int main() {
+    int a, b, x, y;
+    while(~scanf(&amp;quot;%d %d&amp;quot;, &amp;amp;a, &amp;amp;b)) {
+        printf(&amp;quot;ex_gcd(%d, %d) = %d\n&amp;quot;, a, b, ex_gcd(a, b, &amp;amp;x, &amp;amp;y));
+        printf(&amp;quot;%d * %d + %d * %d = %d\n&amp;quot;, a, x, b, y, ex(a, b, &amp;amp;x, &amp;amp;y));
+        
+    }
+    return 0;
+}
+
+int ex_gcd(int a, int b, int *x, int *y) {
+    if (!b) { //函数出口
+        *x = 1;
+        *y = 0;
+        return a;
+    }
+    int x1, y1;
+    ret = ex_gcd(a, a % b, &amp;amp;x1, &amp;amp;y1); //递归
+    *x = y1;
+    *y = x1 - (a / b) * y1;
+    return ret;
+}
+/* 
+*p = &amp;amp;a; //这个*号是取地址符号，储存地址
+p // p为右值时，p为地址， p == &amp;amp;a
+*p // 这个*号是取值符号，p为右值时，p为值，p==a,
+*/
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;变参函数&#34;&gt;变参函数&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+va家族
+头文件：#include &amp;lt;stdarg.h&amp;gt;
+
+实现可变参数max_int,从若干个传入的参数中返回最大值。
+int max_int（int a, ...）;
+
+1.如何获得a往后的参数列表？
+  va_list 类型的变量 va_list arg;
+  获得 arg 参数列表
+2.如何定位a后面第一个参数的位置？
+  va_start函数 ，开始定位到第一个参数的位置。
+  va_start(arg, n); 第一个参数为参数列表， 第二个参数为列表中第一个参数。
+3.如何获取下一个可变参数列表中的参数？
+  va_arg 函数  获取;
+  va_arg（arg, int）;第一个参数为参数列表，第二个参数为数据类型。
+4.如何结束整个获取可变参数列表的动作？
+  va_end 函数  结束 va_end(arg); 参数为参数列表。
+  
+*/
+
+
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdarg.h&amp;gt;
+
+int max_int(int n, ...);
+
+int main() {
+    printf(&amp;quot;%d\n&amp;quot;, max_int(3, 1, 2, 5));
+    printf(&amp;quot;%d\n&amp;quot;, max_int(2, 1, 7, 17));
+    printf(&amp;quot;%d\n&amp;quot;,max_int(3, 3, 6, 18));
+    return 0;
+}
+
+int max_int(int n, ...) {
+    if (n &amp;lt; 0) return 0;
+    int ans = 0;
+    va_list arg;
+    va_start(arg, n);
+    while (n--) {
+        int temp = va_arg(arg, int);
+        if (temp &amp;gt; ans) ans = temp;
+    }
+    va_end(arg);
+    return ans;  
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;函数的声明与定义&#34;&gt;函数的声明与定义&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;/*
+源文件--预编译--&amp;gt;编译--&amp;gt;对象文件--&amp;gt;链接--&amp;gt;可执行文件
+1.函数的声明在编译阶段，未声明函数（undeclared）
+2.函数的定义在链接阶段，未定义函数（undefined）
+3.函数重复定义，（duplicate）
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;printf简版实现&#34;&gt;printf简版实现&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdarg.h&amp;gt;
+#include &amp;lt;inttypes.h&amp;gt;
+
+int my_printf(const char *frm, ...);
+int reverse_num(int, int);
+int output_num(int, int);
+
+int main() {
+    int a = 123;
+    printf(&amp;quot;hello world!\n&amp;quot;);
+    my_printf(&amp;quot;hello world!\n&amp;quot;);
+    printf(&amp;quot;a = %d\n&amp;quot;, a);
+    my_printf(&amp;quot;a = %d\n&amp;quot;, a);
+    printf(&amp;quot;a = %d\n&amp;quot;, 1000);
+    my_printf(&amp;quot;a = %d\n&amp;quot;, 1000);
+    printf(&amp;quot;a = %d\n&amp;quot;, 0);
+    my_printf(&amp;quot;a = %d\n&amp;quot;, 0);
+    printf(&amp;quot;a = %d\n&amp;quot;, -123);
+    my_printf(&amp;quot;a = %d\n&amp;quot;, -123);
+    printf(&amp;quot;INT32_MAX = %d\n&amp;quot;, INT32_MAX);
+    my_printf(&amp;quot;INT32_MAX = %d\n&amp;quot;, INT32_MAX);
+    printf(&amp;quot;INT32_MIN = %d\n&amp;quot;, INT32_MIN);
+    my_printf(&amp;quot;INT32_MIN = %d\n&amp;quot;, INT32_MIN);
+    char frm[] = &amp;quot;I am ZL&amp;quot;;
+    printf(&amp;quot;%s\n&amp;quot;, frm);
+    my_printf(&amp;quot;%s\n&amp;quot;, frm);
+    int n;
+    while (~scanf(&amp;quot;%d&amp;quot;, &amp;amp;n)) {
+        printf(&amp;quot;has %d digit!\n&amp;quot;, printf(&amp;quot;%d&amp;quot;, n));
+        my_printf(&amp;quot;has %d digit!\n&amp;quot;, my_printf(&amp;quot;%d&amp;quot;, n));
+    }
+}
+
+int reverse_num(int num, int *temp) {
+    int digit = 0;
+    do {
+        *temp = *temp * 10 + num % 10;
+        num /= 10;
+        digit++;
+    } while(num);
+    return digit;
+}
+
+int output_num(int temp, int digit) {
+    int count = 0;
+    while(digit--) {
+        putchar(temp % 10 + &#39;0&#39;);
+        count++;
+        temp /= 10;
+    }
+    return count;
+}
+
+int my_printf(const char *frm, ...) {
+    va_list arg;
+    va_start(arg, frm);
+    int count = 0;
+    #define PUTC(a) putchar(a); ++count
+    for (int i = 0; frm[i]; ++i) {
+        switch (frm[i]) {
+            case &#39;%&#39;: {
+                switch (frm[++i]) {
+                    case &#39;%&#39;: {
+                        PUTC(frm[i]);
+                    } break;
+                    case &#39;d&#39;: {
+                        int xx = va_arg(arg, int);
+                        uint32_t x;
+                        if (xx &amp;lt; 0) {
+                            PUTC(&#39;-&#39;);
+                            x = -xx;
+                        } else {
+                            x = xx;
+                        }
+                        int num1 = x / 100000, num2 = x % 100000; 
+                        int temp1 = 0, temp2 = 0;
+                        int digit1 = reverse_num(num1, &amp;amp;temp1);
+                        int digit2 = reverse_num(num2, &amp;amp;temp2);
+                        if (num1) digit2 = 5;
+                        else digit1 = 0;
+                        count += output_num(temp1, digit1);
+                        count += output_num(temp2, digit2);
+                    } break;
+                    case &#39;s&#39;: {
+                        const char *str = va_arg(arg, const char*);
+                        for (int i = 0; str[i]; ++i) {
+                            PUTC(str[i]);
+                        }
+                    } break;
+                }
+            }; break;
+            default: PUTC(frm[i]); break;
+        }
+    }
+    va_end(arg);
+    #undef PUTC;
+    return count; 
+}
+
+/*
+1. 除号（/）可以取数字高位
+2. 取模（%）可以取数组低位
+*/
+&lt;/code&gt;&lt;/pre&gt;
+">C语言-函数</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-程序流程控制方法/"" data-c="
+          &lt;h2 id=&#34;1-分支结构&#34;&gt;1. 分支结构&lt;/h2&gt;
+&lt;h3 id=&#34;11练习题&#34;&gt;1.1练习题&lt;/h3&gt;
+&lt;h4 id=&#34;1程序读入一个正整数n代表学生的成绩根据分数输出分数档位&#34;&gt;1.程序读入一个正整数n,代表学生的成绩，根据分数输出分数档位。&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+    
+ int main() {
+     int n;
+     scanf(&amp;quot;%d&amp;quot;, &amp;amp;n);
+     if (n == 0) {
+         printf(&amp;quot;FOOLISH\n&amp;quot;);
+     } else if (n &amp;lt; 60) {
+         printf(&amp;quot;FAIL\n&amp;quot;);
+     } else if (n &amp;lt; 75) {
+         printf(&amp;quot;MEDIUM\n&amp;quot;);
+     }else if (n &amp;lt;= 100) {
+         printf(&amp;quot;GOOD\n&amp;quot;);
+     }
+     return 0;
+ }   
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;2请使用switch结构完成如下任务程序读入一个整数n如果-n1输出-one-如果n2输出two-如果n3输出three-否则输出error&#34;&gt;2.请使用switch结构完成如下任务，程序读入一个整数n：如果 n=1,输出 one。如果n=2，输出two。如果n=3，输出three。否则输出error。&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+int main() {
+    int n;
+    scanf(&amp;quot;%d&amp;quot;, &amp;amp;n);
+    switch(n) {
+    //case为条件入口，程序进入case所对应的代码段，依次执行后续代码，
+    //直到遇到break,或者switch结构末尾。
+        case 1: {
+            printf(&amp;quot;one\n&amp;quot;);
+        } break;
+        case 2: {
+            printf(&amp;quot;two\n&amp;quot;);
+        } break;
+        case 3: {
+            printf(&amp;quot;three\n&amp;quot;);
+        } break;
+        default: {
+            printf(&amp;quot;error\n&amp;quot;);
+        } break;
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;3回文整数&#34;&gt;3.回文整数&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;bool isPalindrome(int x) {
+    if (__builtin_expect(!!(x &amp;lt; 0), 0)) return false;
+    int y = 0, z = x;
+    while (x) {
+        y = y * 10 + x % 10;
+        x /= 10;
+    }
+    return z == y;
+}
+
+/*
+!!(x) : 归一化。
+#define likely(x)    __builtin_expect(!!(x), 1)
+#define unlikely(x)  __builtin_expect(!!(x), 0)
+//linkely 代表x经常成立，加载条件分支内部的代码
+//unlikely 代表x不经常成立，加载条件分支外部的代码
+*/
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;2循环结构&#34;&gt;2.循环结构&lt;/h2&gt;
+&lt;h3 id=&#34;21练习题&#34;&gt;2.1练习题&lt;/h3&gt;
+&lt;h4 id=&#34;1-请使用while循环实现程序输出1-100&#34;&gt;1. 请使用while循环实现程序，输出1--100。&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+int main() {
+    int n = 1;
+    /*
+    while (n &amp;lt;= 100) {
+        printf(&amp;quot;%d\n&amp;quot;, n);
+        n++;
+    }
+    */
+    do {
+        printf(&amp;quot;%d\n&amp;quot;, n);
+        n++;
+    } while (n &amp;lt;= 100);
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;22-for循环语句&#34;&gt;2.2 for循环语句&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;for(初始化；循环条件；执行后操作) ｛
+    代码块；
+｝
+    
+//请使用for循环实现程序，输出1--100
+#include &amp;lt;stdio.h&amp;gt;
+int main() {
+    for (int i = 1; i &amp;lt;= 100; ++i) {
+        printf(&amp;quot;%d\n&amp;quot;, i);
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;3分支结构演示代码&#34;&gt;3.分支结构演示代码&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;  // 随机数rand()函数的头文件
+#include &amp;lt;time.h&amp;gt;  //时间time()函数的头文件
+
+int main() {
+    int a, b;
+    //srand(x)函数为：初始化随机数发生器，x是可变的话，每次的随机数就发生变化。
+    //time(0):以秒为单位的时间。
+    srand(time(0)); 
+    scanf(&amp;quot;%d %d&amp;quot;, &amp;amp;a, &amp;amp;b); //输入 a = 3, b = 4;
+    if (a - b) { // 如果a - b == 0, 则 a == b。
+        printf(&amp;quot;not equal!\n&amp;quot;);
+    } else {
+    //输出   printf(&amp;quot;eauql!\n&amp;quot;);
+    }
+    a = 0, b = 0;
+    if ((a++) &amp;amp;&amp;amp; (b++)) {
+        printf(&amp;quot;true\n&amp;quot;); // a == 1, b == 0
+    } else {
+    //输出   printf(&amp;quot;false\n&amp;quot;); 
+    }
+    printf(&amp;quot;a = %d, b = %d\n&amp;quot;, a, b); //a == 1, b == 0
+    if ((a++) || (b++)) {
+    //输出   printf(&amp;quot;true\n&amp;quot;); // a == 2, b == 0
+    } else {
+        printf(&amp;quot;false\n&amp;quot;);
+    }
+    printf(&amp;quot;a = %d, b = %d\n&amp;quot;, a, b); // a == 2, b == 0
+    for (int i = 0; i &amp;lt; 10; i++) {
+        i == 0 || printf(&amp;quot; &amp;quot;); //如果 i != 0,则输出空格。
+        i != 0 &amp;amp;&amp;amp; printf(&amp;quot; &amp;quot;); //如果 i != 0,则输出空格。
+        printf(&amp;quot;%d&amp;quot;, i);
+    }
+    printf(&amp;quot;\n&amp;quot;);
+    int cnt = 0;
+    for (int i = 0; i &amp;lt; 5; ++i) {
+        int val = rand() % 100;// 随机出0--99的整数。
+        i &amp;amp;&amp;amp; printf(&amp;quot; &amp;quot;);
+        printf(&amp;quot;%d&amp;quot;, val);
+        cnt += (val &amp;amp; 1); //val为奇数时，(val &amp;amp; 1) == 1。val为偶数时，（val&amp;amp;1）==0
+    }
+    printf(&amp;quot;\n&amp;quot;);
+    printf(&amp;quot;odd: %d\n&amp;quot;, cnt);
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;4循环结构演示代码&#34;&gt;4.循环结构演示代码&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+int is_reverse(int, int);
+int is_prime(int);
+
+int main() {
+    int n, x, digit = 0;
+    scanf(&amp;quot;%d&amp;quot;, &amp;amp;n);
+    x = n;
+    do {
+        digit += 1;
+        x /= 10;
+    } while (x);
+    printf(&amp;quot;%d has %d digit!\n&amp;quot;, n, digit);
+    printf(&amp;quot;%s\n&amp;quot;, is_reverse(n, 10) ? &amp;quot;YES&amp;quot; : &amp;quot;NO&amp;quot;);
+    printf(&amp;quot;%s is prime\n&amp;quot;, is_prime(n) ? &amp;quot;YES&amp;quot; : &amp;quot;NO&amp;quot;);
+    return 0;
+}
+
+int is_reverse(int n, int base) {
+    if (n &amp;lt; 0) return 0;
+    int sum = 0, x = n;
+    while(x) {
+        sum = sum * base + x % base;
+        x /= base;
+    }
+    return sum == n;
+}
+
+int is_prime(int n) {
+    for (int i = 2; i * i &amp;lt;= n; i++) {
+        if (n % i == 0) return 0;
+    }
+    return 1;
+}
+&lt;/code&gt;&lt;/pre&gt;
+">C语言-程序流程控制方法</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-数学运算/"" data-c="
+          &lt;h2 id=&#34;1c语言基本运算符&#34;&gt;1.C语言基本运算符&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;a = b; // = ： 赋值运算符
+a = (b + c) * d; // +、-、*、/、（）：基本四则运算符
+a = b % 2; // % ：求余运算符（取模运算符）
+a = -b | c;  // &amp;amp;、|、^、~ ：位运算（二进制）
+a = b &amp;gt;&amp;gt; 2; // &amp;lt;&amp;lt;、&amp;gt;&amp;gt; ：左移和右移（二进制）
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;2c语言中的数学函数库&#34;&gt;2.C语言中的数学函数库&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;math.h&amp;gt;  // 头文件
+int  main() {
+    int a, n;
+    scanf(&amp;quot;%d %d&amp;quot;, &amp;amp;a, &amp;amp;n);
+    int ans = pow(a, n); // 指数函数。
+    //pow()函数原型：double pow(double a, double b);
+    int ans = sqrt(n); // 开平方函数。
+    //sqrt()函数原型：double sqrt(double x);
+    int ans = fabs(n); // 实数绝对值函数。
+    //fabs()函数原型：double fabs(double x);
+    int ans = abs(n); // 头文件（stdlib.h），整数绝对值函数。
+    //abs()函数原型：int abs(int x);
+    int ans = ceil(n); // 上取整函数；
+    //ceil()函数原型:double ceil(double x);
+    int ans = floor(n); //下取整函数；
+    //floor()函数原型：double floor(double x);
+    int ans = log(n); // 以e为底对数函数。
+    //log()函数原型：double log(double x);
+    int ans = log10(n); // 以10为底对数函数。
+    //log10()函数原型：double log10(double x);
+    int ans = acos(n); // 反余弦函数(arccos())；
+    //acos()函数原型：double acos(double x);
+    //pi = acos(-1) = 3.1415923...
+    return 0
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;3练习题&#34;&gt;3.练习题&lt;/h2&gt;
+&lt;h3 id=&#34;1请写一个程序输入一个数字x-输出数字x的立方根&#34;&gt;1.请写一个程序，输入一个数字x, 输出数字x的立方根。&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;math.h&amp;gt;
+
+int main() {
+    double x;
+    scanf(&amp;quot;%lf&amp;quot;, &amp;amp;x);
+    printf(&amp;quot;%.2lf&amp;quot;, pow(x, (1.0 / 3)));
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;2请写一个程序读入一个角度值将角度值转为弧度值&#34;&gt;2.请写一个程序，读入一个角度值，将角度值转为弧度值。&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;math.h&amp;gt;
+#define PI acos(-1)
+
+int main() {
+    double x;
+    scanf(&amp;quot;%lf&amp;quot;, &amp;amp;x);
+    printf(&amp;quot;%.2lf&amp;quot;, PI / 180.0 * x);
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;4数学运算演示代码&#34;&gt;4.数学运算演示代码&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+int main() {
+    int a = 7, b = 3, c;
+    int *p = &amp;amp;a; // p是a的地址，*p是a的值。
+    (*p)--; // (*p)-- = 7-1，a == 6。 *p--,右结合，值不变， a == 7。
+    printf(&amp;quot;a = %d\n&amp;quot;, a);
+    printf(&amp;quot;a = %d, b = %d\n&amp;quot;, a, b);
+    //使用按位异或运算（^）进行值交换， swap
+    a ^= b; // a = a ^ b
+    b ^= a; // b = b ^ a ^ b = a
+    a ^= b; // a = a ^ b ^ a = b
+    printf(&amp;quot;swap: a = %d, b = %d\n&amp;quot;, a, b);
+    return 0;
+}
+/*关于负数的二进制表示方法
+0 ：0000 0000 0000 0000（16 位）
+-1 == 0 - 1 ；1111 1111 1111 1111
+1 ：0000 0000 0000 0001
+1 的反码 ： 1111 1111 1111 1110
+-1 == 1的反码加1
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;5inttypes头文件演示代码&#34;&gt;5.inttypes头文件演示代码&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;inttypes.h&amp;gt; //整数数据类型头文件，代码可移植性强。
+//因为不同的系统，int所占的字节数是不同的，16位系统占2个字节，32和64位系统占4个字节
+int main() {
+    int32_t a = 70000;
+    printf(&amp;quot;%s\n&amp;quot;, PRId32); // PRIdx是一个宏，x可以是（8，16，32，64）
+    //在64位系统下，PRId32为 &amp;quot;d&amp;quot;。
+    //printf(&amp;quot;helloworld&amp;quot;) == printf(&amp;quot;hello&amp;quot; &amp;quot;wolrd&amp;quot;);
+    printf(&amp;quot;%&amp;quot; PRId32 &amp;quot;\n&amp;quot;, a); // printf(&amp;quot;%d\n&amp;quot;, a)
+    printf(&amp;quot;INT32_MIN = &amp;quot; &amp;quot;%&amp;quot; PRId32 &amp;quot;INT32_MAX = &amp;quot; &amp;quot;%&amp;quot; PRId32 &amp;quot;\n&amp;quot;, INT32_MIN, INT32_MAX);
+    //INTx_MIN：x可以是（8，16，32，64），最小值。
+    //INT16_MIN：-32768，INT32_MIN：-2147483648
+    //INTx_MAX：x可以是（8，16，32，63），最大值。
+    //INT16_MAX：32767，INT32_MAX：2147483647
+    return 0;
+}
+/*
+有符号16位最大值二进制表示（第一位符号位）：0111 1111 1111 1111
+最小值表示：1000 0000 0000 0000
+*/
+&lt;/code&gt;&lt;/pre&gt;
+">C语言-数学运算</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C语言-输入输出学习/"" data-c="
+          &lt;h1 id=&#34;一-c语言入门基础&#34;&gt;一、C语言入门基础&lt;/h1&gt;
+&lt;h2 id=&#34;1scanf输入函数说明&#34;&gt;1.scanf()输入函数说明&lt;/h2&gt;
+&lt;p&gt;头文件： #include &amp;lt;stdio.h&amp;gt;&lt;/p&gt;
+&lt;p&gt;函数原型： int scanf(const char *format, ...);&lt;/p&gt;
+&lt;p&gt;format: 格式控制字符串&lt;/p&gt;
+&lt;p&gt;...：可变参数列表&lt;/p&gt;
+&lt;p&gt;返回值：成功读入的参数个数&lt;/p&gt;
+&lt;h2 id=&#34;2printf输出函数说明&#34;&gt;2.printf()输出函数说明&lt;/h2&gt;
+&lt;p&gt;头文件： &lt;mark&gt;&lt;strong&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/strong&gt;&lt;/mark&gt;&lt;/p&gt;
+&lt;p&gt;函数原型： &lt;mark&gt;&lt;strong&gt;int printf(const char *format, ...);&lt;/strong&gt;&lt;/mark&gt;&lt;/p&gt;
+&lt;p&gt;format: 格式控制字符串&lt;/p&gt;
+&lt;p&gt;...: 可变参数列表&lt;/p&gt;
+&lt;p&gt;函数返回值：输出字符的数量&lt;/p&gt;
+&lt;h2 id=&#34;3练习题&#34;&gt;3.练习题&lt;/h2&gt;
+&lt;h3 id=&#34;1-请使用printf函数求解一个数字n的十进制表示的数字&#34;&gt;1. 请使用printf()函数，求解一个数字n的十进制表示的数字。&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+int main() {
+    int n;
+    scanf(&amp;quot;%d&amp;quot;, &amp;amp;n);
+    int ans = printf(&amp;quot;%d&amp;quot;, n);
+    printf(&amp;quot;%d has %d digits\n&amp;quot;,n, ans);
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;2-请写一个程序读入一个行字符串可能包含空格输出这个字符串中字符的数量&#34;&gt;2. 请写一个程序，读入一个行字符串（可能包含空格），输出这个字符串中字符的数量。&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+
+int main() {
+    char str[100];
+    scanf(&amp;quot;%[^\n]s&amp;quot;, str);
+    int ans = printf(&amp;quot;%s&amp;quot;, str);
+    printf(&amp;quot;%s has %d digits\n&amp;quot;, str, ans);
+    return 0;
+}
+/*
+    while (~(scanf(&amp;quot;%[^\n]s&amp;quot;, str))) { //循环读入字符，除了换行（\n）
+		getchar();   // 需要用getchar(),吐掉一个字符 （\n）
+}
+*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;3-printf函数家族代码演示&#34;&gt;3. printf()函数家族代码演示。&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+#define swap(a, b) {\
+	__typeof(a) __temp = a;\
+	a = b; b = __temp;\
+}
+int main() {
+    int n;
+    scanf(&amp;quot;%d&amp;quot;, &amp;amp;n); //stdin 标准输入流
+    printf(&amp;quot;%d\n&amp;quot;, n); //stdout 标准输出流，stderr 标准错误输出
+    //sprintf()函数原型：
+    //int sprintf(char *str, const char *format, ...);
+    char str[1000] = {0}, buffer[1000] = {0}, *p = str, *q = buffer;
+    sprintf(str, &amp;quot;%d.%d.%d.%d&amp;quot;, 192, 168, 0, 1); // 192.168.0.1
+    printf(&amp;quot;str = %s\n&amp;quot;, str);
+    if (n &amp;amp; 1) {
+        sprintf(q, &amp;quot;(%s)&amp;quot;, str);
+        swap(p, q);
+    }
+    if (n &amp;amp; 2) {
+        sprintf(q, &amp;quot;[%s]&amp;quot;, str);
+        swap(p, q);
+    }
+    if (n &amp;amp; 4) {
+        sprintf(q, &amp;quot;{%s}&amp;quot;, str);
+        swap(p, q);
+    }
+    printf(&amp;quot;%s\n&amp;quot;, p);
+    FILE *fout = fopen(&amp;quot;output&amp;quot;, &amp;quot;w&amp;quot;);
+    fprint(fout, &amp;quot;str = %s&amp;quot;, p);
+    fprintf(stdout, &amp;quot;stdout = %s\n&amp;quot;, p);
+    fprintf(stderr, &amp;quot;stderr = %s\n&amp;quot;, p);
+    fclose(fout);
+    return 0;
+}
+/*
+FILE 1.打开文件 函数原型：_CRTIMP FILE *__cdecel fopen(const char *, const char *); 第一个参数为文件名， 第二个参数为打开模式（a, w, r, a+, w+, r+）;
+用法：FILE *fp = fopen(&amp;quot;文件名&amp;quot;， &amp;quot;打开模式&amp;quot;)；
+2.关闭文件 函数原型： ——CRTIMP int __cddecl fclose(FILE *);关闭成功返回值为 0，否则返回非零值。
+用法：fclose(fp);
+
+fprintf()函数原型：int fprintf(FILE *fp, const char *format, ...);
+1.FILE *fp 为 stdout, 输出标准输出流；
+2.FILE *fp 为 stderr, 输出错误标准输出流；
+可以用重定向文件（&amp;gt;）,把标准输出和错误标准输出分开。
+*/
+&lt;/code&gt;&lt;/pre&gt;
+">C语言-输入输出学习</a>
       </div>
       
       <div class="item">
