@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
 <title>Hello Gridea | Bling</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631715428262">
+<link rel="shortcut icon" href="/favicon.ico?v=1634355657876">
 <link rel="stylesheet" href="/media/css/muse.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -168,6 +168,19 @@
               
             </li>
           
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                <a href="https://azhanglai-github-io.vercel.app/LaiC++//" target="_self">
+                  <i class="fa fa-globe"></i> C++学习笔记
+                </a>
+              
+            </li>
+          
           
             
               <li class="nav-item ">
@@ -247,19 +260,19 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">25</span>
+        <span class="site-item-stat-count">27</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">4</span>
+        <span class="site-item-stat-count">5</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">4</span>
+        <span class="site-item-stat-count">5</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -4775,6 +4788,262 @@ int main() {
 */
 &lt;/code&gt;&lt;/pre&gt;
 ">C语言-2.数学运算</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C++ 手写智能指针(shared_ptr)/"" data-c="
+          &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#ifndef _SHARED_PTR_H
+#define _SHARED_PTR_H
+
+#define BEGINS(x) namespace x {
+#define END(x) }
+
+BEGINS(ZL)
+
+template&amp;lt;typename T&amp;gt;
+class shared_ptr {
+public:
+    shared_ptr();                      // 默认构造函数
+    shared_ptr(T *);                   // 有参构造函数
+    shared_ptr(const shared_ptr&amp;lt;T&amp;gt; &amp;amp;); // 拷贝构造函数
+    T *operator-&amp;gt;() { return _ptr; }   // -&amp;gt; 符号重载
+    T &amp;amp;operator*() { return *_ptr; }   // *  符号重载
+    int use_count() { return cnt ? *cnt : 0; } // 获取 引用计数
+    shared_ptr&amp;lt;T&amp;gt; &amp;amp;operator=(const shared_ptr&amp;lt;T&amp;gt; &amp;amp;); // 赋值符号重载
+    ~shared_ptr();                     // 析构函数
+private:
+    void add_count();    // 增加 计数 
+    void reduce_count(); // 减少 计数
+    int *cnt;            // 计数指针   
+    T *_ptr;             // 类型指针
+};
+
+template&amp;lt;typename T&amp;gt;
+shared_ptr&amp;lt;T&amp;gt;::shared_ptr() : _ptr(nullptr), cnt(nullptr) {}
+template&amp;lt;typename T&amp;gt;
+shared_ptr&amp;lt;T&amp;gt;::shared_ptr(T *ptr) : _ptr(ptr), cnt(new int(1)) {}
+template&amp;lt;typename T&amp;gt;
+shared_ptr&amp;lt;T&amp;gt;::shared_ptr(const shared_ptr&amp;lt;T&amp;gt; &amp;amp;p) : _ptr(p._ptr), cnt(p.cnt) {
+    add_count();
+}
+
+template&amp;lt;typename T&amp;gt;
+void shared_ptr&amp;lt;T&amp;gt;::reduce_count() {
+    if (cnt != nullptr) {
+        *cnt -= 1;
+        if (*cnt == 0) {
+            delete _ptr;
+            delete cnt;
+        }
+    }
+    return ;
+}
+
+template&amp;lt;typename T&amp;gt;
+void shared_ptr&amp;lt;T&amp;gt;::add_count() {
+    if (cnt != nullptr) {
+        *cnt += 1;
+    }
+    return ;
+}
+
+template&amp;lt;typename T&amp;gt;
+shared_ptr&amp;lt;T&amp;gt; &amp;amp;shared_ptr&amp;lt;T&amp;gt;::operator=(const shared_ptr&amp;lt;T&amp;gt; &amp;amp;p) {
+    if (this-&amp;gt;_ptr != p._ptr) {   // 当赋值的对象不一致时，才操作
+        reduce_count();
+        this-&amp;gt;_ptr = p._ptr;
+        this-&amp;gt;cnt = p.cnt;
+        add_count();
+    }
+    return *this;
+}
+
+template&amp;lt;typename T&amp;gt;
+shared_ptr&amp;lt;T&amp;gt;::~shared_ptr() {
+    reduce_count();
+    this-&amp;gt;_ptr = nullptr;
+    this-&amp;gt;cnt = nullptr;
+}
+
+END(ZL)
+
+#endif
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#include &amp;quot;./shared_ptr.h&amp;quot;
+#include &amp;lt;iostream&amp;gt;
+
+class A {
+public:
+    A() {
+        std::cout &amp;lt;&amp;lt; this &amp;lt;&amp;lt; &amp;quot;defalut constructor&amp;quot; &amp;lt;&amp;lt; std::endl;
+    }
+    ~A() {
+        std::cout &amp;lt;&amp;lt; this &amp;lt;&amp;lt; &amp;quot;deconstructor&amp;quot; &amp;lt;&amp;lt; std::endl;
+    }
+};
+
+int main() {
+    
+    ZL::shared_ptr&amp;lt;A&amp;gt; p(new A());
+    ZL::shared_ptr&amp;lt;A&amp;gt; p1(new A());
+
+    std::cout &amp;lt;&amp;lt; &amp;quot;p_cnt: &amp;quot; &amp;lt;&amp;lt; p.use_count() &amp;lt;&amp;lt; &amp;quot; p1_cnt: &amp;quot; &amp;lt;&amp;lt; p1.use_count() &amp;lt;&amp;lt; std::endl;
+    
+    ZL::shared_ptr&amp;lt;A&amp;gt; p2(p);
+    std::cout &amp;lt;&amp;lt; &amp;quot;p_cnt: &amp;quot; &amp;lt;&amp;lt; p.use_count() &amp;lt;&amp;lt; &amp;quot; p1_cnt: &amp;quot; &amp;lt;&amp;lt; p1.use_count() &amp;lt;&amp;lt; &amp;quot; p2_cnt: &amp;quot; &amp;lt;&amp;lt; p2.use_count() &amp;lt;&amp;lt; std::endl;
+
+    ZL::shared_ptr&amp;lt;int&amp;gt; pi(new int);
+    ZL::shared_ptr&amp;lt;char&amp;gt; pc(new char());
+    std::cout &amp;lt;&amp;lt; &amp;quot;pi_cnt: &amp;quot; &amp;lt;&amp;lt; pi.use_count() &amp;lt;&amp;lt; &amp;quot; pc_cnt: &amp;quot; &amp;lt;&amp;lt; pc.use_count() &amp;lt;&amp;lt; std::endl;
+
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+">C++ 手写智能指针(shared_ptr)</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://azhanglai-github-io.vercel.app/C++ 手写线程池/"" data-c="
+          &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#ifndef _THREADPOOL_H
+#define _THREADPOOL_H
+
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;thread&amp;gt;
+#include &amp;lt;mutex&amp;gt;
+#include &amp;lt;condition_variable&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;queue&amp;gt;
+#include &amp;lt;unordered_map&amp;gt;
+#include &amp;lt;functional&amp;gt;
+
+#define MAXTHREAD 4
+#define BEGINS(x) namespace x {
+#define END(x) }
+
+BEGINS(ZL)
+
+// 任务类(泛型)：
+//      1.通过bind 把参数绑定于可调用对象func,产生一个新的可调用对象
+//      2. run(),让任务跑起来
+class Task {
+public:
+    template&amp;lt;typename FUNC_T, typename ...ARGS&amp;gt;
+    Task(FUNC_T &amp;amp;&amp;amp;, ARGS...);
+    void run();
+private:
+    std::function&amp;lt;void()&amp;gt; func;
+};
+
+template&amp;lt;typename FUNC_T, typename ...ARGS&amp;gt;
+Task::Task(FUNC_T &amp;amp;&amp;amp;func, ARGS... args) {
+    this-&amp;gt;func = std::bind(func, std::forward&amp;lt;ARGS&amp;gt;(args)...);
+}
+
+void Task::run() {
+    func();
+    return ;
+}
+
+// 线程池：
+// 1.创建n个线程,并初始化（每个线程加入工作线程）;
+// 2.工作线程：先拿到线程id, 并把该线程状态值为 true。然后从任务队列拿到任务，并跑起来，任务跑完要delete;
+// 3.任务队列（push操作）：为了保证线程安全，需要上锁，并有任务后触发条件变量；
+// 4.任务队列（pop操作）：为了保证线程安全，需要上锁，没有有任务，会阻塞等待；
+// 5.结束线程：先拿到线程id,并把该线程状态值为 false。 并加到任务队列， 每个线程join();
+
+class ThreadPool {
+public:
+    ThreadPool(int n = MAXTHREAD);
+    template&amp;lt;typename FUNC_T, typename ...ARGS&amp;gt;
+    void TaskQuePush(FUNC_T &amp;amp;&amp;amp;, ARGS...);
+    void stop();
+
+private:
+    std::vector&amp;lt;std::thread *&amp;gt; threads;
+    std::queue&amp;lt;Task *&amp;gt; taskQue;
+    std::unordered_map&amp;lt;std::thread::id, bool&amp;gt; status;
+    std::mutex m_mutex;
+    std::condition_variable m_cond;
+
+    Task *TaskQuePop();
+    void work_thread();
+    void stop_thread();
+};
+
+ThreadPool::ThreadPool(int n) {
+    for (int i = 0; i &amp;lt; n; i++) {
+        threads.push_back(new std::thread(&amp;amp;ThreadPool::work_thread, this));
+    }
+}
+
+template&amp;lt;typename FUNC_T, typename ...ARGS&amp;gt;
+void ThreadPool::TaskQuePush(FUNC_T &amp;amp;&amp;amp;func, ARGS... args) {
+    std::unique_lock&amp;lt;std::mutex&amp;gt; lock(m_mutex);
+    taskQue.push(new Task(func, std::forward&amp;lt;ARGS&amp;gt;(args)...));
+    m_cond.notify_one();
+    return ;
+}
+
+void ThreadPool::work_thread() {
+    std::thread::id id = std::this_thread::get_id();
+    status[id] = true;
+    while (status[id]) {
+        Task *t = this-&amp;gt;TaskQuePop();
+        t-&amp;gt;run();
+        delete t;
+    }
+    return ;
+}
+
+Task *ThreadPool::TaskQuePop() {
+    std::unique_lock&amp;lt;std::mutex&amp;gt; lock(m_mutex);
+    while (taskQue.empty()) {
+        m_cond.wait(lock);
+    }
+    Task *t = taskQue.front();
+    taskQue.pop();
+    return t;
+}
+
+void ThreadPool::stop_thread() {
+    std::thread::id id = std::this_thread::get_id();
+    status[id] = false;
+    return ;
+}
+
+void ThreadPool::stop() {
+    for (int i = 0; i &amp;lt; threads.size(); i++) {
+        this-&amp;gt;TaskQuePush(&amp;amp;ThreadPool::stop_thread, this);
+    }
+    for (auto it : threads) {
+        it-&amp;gt;join();
+    }
+    return ;
+}
+
+END(ZL)
+
+#endif
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#include &amp;quot;./ThreadPool.h&amp;quot;
+
+void func(int a, int b, int c) {
+    std::cout &amp;lt;&amp;lt; &amp;quot;func id : &amp;quot; &amp;lt;&amp;lt; a &amp;lt;&amp;lt; &amp;quot;, &amp;quot; &amp;lt;&amp;lt; a + b + c &amp;lt;&amp;lt; std::endl;
+    return ;
+}
+
+int main() {
+    ZL::ThreadPool tp;
+    for (int i = 0; i &amp;lt; 100; i++) {
+        tp.TaskQuePush(func, i, 2 * i, 3 * i);
+    }
+    tp.stop();
+    std::cout &amp;lt;&amp;lt; &amp;quot;hello world&amp;quot; &amp;lt;&amp;lt; std::endl;
+    return 0;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">C++ 手写线程池</a>
       </div>
       
       <div class="item">
