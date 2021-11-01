@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
 <title>Bling</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1635152033521">
+<link rel="shortcut icon" href="/favicon.ico?v=1635761790195">
 <link rel="stylesheet" href="/media/css/muse.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -1419,6 +1419,58 @@ int main() {
         r += N[i];
     }
     printf(&amp;quot;%lld\n&amp;quot;, binarySearch());
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;6图论&#34;&gt;6.图论&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;using namespace std;
+struct edge {
+    int e, v;
+};
+struct node {
+    int cur, dis; // cur:当前点， dis: 到当前点走过的最短路径
+    // 小顶堆， 重载小于号运算符
+    bool operator&amp;lt;(const node &amp;amp;b) const {
+        return this-&amp;gt;dis &amp;gt; b.dis;
+    }
+};
+int n, m, s, ans[100005]; // 答案数组存，起始点到终点的最短路径
+int main() {
+    scanf(&amp;quot;%d %d %d&amp;quot;, &amp;amp;n, &amp;amp;m, &amp;amp;s);
+    vector&amp;lt;vector&amp;lt;edge&amp;gt; &amp;gt; edg(n + 5, vector&amp;lt;edge&amp;gt;());
+    // 答案数组， 初始化为最大值
+    memset(ans, 0x3f, sizeof(ans));
+    // 邻接表存图
+    for (int i = 0; i &amp;lt; m; ++i) {
+        int a, b, c;
+        scanf(&amp;quot;%d %d %d&amp;quot;, &amp;amp;a, &amp;amp;b, &amp;amp;c);
+        // 双向边
+        edg[a].emplace_back((edge){b, c}); 
+        edg[b].emplace_back((edge){a, c});
+    }
+    priority_queue&amp;lt;node&amp;gt; que; // 小堆顶
+    que.emplace((node){s, 0}); // 把初始点 放入小顶堆， 距离为0
+    ans[s] = 0; // 到s的 距离为0
+    // 每次把路径最短的 点弹出
+    while (!que.empty()) {
+        node t = que.top(); que.pop();
+        // 如果当前在答案数组已有， 并且到当前点的距离大于之前的，那么不更新，下一个
+        if (ans[t.cur] &amp;lt; t.dis) continue; 
+        // 把当前点（最小路径的点），遍历一遍它连接的点
+        for (int i = 0; i &amp;lt; edg[t.cur].size(); ++i) {
+            int e = edg[t.cur][i].e, v = edg[t.cur][i].v;
+            // 如果答案数组里面的点 大于 该点的路径（当前点的距离 + 当前点和连接点的边权值）
+            if (ans[e] &amp;gt; t.dis + v) {
+                ans[e] = t.dis + v;
+                que.emplace((node){e, t.dis + v}); // 放到小顶堆
+            }
+        }
+    }
+    // 遍历答案数组的每个点
+    for (int i = 1; i &amp;lt;= n; ++i) {
+        if (ans[i] == 0x3f3f3f3f) printf(&amp;quot;-1\n&amp;quot;);
+        else printf(&amp;quot;%d\n&amp;quot;, ans[i]);
+    }
     return 0;
 }
 &lt;/code&gt;&lt;/pre&gt;
