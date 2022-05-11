@@ -2,14 +2,14 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://azhanglai-github-io.vercel.app</id>
     <title>Bling</title>
-    <updated>2021-11-01T10:17:25.845Z</updated>
+    <updated>2022-05-11T08:12:28.402Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://azhanglai-github-io.vercel.app"/>
     <link rel="self" href="https://azhanglai-github-io.vercel.app/atom.xml"/>
     <subtitle>温故而知新</subtitle>
     <logo>https://azhanglai-github-io.vercel.app/images/avatar.png</logo>
     <icon>https://azhanglai-github-io.vercel.app/favicon.ico</icon>
-    <rights>All rights reserved 2021, Bling</rights>
+    <rights>All rights reserved 2022, Bling</rights>
     <entry>
         <title type="html"><![CDATA[基础算法框架]]></title>
         <id>https://azhanglai-github-io.vercel.app/算法框架/</id>
